@@ -27,6 +27,7 @@ export default function CaseDetail() {
     'Principal amount confirmed by bank adapter (₹23,75,000) differs from submitted instrument (₹25,00,000) by ₹1,25,000. Statutory clarification notice issued to institution nodal officer.'
   );
   const [isDecisionSaved, setIsDecisionSaved] = useState(false);
+  const [showDeficitNotice, setShowDeficitNotice] = useState(false);
 
   const scrutinyCase = scrutinyCases.find((c) => c.id === id) || scrutinyCases[0];
 
@@ -335,13 +336,23 @@ export default function CaseDetail() {
             </p>
 
             {isDecisionSaved ? (
-              <div className="alert-box-green p-4 space-y-2">
+              <div className="alert-box-green p-4 space-y-3">
                 <div className="font-bold text-green-900 text-sm flex items-center gap-1.5">
                   <CheckCircle2 size={16} /> Determination Saved & Audited
                 </div>
                 <div className="text-xs text-green-800">
                   Officer action <strong>{decision}</strong> has been committed to the ledger with audit sequence{' '}
                   <span className="font-mono font-bold">#0892</span>. Notice dispatched to institution nodal desk.
+                </div>
+                <div className="pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowDeficitNotice(true)}
+                    className="btn-primary"
+                  >
+                    <FileText size={14} />
+                    <span>View Generated Statutory Deficiency Notice</span>
+                  </button>
                 </div>
               </div>
             ) : (
@@ -416,13 +427,23 @@ export default function CaseDetail() {
                   />
                 </div>
 
-                <div className="flex items-center justify-between pt-2">
+                <div className="flex flex-wrap items-center justify-between gap-2 pt-2">
                   <div className="text-xxs text-gray-500 font-mono">
                     OFFICER: Ravi Shankar Prasad (AICTE-SCR-1023)
                   </div>
-                  <button type="submit" className="btn-primary">
-                    Commit Scrutiny Ruling
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowDeficitNotice(true)}
+                      className="btn-secondary"
+                    >
+                      <FileText size={13} />
+                      <span>Preview Draft Deficit Memo</span>
+                    </button>
+                    <button type="submit" className="btn-primary">
+                      Commit Scrutiny Ruling
+                    </button>
+                  </div>
                 </div>
               </form>
             )}
@@ -448,6 +469,123 @@ export default function CaseDetail() {
           </div>
         )}
       </div>
+
+      {/* Statutory Deficiency Notice Modal */}
+      {showDeficitNotice && (
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
+          <div className="card max-w-2xl w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between pb-2 border-b border-[#E2E8F0]">
+              <div className="flex items-center gap-2">
+                <AlertCircle size={18} className="text-amber-600" />
+                <h3 className="text-sm font-bold text-gray-900">
+                  AICTE Form DEF-1 • Statutory Deficit & Discrepancy Notice
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowDeficitNotice(false)}
+                className="text-gray-400 hover:text-gray-600 font-bold"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Official Letterhead */}
+            <div className="border border-gray-300 p-6 bg-white rounded font-serif text-gray-900 space-y-4 shadow-sm text-xs">
+              <div className="text-center space-y-1 border-b pb-3">
+                <div className="text-sm font-bold uppercase tracking-wider text-[#003366]">
+                  ALL INDIA COUNCIL FOR TECHNICAL EDUCATION
+                </div>
+                <div className="text-xxs font-sans text-gray-600">
+                  Western Regional Office (WRO), Industrial Assurance Building, 2nd Floor, V.N. Road, Churchgate, Mumbai - 400020
+                </div>
+                <div className="text-xxs font-mono font-bold uppercase text-red-700 pt-1">
+                  OFFICIAL COMMUNICATION • NOTICE OF DEPOSIT DEFICIT
+                </div>
+              </div>
+
+              <div className="flex justify-between text-xxs font-sans">
+                <div>
+                  <strong>REF NO:</strong> AICTE/WRO/SCR/2024/{scrutinyCase.id}<br />
+                  <strong>DATE:</strong> 28 October 2024
+                </div>
+                <div className="text-right">
+                  <strong>DISPATCH MODE:</strong> REGISTERED PORTAL ADVISORY<br />
+                  <strong>COMPLIANCE WINDOW:</strong> 15 WORKING DAYS
+                </div>
+              </div>
+
+              <div className="space-y-1 font-sans text-xs">
+                <div><strong>TO:</strong> The Principal / Director,</div>
+                <div className="font-semibold text-gray-800">{scrutinyCase.institution}</div>
+              </div>
+
+              <div className="space-y-2 font-sans text-xs leading-relaxed text-gray-800">
+                <p>
+                  <strong>Subject: Discrepancy in Security Deposit FDR Instrument No. {scrutinyCase.fdrNumber} (Regulation Clause 1.4 APH) — reg.</strong>
+                </p>
+                <p>
+                  Sir / Madam,
+                </p>
+                <p>
+                  During automated Dual Reconciliation of the Security Deposit instrument submitted for approval, the Council's validation gateway identified a material variance between the document submitted and the core banking ledger:
+                </p>
+
+                <div className="bg-amber-50/70 border border-amber-200 rounded p-2.5 font-mono text-xxs space-y-1">
+                  <div className="flex justify-between">
+                    <span>Submitted / Extracted FDR Sum:</span>
+                    <strong>₹25,00,000</strong>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>{scrutinyCase.bank} Verified Balance:</span>
+                    <strong>₹23,75,000</strong>
+                  </div>
+                  <div className="flex justify-between text-red-700 font-bold border-t border-amber-200 pt-1">
+                    <span>Unfunded Deficit:</span>
+                    <span>₹1,25,000 (5.00% Variance)</span>
+                  </div>
+                </div>
+
+                <p>
+                  In accordance with AICTE Approval Process Handbook (APH) regulations, the institution is required to either remit the differential sum of <strong>₹1,25,000</strong> through a supplementary FDR or provide a certified bank reconciliation statement within fifteen (15) calendar days from receipt of this notice.
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-gray-200 flex justify-between items-end font-sans text-xxs text-gray-600">
+                <div>
+                  <span>ISSUING AUTHORITY:</span><br />
+                  <strong className="text-gray-900">Ravi Shankar Prasad</strong><br />
+                  Regional Scrutiny Officer, WRO AICTE
+                </div>
+                <div className="text-right">
+                  <span className="text-green-700 font-bold">DIGITALLY SIGNED</span><br />
+                  <span className="font-mono">Token: AICTE-SCR-1023</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setShowDeficitNotice(false)}
+                className="btn-secondary"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  alert('Deficiency Notice PDF downloaded. Portal notification dispatched to institution.');
+                  setShowDeficitNotice(false);
+                }}
+                className="btn-primary"
+              >
+                Download Notice (PDF)
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
