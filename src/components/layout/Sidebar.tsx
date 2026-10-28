@@ -110,6 +110,26 @@ export default function Sidebar({ user, activeRole, onRoleChange }: SidebarProps
         })}
 
         <div className="pt-4 px-2 py-1 text-xxs font-bold uppercase tracking-wider text-gray-500">
+          Public Pages
+        </div>
+
+        <NavLink
+          to="/"
+          className="flex items-center gap-2.5 px-2.5 py-1.5 rounded text-xs text-[#D4A017] hover:text-white hover:bg-[#2D1515] transition-colors"
+        >
+          <span className="text-sm">🏛️</span>
+          <span>Public Portal Home</span>
+        </NavLink>
+
+        <NavLink
+          to="/features"
+          className="flex items-center gap-2.5 px-2.5 py-1.5 rounded text-xs text-gray-300 hover:text-white hover:bg-[#2D1515] transition-colors"
+        >
+          <span className="text-sm">⚡</span>
+          <span>Features & Specs</span>
+        </NavLink>
+
+        <div className="pt-3 px-2 py-1 text-xxs font-bold uppercase tracking-wider text-gray-500">
           Global Cross-Links
         </div>
 

@@ -1,11 +1,21 @@
-import { Bell, LogOut, ChevronDown, ShieldCheck } from 'lucide-react';
+import { Bell, LogOut, ChevronDown, ShieldCheck, Home } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserPersona } from '../../types';
+import { useAuth } from '../../context/AuthContext';
 
 interface GovHeaderProps {
   user: UserPersona;
 }
 
 export default function GovHeader({ user }: GovHeaderProps) {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
   return (
     <header className="flex-shrink-0 z-30 shadow-sm">
       {/* Indian Tricolor stripe */}
@@ -25,17 +35,20 @@ export default function GovHeader({ user }: GovHeaderProps) {
           <span className="text-gray-500 font-medium">शिक्षा मंत्रालय • Ministry of Education</span>
         </div>
         <div className="flex items-center gap-3 text-xxs text-gray-500">
-          <span>PORTAL: <strong>AICTE-SDMS-PROD-26</strong></span>
+          <Link to="/" className="text-gray-500 hover:text-[#7B1D1D] flex items-center gap-1 font-semibold">
+            <Home size={11} />
+            <span>Public Home</span>
+          </Link>
           <span className="text-gray-300">•</span>
           <span>EMP ID: <strong className="text-gray-700">{user.employeeId}</strong></span>
           <span className="text-gray-300">•</span>
-          <span>DATE: <strong>28 OCT 2024, 19:43 IST</strong></span>
+          <span>28 OCT 2024, 19:43 IST</span>
         </div>
       </div>
 
       {/* Main AICTE maroon bar */}
       <div className="bg-[#7B1D1D] px-4 py-2.5 flex items-center justify-between">
-        <div className="flex items-center gap-3">
+        <Link to="/" className="flex items-center gap-3 hover:opacity-95 transition-opacity">
           {/* Emblem seal circle */}
           <div className="w-9 h-9 rounded-full bg-white/10 border border-white/20 flex items-center justify-center flex-shrink-0 text-white font-bold text-xxs tracking-tighter">
             <ShieldCheck size={20} className="text-[#D4A017]" />
@@ -58,7 +71,7 @@ export default function GovHeader({ user }: GovHeaderProps) {
               SIH-2026 Problem ID: 26265 • Team Secure Stack
             </div>
           </div>
-        </div>
+        </Link>
 
         <div className="flex items-center gap-3.5">
           <button
@@ -82,15 +95,16 @@ export default function GovHeader({ user }: GovHeaderProps) {
               <div className="text-xs font-semibold leading-tight">{user.name}</div>
               <div className="text-xxs text-white/70 leading-none">{user.designation}</div>
             </div>
-            <ChevronDown size={12} className="text-white/60" />
           </div>
 
           <button
             type="button"
-            className="text-white/60 hover:text-white transition-colors ml-1"
-            title="Session Logout"
+            onClick={handleLogout}
+            className="text-white/80 hover:text-white hover:bg-white/10 p-1.5 rounded transition-colors ml-1 flex items-center gap-1 text-xs"
+            title="Sign Out / Exit Workspace"
           >
             <LogOut size={15} />
+            <span className="hidden sm:inline font-semibold">Sign Out</span>
           </button>
         </div>
       </div>
