@@ -1,0 +1,55 @@
+import { ReleaseRequest } from '../../types';
+
+export const releaseRequests: ReleaseRequest[] = [
+  {
+    id: 'REL-2024-012',
+    instrumentId: 'ins-001',
+    fdrNumber: 'FDR/SBI/2024/001847',
+    institution: 'Pune Institute of Technology',
+    amount: 2500000,
+    requestedBy: 'Dr. Anil Sharma (Nodal Officer)',
+    requestedAt: '24 Oct 2024, 16:30 IST',
+    overallStatus: 'BLOCKED',
+    gates: [
+      { id: 'clr-g1', number: 1, gateName: 'Scrutiny Verification', responsibleCell: 'Scrutiny Cell', officerName: 'Ravi Shankar Prasad', status: 'CLEARED', updatedAt: '26 Oct 2024, 11:30 IST' },
+      { id: 'clr-g2', number: 2, gateName: 'PGRC Clearance', responsibleCell: 'PGRC Cell', officerName: 'Meena Agarwal', status: 'PENDING', updatedAt: null },
+      { id: 'clr-g3', number: 3, gateName: 'Vigilance Clearance', responsibleCell: 'Vigilance Cell', officerName: 'K.R. Narayanan', status: 'CLEARED', updatedAt: '25 Oct 2024, 16:30 IST' },
+      { id: 'clr-g4', number: 4, gateName: 'Finance / Grants Cell', responsibleCell: 'Finance Cell', officerName: 'Suresh Patel', status: 'ON_HOLD', holdReason: 'Outstanding PGRC compliance assessment for Academic Year 2023-24 not yet submitted. FDR release cannot be processed until institutional compliance is confirmed by the PGRC division.', updatedAt: '27 Oct 2024, 17:15 IST' },
+      { id: 'clr-g5', number: 5, gateName: 'Legal NOC', responsibleCell: 'Legal Cell', officerName: null, status: 'NOT_STARTED', isSequentiallyBlocked: true, updatedAt: null },
+    ],
+  },
+  {
+    id: 'REL-2024-011',
+    instrumentId: 'ins-004',
+    fdrNumber: 'FDR/BOI/2024/002156',
+    institution: 'COEP Technological University',
+    amount: 1850000,
+    requestedBy: 'Prof. Jayant Kulkarni (Nodal Officer)',
+    requestedAt: '20 Oct 2024, 10:00 IST',
+    overallStatus: 'PENDING_APPROVAL',
+    gates: [
+      { id: 'clr2-g1', number: 1, gateName: 'Scrutiny Verification', responsibleCell: 'Scrutiny Cell', officerName: 'Ravi Shankar Prasad', status: 'CLEARED', updatedAt: '21 Oct 2024' },
+      { id: 'clr2-g2', number: 2, gateName: 'PGRC Clearance', responsibleCell: 'PGRC Cell', officerName: 'Meena Agarwal', status: 'CLEARED', updatedAt: '22 Oct 2024' },
+      { id: 'clr2-g3', number: 3, gateName: 'Vigilance Clearance', responsibleCell: 'Vigilance Cell', officerName: 'K.R. Narayanan', status: 'CLEARED', updatedAt: '22 Oct 2024' },
+      { id: 'clr2-g4', number: 4, gateName: 'Finance / Grants Cell', responsibleCell: 'Finance Cell', officerName: 'Suresh Patel', status: 'CLEARED', updatedAt: '23 Oct 2024' },
+      { id: 'clr2-g5', number: 5, gateName: 'Legal NOC', responsibleCell: 'Legal Cell', officerName: 'Adv. Priya Mehta', status: 'CLEARED', updatedAt: '24 Oct 2024' },
+    ],
+  },
+  {
+    id: 'REL-2024-010',
+    instrumentId: 'ins-003',
+    fdrNumber: 'FDR/PNB/2022/000987',
+    institution: 'VIT Vellore',
+    amount: 3200000,
+    requestedBy: 'Dr. S. Ramesh (Nodal Officer)',
+    requestedAt: '15 Oct 2024, 14:00 IST',
+    overallStatus: 'BLOCKED',
+    gates: [
+      { id: 'clr3-g1', number: 1, gateName: 'Scrutiny Verification', responsibleCell: 'Scrutiny Cell', officerName: 'Ravi Shankar Prasad', status: 'CLEARED', updatedAt: '16 Oct 2024' },
+      { id: 'clr3-g2', number: 2, gateName: 'PGRC Clearance', responsibleCell: 'PGRC Cell', officerName: 'Meena Agarwal', status: 'CLEARED', updatedAt: '17 Oct 2024' },
+      { id: 'clr3-g3', number: 3, gateName: 'Vigilance Clearance', responsibleCell: 'Vigilance Cell', officerName: 'K.R. Narayanan', status: 'REJECTED', holdReason: 'Active vigilance inquiry case VI-2024-034 against institution. Release blocked until inquiry is closed.', updatedAt: '18 Oct 2024' },
+      { id: 'clr3-g4', number: 4, gateName: 'Finance / Grants Cell', responsibleCell: 'Finance Cell', officerName: null, status: 'NOT_STARTED', isSequentiallyBlocked: true, updatedAt: null },
+      { id: 'clr3-g5', number: 5, gateName: 'Legal NOC', responsibleCell: 'Legal Cell', officerName: null, status: 'NOT_STARTED', isSequentiallyBlocked: true, updatedAt: null },
+    ],
+  },
+];
