@@ -29,7 +29,7 @@ export default function LifecycleDashboard() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xxs font-bold text-[#7B1D1D] bg-[#FEF2F2] px-2 py-0.5 rounded border border-[#FECACA]">
+            <span className="text-xxs font-bold text-[#003366] bg-[#EFF6FF] px-2 py-0.5 rounded border border-[#BFDBFE]">
               LIFECYCLE WATCHDOG
             </span>
             <span className="text-xs text-gray-500 font-mono">AUTOMATED MATURITY SCHEDULER</span>
@@ -43,7 +43,7 @@ export default function LifecycleDashboard() {
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-xs font-semibold text-gray-700 bg-white border border-[#E2D9C8] px-3 py-1 rounded shadow-sm">
+          <span className="text-xs font-semibold text-gray-700 bg-white border border-[#E2E8F0] px-3 py-1 rounded shadow-sm">
             Active Monitored FDRs: <strong>{instruments.length}</strong>
           </span>
         </div>
@@ -122,8 +122,8 @@ export default function LifecycleDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Left: Renewal Lineage Tree */}
         <div className="card p-4 space-y-3">
-          <div className="flex items-center gap-2 pb-2 border-b border-[#E2D9C8]">
-            <GitBranch size={16} className="text-[#7B1D1D]" />
+          <div className="flex items-center gap-2 pb-2 border-b border-[#E2E8F0]">
+            <GitBranch size={16} className="text-[#003366]" />
             <div>
               <h3 className="section-title">Instrument Renewal & Parent-Child Lineage</h3>
               <p className="text-xxs text-gray-500">Track replacement continuity across 6-year history without security gap</p>
@@ -141,14 +141,14 @@ export default function LifecycleDashboard() {
                   <div
                     className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 z-10 ${
                       isCurrent
-                        ? 'bg-[#7B1D1D] text-white ring-2 ring-[#D4A017]'
+                        ? 'bg-[#003366] text-white ring-2 ring-[#D4A017]'
                         : 'bg-gray-200 text-gray-700'
                     }`}
                   >
                     {idx + 1}
                   </div>
 
-                  <div className="card flex-1 p-2.5 bg-white border border-[#E2D9C8]">
+                  <div className="card flex-1 p-2.5 bg-white border border-[#E2E8F0]">
                     <div className="flex items-center justify-between text-xs">
                       <span className="font-mono font-bold text-gray-900">{item.fdrNumber}</span>
                       <StatusBadge status={item.status} />
@@ -173,7 +173,7 @@ export default function LifecycleDashboard() {
 
         {/* Right: Automated Reminder Schedule (T-90 to T-0) */}
         <div className="card p-4 space-y-3">
-          <div className="flex items-center gap-2 pb-2 border-b border-[#E2D9C8]">
+          <div className="flex items-center gap-2 pb-2 border-b border-[#E2E8F0]">
             <Bell size={16} className="text-[#B7791F]" />
             <div>
               <h3 className="section-title">Automated Notification Cadence (T-Countdown)</h3>
@@ -189,7 +189,7 @@ export default function LifecycleDashboard() {
               { stage: 'T-15 Urgent Notice', date: '18 Oct 2024', status: 'DISPATCHED', desc: 'Regional officer escalation & provisional freeze advisory' },
               { stage: 'T-0 Maturity Day', date: '02 Nov 2024', status: 'SCHEDULED', desc: 'Automated encumbrance lock & grievance cell trigger' },
             ].map((alert, idx) => (
-              <div key={idx} className="flex items-center justify-between p-2.5 bg-gray-50 border border-[#E2D9C8] rounded">
+              <div key={idx} className="flex items-center justify-between p-2.5 bg-gray-50 border border-[#E2E8F0] rounded">
                 <div className="flex items-center gap-2">
                   <div className={`w-2 h-2 rounded-full ${alert.status === 'DISPATCHED' ? 'bg-green-600' : 'bg-gray-400'}`} />
                   <div>
@@ -220,7 +220,7 @@ export default function LifecycleDashboard() {
 
       {/* Monitored Instruments Table */}
       <div className="card">
-        <div className="p-3 border-b border-[#E2D9C8] flex items-center justify-between">
+        <div className="p-3 border-b border-[#E2E8F0] flex items-center justify-between">
           <h2 className="section-title">All Monitored Institutional Deposit Instruments</h2>
           <span className="text-xxs text-gray-500 font-mono">SORTED BY ASCENDING MATURITY</span>
         </div>

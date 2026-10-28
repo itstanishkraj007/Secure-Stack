@@ -55,7 +55,7 @@ export default function SubmitFDR() {
             Instrument Successfully Registered & Queued for Scrutiny
           </h2>
 
-          <div className="bg-gray-50 border border-[#E2D9C8] rounded p-4 text-left space-y-2 max-w-lg mx-auto text-xs font-mono">
+          <div className="bg-gray-50 border border-[#E2E8F0] rounded p-4 text-left space-y-2 max-w-lg mx-auto text-xs font-mono">
             <div className="flex justify-between border-b border-gray-200 pb-1">
               <span className="text-gray-500 font-sans">Scrutiny Case ID:</span>
               <strong className="text-gray-900">SCR-2024-092</strong>
@@ -106,7 +106,7 @@ export default function SubmitFDR() {
             AICTE Security Deposit Portal • Automatic OCR extraction & multi-source verification
           </p>
         </div>
-        <div className="text-xxs font-mono text-gray-500 bg-white border border-[#E2D9C8] px-2 py-1 rounded">
+        <div className="text-xxs font-mono text-gray-500 bg-white border border-[#E2E8F0] px-2 py-1 rounded">
           REGULATION CLAUSE 1.4 APH
         </div>
       </div>
@@ -126,7 +126,7 @@ export default function SubmitFDR() {
               <div
                 className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
                   step === s.num
-                    ? 'bg-[#7B1D1D] text-white'
+                    ? 'bg-[#003366] text-white'
                     : step > s.num
                     ? 'bg-green-700 text-white'
                     : 'bg-gray-200 text-gray-600'
@@ -136,7 +136,7 @@ export default function SubmitFDR() {
               </div>
               <span
                 className={`text-xs font-medium hidden sm:inline ${
-                  step === s.num ? 'text-gray-900 font-bold' : 'text-gray-500'
+                  step === s.num ? 'text-[#003366] font-bold' : 'text-gray-500'
                 }`}
               >
                 {s.label}
@@ -150,7 +150,7 @@ export default function SubmitFDR() {
       {/* STEP 1: Upload */}
       {step === 1 && (
         <div className="card p-6 space-y-4">
-          <div className="border-2 border-dashed border-[#E2D9C8] hover:border-[#7B1D1D] rounded-lg p-8 text-center bg-gray-50/50 transition-colors">
+          <div className="border-2 border-dashed border-[#E2E8F0] hover:border-[#003366] rounded-lg p-8 text-center bg-gray-50/50 transition-colors">
             <Upload size={36} className="mx-auto text-gray-400 mb-2" />
             <h3 className="text-sm font-semibold text-gray-900">Upload Original Bank FDR Document (PDF)</h3>
             <p className="text-xs text-gray-500 max-w-sm mx-auto mt-1">
@@ -189,7 +189,7 @@ export default function SubmitFDR() {
       {/* STEP 2: OCR Extraction Review */}
       {step === 2 && (
         <div className="card p-5 space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-[#E2D9C8]">
+          <div className="flex items-center justify-between pb-3 border-b border-[#E2E8F0]">
             <div>
               <div className="flex items-center gap-2">
                 <Sparkles size={16} className="text-[#B7791F]" />
@@ -212,7 +212,7 @@ export default function SubmitFDR() {
                   type="text"
                   value={fdrNumber}
                   onChange={(e) => setFdrNumber(e.target.value)}
-                  className="w-full bg-white border border-[#E2D9C8] rounded px-3 py-1.5 text-xs font-mono font-bold"
+                  className="w-full bg-white border border-[#E2E8F0] rounded px-3 py-1.5 text-xs font-mono font-bold"
                 />
                 <span className="text-xxs text-green-700 font-bold bg-green-50 px-1.5 py-1 rounded border border-green-200">
                   98%
@@ -227,7 +227,7 @@ export default function SubmitFDR() {
                   type="text"
                   value={bankName}
                   onChange={(e) => setBankName(e.target.value)}
-                  className="w-full bg-white border border-[#E2D9C8] rounded px-3 py-1.5 text-xs font-semibold"
+                  className="w-full bg-white border border-[#E2E8F0] rounded px-3 py-1.5 text-xs font-semibold"
                 />
                 <span className="text-xxs text-green-700 font-bold bg-green-50 px-1.5 py-1 rounded border border-green-200">
                   96%
@@ -242,7 +242,7 @@ export default function SubmitFDR() {
                   type="text"
                   value={ifsc}
                   onChange={(e) => setIfsc(e.target.value)}
-                  className="w-full bg-white border border-[#E2D9C8] rounded px-3 py-1.5 text-xs font-mono"
+                  className="w-full bg-white border border-[#E2E8F0] rounded px-3 py-1.5 text-xs font-mono"
                 />
                 <span className="text-xxs text-green-700 font-bold bg-green-50 px-1.5 py-1 rounded border border-green-200">
                   95%
@@ -257,7 +257,7 @@ export default function SubmitFDR() {
                   type="text"
                   value={branch}
                   onChange={(e) => setBranch(e.target.value)}
-                  className="w-full bg-white border border-[#E2D9C8] rounded px-3 py-1.5 text-xs"
+                  className="w-full bg-white border border-[#E2E8F0] rounded px-3 py-1.5 text-xs"
                 />
                 <span className="text-xxs text-green-700 font-bold bg-green-50 px-1.5 py-1 rounded border border-green-200">
                   91%
@@ -287,7 +287,7 @@ export default function SubmitFDR() {
                   type="text"
                   value={holderName}
                   onChange={(e) => setHolderName(e.target.value)}
-                  className="w-full bg-white border border-[#E2D9C8] rounded px-3 py-1.5 text-xs font-medium"
+                  className="w-full bg-white border border-[#E2E8F0] rounded px-3 py-1.5 text-xs font-medium"
                 />
                 <span className="text-xxs text-green-700 font-bold bg-green-50 px-1.5 py-1 rounded border border-green-200">
                   88%
@@ -301,7 +301,7 @@ export default function SubmitFDR() {
                 type="date"
                 value={issueDate}
                 onChange={(e) => setIssueDate(e.target.value)}
-                className="w-full bg-white border border-[#E2D9C8] rounded px-3 py-1.5 text-xs mt-1"
+                className="w-full bg-white border border-[#E2E8F0] rounded px-3 py-1.5 text-xs mt-1"
               />
             </div>
 
@@ -311,12 +311,12 @@ export default function SubmitFDR() {
                 type="date"
                 value={maturityDate}
                 onChange={(e) => setMaturityDate(e.target.value)}
-                className="w-full bg-white border border-[#E2D9C8] rounded px-3 py-1.5 text-xs mt-1"
+                className="w-full bg-white border border-[#E2E8F0] rounded px-3 py-1.5 text-xs mt-1"
               />
             </div>
           </div>
 
-          <div className="flex justify-between pt-3 border-t border-[#E2D9C8]">
+          <div className="flex justify-between pt-3 border-t border-[#E2E8F0]">
             <button type="button" onClick={() => setStep(1)} className="btn-secondary">
               <ArrowLeft size={14} /> Back
             </button>
@@ -342,7 +342,7 @@ export default function SubmitFDR() {
               { title: 'Chartered Accountant Net-Worth Certificate', req: 'Mandatory (Tier 1)', file: 'CA_Certificate_FY24.pdf' },
               { title: 'Bank Joint Lien Endorsement Letter', req: 'Mandatory', file: 'HDFC_Joint_Lien_Letter.pdf' },
             ].map((doc, idx) => (
-              <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 border border-[#E2D9C8] rounded">
+              <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 border border-[#E2E8F0] rounded">
                 <div className="flex items-center gap-2.5">
                   <CheckCircle size={16} className="text-green-600" />
                   <div>
@@ -357,7 +357,7 @@ export default function SubmitFDR() {
             ))}
           </div>
 
-          <div className="flex justify-between pt-3 border-t border-[#E2D9C8]">
+          <div className="flex justify-between pt-3 border-t border-[#E2E8F0]">
             <button type="button" onClick={() => setStep(2)} className="btn-secondary">
               <ArrowLeft size={14} /> Back
             </button>
@@ -373,7 +373,7 @@ export default function SubmitFDR() {
         <div className="card p-5 space-y-4">
           <h3 className="section-title">Final Review & Account Aggregator Consent</h3>
 
-          <div className="bg-gray-50 border border-[#E2D9C8] rounded p-4 space-y-2 text-xs">
+          <div className="bg-gray-50 border border-[#E2E8F0] rounded p-4 space-y-2 text-xs">
             <div className="grid grid-cols-2 gap-2">
               <div>
                 <span className="text-gray-500">Institution:</span>{' '}
@@ -413,7 +413,7 @@ export default function SubmitFDR() {
             </p>
           </div>
 
-          <div className="flex justify-between pt-3 border-t border-[#E2D9C8]">
+          <div className="flex justify-between pt-3 border-t border-[#E2E8F0]">
             <button type="button" onClick={() => setStep(3)} className="btn-secondary">
               <ArrowLeft size={14} /> Back
             </button>

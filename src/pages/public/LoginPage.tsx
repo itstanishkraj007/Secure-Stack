@@ -80,21 +80,21 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF8F5]">
+    <div className="min-h-screen flex flex-col bg-[#F8FAFC]">
       <PublicHeader />
 
       <main className="flex-1 max-w-5xl mx-auto w-full px-4 sm:px-8 py-8 space-y-6">
         {/* Breadcrumb strip */}
         <div className="flex items-center gap-2 text-xxs text-gray-500">
-          <Link to="/" className="hover:text-[#7B1D1D]">Home</Link>
+          <Link to="/" className="hover:text-[#003366]">Home</Link>
           <span>/</span>
-          <span className="font-semibold text-gray-800">Official Portal Sign In</span>
+          <span className="font-semibold text-[#003366]">Official Portal Sign In</span>
         </div>
 
         {/* Security Banner */}
-        <div className="bg-[#FEF2F2] border border-[#FECACA] rounded p-3 flex items-start sm:items-center justify-between gap-3 text-xs text-[#991B1B]">
+        <div className="bg-[#EFF6FF] border border-[#BFDBFE] rounded p-3 flex items-start sm:items-center justify-between gap-3 text-xs text-[#1E40AF]">
           <div className="flex items-center gap-2.5">
-            <ShieldCheck size={18} className="text-[#7B1D1D] flex-shrink-0" />
+            <ShieldCheck size={18} className="text-[#003366] flex-shrink-0" />
             <div>
               <strong>Government of India Secure Access Portal:</strong> Authorized personnel only.
               All authentication attempts are logged with IP, browser fingerprint, and timestamp per CERT-In cybersecurity directives.
@@ -106,14 +106,14 @@ export default function LoginPage() {
         </div>
 
         {/* Main Login Card with Tabs */}
-        <div className="card shadow-md overflow-hidden grid grid-cols-1 lg:grid-cols-12">
+        <div className="card shadow-md overflow-hidden grid grid-cols-1 lg:grid-cols-12 border border-[#E2E8F0]">
           {/* Left / Main Column (7 cols): Login Form */}
-          <div className="lg:col-span-7 p-6 sm:p-8 space-y-5">
+          <div className="lg:col-span-7 p-6 sm:p-8 space-y-5 bg-white">
             <div className="space-y-1">
-              <span className="text-xxs font-bold text-[#7B1D1D] uppercase tracking-wider">
+              <span className="text-xxs font-bold text-[#E65100] uppercase tracking-wider">
                 CENTRALIZED SINGLE SIGN-ON (SSO)
               </span>
-              <h2 className="text-lg sm:text-xl font-bold text-gray-900">
+              <h2 className="text-lg sm:text-xl font-bold text-[#003366]">
                 Sign In to Security Deposit Management System
               </h2>
               <p className="text-xxs text-gray-500">
@@ -122,13 +122,13 @@ export default function LoginPage() {
             </div>
 
             {/* Role Tabs */}
-            <div className="flex border-b border-[#E2D9C8] text-xs font-semibold overflow-x-auto">
+            <div className="flex border-b border-[#E2E8F0] text-xs font-semibold overflow-x-auto">
               <button
                 type="button"
                 onClick={() => handleTabChange('INSTITUTION')}
                 className={`flex items-center gap-1.5 px-3.5 py-2.5 border-b-2 transition-colors whitespace-nowrap ${
                   activeTab === 'INSTITUTION'
-                    ? 'border-[#7B1D1D] text-[#7B1D1D] bg-[#FEF2F2]/50'
+                    ? 'border-[#003366] text-[#003366] bg-[#EFF6FF]/60'
                     : 'border-transparent text-gray-600 hover:text-gray-900'
                 }`}
               >
@@ -141,7 +141,7 @@ export default function LoginPage() {
                 onClick={() => handleTabChange('SCRUTINY')}
                 className={`flex items-center gap-1.5 px-3.5 py-2.5 border-b-2 transition-colors whitespace-nowrap ${
                   activeTab === 'SCRUTINY'
-                    ? 'border-[#7B1D1D] text-[#7B1D1D] bg-[#FEF2F2]/50'
+                    ? 'border-[#003366] text-[#003366] bg-[#EFF6FF]/60'
                     : 'border-transparent text-gray-600 hover:text-gray-900'
                 }`}
               >
@@ -154,7 +154,7 @@ export default function LoginPage() {
                 onClick={() => handleTabChange('EXECUTIVE')}
                 className={`flex items-center gap-1.5 px-3.5 py-2.5 border-b-2 transition-colors whitespace-nowrap ${
                   activeTab === 'EXECUTIVE'
-                    ? 'border-[#7B1D1D] text-[#7B1D1D] bg-[#FEF2F2]/50'
+                    ? 'border-[#003366] text-[#003366] bg-[#EFF6FF]/60'
                     : 'border-transparent text-gray-600 hover:text-gray-900'
                 }`}
               >
@@ -179,7 +179,7 @@ export default function LoginPage() {
                     required
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className="w-full bg-white border border-[#E2D9C8] rounded px-3 py-2 text-xs font-medium text-gray-900 focus:outline-none focus:border-[#7B1D1D]"
+                    className="w-full bg-white border border-[#CBD5E1] rounded px-3 py-2 text-xs font-medium text-gray-900 focus:outline-none focus:border-[#003366]"
                     placeholder={
                       activeTab === 'INSTITUTION'
                         ? 'e.g., 1-348910283 or C-41235'
@@ -192,7 +192,7 @@ export default function LoginPage() {
               <div>
                 <div className="flex items-center justify-between">
                   <label className="field-label text-gray-700">Password / Digital Token Pin</label>
-                  <a href="#help" onClick={(e) => { e.preventDefault(); alert('Please contact AICTE Central IT Helpdesk at helpdesk-fdr@aicte-india.org for password recovery.'); }} className="text-xxs text-[#7B1D1D] hover:underline">
+                  <a href="#help" onClick={(e) => { e.preventDefault(); alert('Please contact AICTE Central IT Helpdesk at helpdesk-fdr@aicte-india.org for password recovery.'); }} className="text-xxs text-[#003366] hover:underline">
                     Forgot Password?
                   </a>
                 </div>
@@ -202,7 +202,7 @@ export default function LoginPage() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full bg-white border border-[#E2D9C8] rounded px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-[#7B1D1D]"
+                    className="w-full bg-white border border-[#CBD5E1] rounded px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-[#003366]"
                     placeholder="Enter secure password"
                   />
                 </div>
@@ -212,7 +212,7 @@ export default function LoginPage() {
               <div>
                 <label className="field-label text-gray-700">Security Captcha</label>
                 <div className="flex items-center gap-3 mt-1">
-                  <div className="bg-gray-100 border border-gray-300 px-4 py-1.5 rounded font-mono font-bold text-base tracking-widest text-gray-800 select-none line-through">
+                  <div className="bg-gray-100 border border-gray-300 px-4 py-1.5 rounded font-mono font-bold text-base tracking-widest text-[#003366] select-none line-through">
                     {captchaText}
                   </div>
                   <button
@@ -228,7 +228,7 @@ export default function LoginPage() {
                     value={captcha}
                     onChange={(e) => setCaptcha(e.target.value)}
                     placeholder="Enter Captcha"
-                    className="w-32 bg-white border border-[#E2D9C8] rounded px-2.5 py-1.5 text-xs uppercase font-mono text-center focus:outline-none focus:border-[#7B1D1D]"
+                    className="w-32 bg-white border border-[#CBD5E1] rounded px-2.5 py-1.5 text-xs uppercase font-mono text-center focus:outline-none focus:border-[#003366]"
                   />
                 </div>
               </div>
@@ -259,14 +259,14 @@ export default function LoginPage() {
           </div>
 
           {/* Right Column (5 cols): 1-Click Demo Login Bar */}
-          <div className="lg:col-span-5 bg-[#FAF8F5] border-t lg:border-t-0 lg:border-l border-[#E2D9C8] p-6 sm:p-8 space-y-4 flex flex-col justify-between">
+          <div className="lg:col-span-5 bg-[#F8FAFC] border-t lg:border-t-0 lg:border-l border-[#E2E8F0] p-6 sm:p-8 space-y-4 flex flex-col justify-between">
             <div className="space-y-3">
-              <div className="flex items-center gap-1.5 text-xxs font-bold text-[#B7791F] uppercase tracking-wider">
+              <div className="flex items-center gap-1.5 text-xxs font-bold text-[#E65100] uppercase tracking-wider">
                 <Sparkles size={13} />
                 <span>VIDEO DEMO / EVALUATION GATEWAY</span>
               </div>
 
-              <h3 className="font-bold text-sm text-gray-900">
+              <h3 className="font-bold text-sm text-[#003366]">
                 1-Click Preset Roles for Evaluator Demo
               </h3>
 
@@ -279,11 +279,11 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => loginAndRedirect('INSTITUTION')}
-                  className="w-full text-left p-2.5 bg-white border border-[#E2D9C8] hover:border-[#7B1D1D] rounded transition-all shadow-sm hover:shadow group"
+                  className="w-full text-left p-2.5 bg-white border border-[#E2E8F0] hover:border-[#003366] rounded transition-all shadow-sm hover:shadow group"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs text-gray-900 group-hover:text-[#7B1D1D] flex items-center gap-1.5">
-                      <Building size={13} className="text-[#7B1D1D]" /> 1. Institution Nodal Officer
+                    <span className="font-bold text-xs text-gray-900 group-hover:text-[#003366] flex items-center gap-1.5">
+                      <Building size={13} className="text-[#003366]" /> 1. Institution Nodal Officer
                     </span>
                     <span className="text-xxs bg-green-50 text-green-700 px-1.5 py-0.2 rounded font-bold">LIVE</span>
                   </div>
@@ -295,11 +295,11 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => loginAndRedirect('SCRUTINY')}
-                  className="w-full text-left p-2.5 bg-white border border-[#E2D9C8] hover:border-[#7B1D1D] rounded transition-all shadow-sm hover:shadow group"
+                  className="w-full text-left p-2.5 bg-white border border-[#E2E8F0] hover:border-[#003366] rounded transition-all shadow-sm hover:shadow group"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs text-gray-900 group-hover:text-[#7B1D1D] flex items-center gap-1.5">
-                      <UserCheck size={13} className="text-[#7B1D1D]" /> 2. Regional Scrutiny Officer
+                    <span className="font-bold text-xs text-gray-900 group-hover:text-[#003366] flex items-center gap-1.5">
+                      <UserCheck size={13} className="text-[#003366]" /> 2. Regional Scrutiny Officer
                     </span>
                     <span className="text-xxs bg-amber-50 text-amber-800 px-1.5 py-0.2 rounded font-bold">STAR</span>
                   </div>
@@ -311,11 +311,11 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => loginAndRedirect('EXECUTIVE')}
-                  className="w-full text-left p-2.5 bg-white border border-[#E2D9C8] hover:border-[#7B1D1D] rounded transition-all shadow-sm hover:shadow group"
+                  className="w-full text-left p-2.5 bg-white border border-[#E2E8F0] hover:border-[#003366] rounded transition-all shadow-sm hover:shadow group"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs text-gray-900 group-hover:text-[#7B1D1D] flex items-center gap-1.5">
-                      <Scale size={13} className="text-[#7B1D1D]" /> 3. Fund Release Authority
+                    <span className="font-bold text-xs text-gray-900 group-hover:text-[#003366] flex items-center gap-1.5">
+                      <Scale size={13} className="text-[#003366]" /> 3. Fund Release Authority
                     </span>
                     <span className="text-xxs bg-blue-50 text-blue-700 px-1.5 py-0.2 rounded font-bold">PAN-INDIA</span>
                   </div>
@@ -327,11 +327,11 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => loginAndRedirect('CLEARANCE')}
-                  className="w-full text-left p-2.5 bg-white border border-[#E2D9C8] hover:border-[#7B1D1D] rounded transition-all shadow-sm hover:shadow group"
+                  className="w-full text-left p-2.5 bg-white border border-[#E2E8F0] hover:border-[#003366] rounded transition-all shadow-sm hover:shadow group"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs text-gray-900 group-hover:text-[#7B1D1D] flex items-center gap-1.5">
-                      <FileCheck2 size={13} className="text-[#7B1D1D]" /> 4. Clearance Cell Officer
+                    <span className="font-bold text-xs text-gray-900 group-hover:text-[#003366] flex items-center gap-1.5">
+                      <FileCheck2 size={13} className="text-[#003366]" /> 4. Clearance Cell Officer
                     </span>
                     <span className="text-xxs bg-purple-50 text-purple-700 px-1.5 py-0.2 rounded font-bold">5 GATES</span>
                   </div>
@@ -343,11 +343,11 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => loginAndRedirect('AUDIT_ADMIN')}
-                  className="w-full text-left p-2.5 bg-white border border-[#E2D9C8] hover:border-[#7B1D1D] rounded transition-all shadow-sm hover:shadow group"
+                  className="w-full text-left p-2.5 bg-white border border-[#E2E8F0] hover:border-[#003366] rounded transition-all shadow-sm hover:shadow group"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs text-gray-900 group-hover:text-[#7B1D1D] flex items-center gap-1.5">
-                      <Lock size={13} className="text-[#7B1D1D]" /> 5. System Auditor & Admin
+                    <span className="font-bold text-xs text-gray-900 group-hover:text-[#003366] flex items-center gap-1.5">
+                      <Lock size={13} className="text-[#003366]" /> 5. System Auditor & Admin
                     </span>
                     <span className="text-xxs bg-gray-100 text-gray-800 px-1.5 py-0.2 rounded font-bold">SHA-256</span>
                   </div>

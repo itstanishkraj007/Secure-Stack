@@ -25,15 +25,15 @@ export default function InstitutionDashboard() {
   return (
     <div className="page-content space-y-4">
       {/* Institution Banner */}
-      <div className="card p-4 border-l-4 border-l-[#7B1D1D] flex flex-col md:flex-row md:items-center justify-between gap-3">
+      <div className="card p-4 border-l-4 border-l-[#003366] flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xxs font-bold text-[#7B1D1D] bg-[#FEF2F2] px-2 py-0.5 rounded border border-[#FECACA]">
+            <span className="text-xxs font-bold text-[#003366] bg-[#EFF6FF] px-2 py-0.5 rounded border border-[#BFDBFE]">
               INSTITUTION PORTAL
             </span>
             <span className="text-xs text-gray-500">AISHE / AICTE PERMANENT ID: <strong>1-348910283</strong></span>
           </div>
-          <h1 className="text-base font-bold text-gray-900 mt-1">
+          <h1 className="text-base font-bold text-[#003366] mt-1">
             Pune Institute of Technology, Maharashtra
           </h1>
           <p className="text-xs text-gray-600">
@@ -62,7 +62,7 @@ export default function InstitutionDashboard() {
           value="₹75,00,000"
           sublabel="3 Active Fixed Deposit Receipts"
           icon={<ShieldCheck size={18} />}
-          borderAccent="#7B1D1D"
+          borderAccent="#003366"
         />
         <StatCard
           label="Expiring (Next 30 Days)"
@@ -110,7 +110,7 @@ export default function InstitutionDashboard() {
 
       {/* Instruments Table */}
       <div className="card">
-        <div className="p-3 border-b border-[#E2D9C8] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div className="p-3 border-b border-[#E2E8F0] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
             <h2 className="section-title">Security Deposit Instruments Register</h2>
             <p className="text-xxs text-gray-500">Official ledger of submitted FDRs and guarantee instruments</p>
@@ -121,7 +121,7 @@ export default function InstitutionDashboard() {
             <select
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
-              className="bg-gray-50 border border-[#E2D9C8] rounded px-2 py-1 text-xs text-gray-700 font-medium"
+              className="bg-gray-50 border border-[#E2E8F0] rounded px-2 py-1 text-xs text-gray-700 font-medium"
             >
               <option value="ALL">All Registered Instruments</option>
               <option value="ACTIVE">Active Only</option>

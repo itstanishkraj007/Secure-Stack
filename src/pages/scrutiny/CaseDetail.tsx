@@ -38,10 +38,10 @@ export default function CaseDetail() {
   return (
     <div className="page-content space-y-4">
       {/* Case Header Card */}
-      <div className="card p-4 border-l-4 border-l-[#7B1D1D] flex flex-col md:flex-row md:items-center justify-between gap-3">
+      <div className="card p-4 border-l-4 border-l-[#003366] flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <span className="font-mono font-bold text-xs bg-[#7B1D1D] text-white px-2 py-0.5 rounded">
+            <span className="font-mono font-bold text-xs bg-[#003366] text-white px-2 py-0.5 rounded">
               {scrutinyCase.id}
             </span>
             <StatusBadge status={scrutinyCase.severity} />
@@ -81,7 +81,7 @@ export default function CaseDetail() {
 
       {/* Tabs */}
       <div className="card">
-        <div className="flex border-b border-[#E2D9C8] bg-gray-50/70 text-xs font-semibold overflow-x-auto">
+        <div className="flex border-b border-[#E2E8F0] bg-gray-50/70 text-xs font-semibold overflow-x-auto">
           {[
             { id: 'VERIFICATION', label: '🌟 Triple-Source Reconciliation Panel', icon: ShieldAlert },
             { id: 'DISCREPANCIES', label: `Discrepancy Register (${scrutinyCase.discrepancies.length})`, icon: AlertTriangle },
@@ -97,11 +97,11 @@ export default function CaseDetail() {
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`flex items-center gap-2 px-4 py-3 border-b-2 transition-colors whitespace-nowrap ${
                   isActive
-                    ? 'border-[#7B1D1D] text-[#7B1D1D] bg-white'
+                    ? 'border-[#003366] text-[#003366] bg-white'
                     : 'border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                 }`}
               >
-                <Icon size={14} className={isActive ? 'text-[#7B1D1D]' : 'text-gray-400'} />
+                <Icon size={14} className={isActive ? 'text-[#003366]' : 'text-gray-400'} />
                 <span>{tab.label}</span>
               </button>
             );
@@ -144,7 +144,7 @@ export default function CaseDetail() {
                 </span>
               </div>
 
-              <div className="overflow-x-auto border border-[#E2D9C8] rounded">
+              <div className="overflow-x-auto border border-[#E2E8F0] rounded">
                 <table className="data-table">
                   <thead>
                     <tr className="bg-gray-100">
@@ -239,7 +239,7 @@ export default function CaseDetail() {
                 </div>
               </div>
 
-              <div className="overflow-x-auto border border-[#E2D9C8] rounded">
+              <div className="overflow-x-auto border border-[#E2E8F0] rounded">
                 <table className="data-table">
                   <thead>
                     <tr>
@@ -289,7 +289,7 @@ export default function CaseDetail() {
                 <p className="text-xs font-semibold">No active field discrepancies recorded for this case.</p>
               </div>
             ) : (
-              <div className="border border-[#E2D9C8] rounded overflow-hidden">
+              <div className="border border-[#E2E8F0] rounded overflow-hidden">
                 <table className="data-table">
                   <thead>
                     <tr>
@@ -411,7 +411,7 @@ export default function CaseDetail() {
                     rows={4}
                     value={decisionNote}
                     onChange={(e) => setDecisionNote(e.target.value)}
-                    className="w-full mt-1 bg-white border border-[#E2D9C8] rounded p-2.5 text-xs text-gray-800 font-sans focus:outline-none focus:border-[#7B1D1D]"
+                    className="w-full mt-1 bg-white border border-[#E2E8F0] rounded p-2.5 text-xs text-gray-800 font-sans focus:outline-none focus:border-[#003366]"
                     placeholder="Enter formal reasons, cited clauses, and requested institution evidence..."
                   />
                 </div>
@@ -434,10 +434,10 @@ export default function CaseDetail() {
           <div className="p-4 space-y-3">
             <h3 className="section-title">Case Operational Audit Timeline</h3>
 
-            <div className="border-l-2 border-[#7B1D1D] ml-2 space-y-4 pl-4 py-2">
+            <div className="border-l-2 border-[#003366] ml-2 space-y-4 pl-4 py-2">
               {caseHistory.map((item, idx) => (
                 <div key={idx} className="relative text-xs">
-                  <div className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-[#7B1D1D] border-2 border-white" />
+                  <div className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-[#003366] border-2 border-white" />
                   <div className="font-semibold text-gray-800">{item.action}</div>
                   <div className="text-xxs text-gray-500 font-mono">
                     {item.timestamp} • Actor: {item.actor} • Type: {item.type}

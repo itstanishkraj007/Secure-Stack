@@ -30,7 +30,7 @@ export default function ClearanceHub() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xxs font-bold text-[#7B1D1D] bg-[#FEF2F2] px-2 py-0.5 rounded border border-[#FECACA]">
+            <span className="text-xxs font-bold text-[#003366] bg-[#EFF6FF] px-2 py-0.5 rounded border border-[#BFDBFE]">
               SETTLEMENT & CLEARANCE DESK
             </span>
             <span className="text-xs text-gray-500 font-mono">REGULATION BUREAU • RELEASE WORKFLOW</span>
@@ -44,7 +44,7 @@ export default function ClearanceHub() {
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-xs font-semibold text-gray-700 bg-white border border-[#E2D9C8] px-3 py-1 rounded shadow-sm">
+          <span className="text-xs font-semibold text-gray-700 bg-white border border-[#E2E8F0] px-3 py-1 rounded shadow-sm">
             Requests in Cell: <strong>{releaseRequests.length}</strong>
           </span>
         </div>
@@ -61,7 +61,7 @@ export default function ClearanceHub() {
               key={req.id}
               onClick={() => setSelectedRequestId(req.id)}
               className={`card p-3.5 cursor-pointer transition-all border-l-4 ${
-                isSelected ? 'border-l-[#7B1D1D] bg-white ring-1 ring-[#7B1D1D]' : 'border-l-gray-300 hover:bg-gray-50'
+                isSelected ? 'border-l-[#003366] bg-white ring-1 ring-[#003366]' : 'border-l-gray-300 hover:bg-gray-50'
               }`}
             >
               <div className="flex items-center justify-between text-xs mb-1">
@@ -81,7 +81,7 @@ export default function ClearanceHub() {
       {/* Main Clearance Dossier */}
       <div className="card p-5 space-y-5">
         {/* Release Request Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-[#E2D9C8] gap-3">
+        <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-[#E2E8F0] gap-3">
           <div>
             <div className="flex items-center gap-2">
               <span className="text-sm font-bold text-gray-900 font-mono">{activeRequest.id}</span>
@@ -127,7 +127,7 @@ export default function ClearanceHub() {
             </span>
           </div>
 
-          <div className="border border-[#E2D9C8] rounded overflow-hidden">
+          <div className="border border-[#E2E8F0] rounded overflow-hidden">
             <table className="data-table">
               <thead>
                 <tr>
@@ -210,7 +210,7 @@ export default function ClearanceHub() {
         </div>
 
         {/* Final Release Action Bar */}
-        <div className="pt-3 border-t border-[#E2D9C8] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="pt-3 border-t border-[#E2E8F0] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="text-xxs text-gray-500">
             {allCleared ? (
               <span className="text-green-700 font-bold flex items-center gap-1">
@@ -241,7 +241,7 @@ export default function ClearanceHub() {
       {showNocModal && (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
           <div className="card max-w-xl w-full p-6 space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b border-[#E2D9C8]">
+            <div className="flex items-center justify-between pb-2 border-b border-[#E2E8F0]">
               <div className="flex items-center gap-2">
                 <FileCheck size={20} className="text-green-600" />
                 <h3 className="text-sm font-bold text-gray-900">
@@ -257,7 +257,7 @@ export default function ClearanceHub() {
               </button>
             </div>
 
-            <div className="bg-gray-50 p-4 border border-[#E2D9C8] rounded font-mono text-xxs space-y-3 leading-relaxed text-gray-800">
+            <div className="bg-gray-50 p-4 border border-[#E2E8F0] rounded font-mono text-xxs space-y-3 leading-relaxed text-gray-800">
               <div className="text-center font-bold text-xs uppercase border-b border-gray-300 pb-2">
                 ALL INDIA COUNCIL FOR TECHNICAL EDUCATION<br />
                 Nelson Mandela Marg, Vasant Kunj, New Delhi - 110070

@@ -37,7 +37,7 @@ export default function ExecutiveDashboard() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xxs font-bold text-[#7B1D1D] bg-[#FEF2F2] px-2 py-0.5 rounded border border-[#FECACA]">
+            <span className="text-xxs font-bold text-[#003366] bg-[#EFF6FF] px-2 py-0.5 rounded border border-[#BFDBFE]">
               EXECUTIVE COMMAND CENTER
             </span>
             <span className="text-xs text-gray-500 font-mono">PAN-INDIA REGULATORY OVERSIGHT</span>
@@ -73,7 +73,7 @@ export default function ExecutiveDashboard() {
           icon={<ShieldCheck size={16} />}
           trend="+12% MoM"
           trendColor="green"
-          borderAccent="#7B1D1D"
+          borderAccent="#003366"
         />
         <StatCard
           label="Expiring (Next 30 Days)"
@@ -119,7 +119,7 @@ export default function ExecutiveDashboard() {
         <div className="lg:col-span-7 space-y-4">
           {/* Regional Distribution Table */}
           <div className="card">
-            <div className="p-3 border-b border-[#E2D9C8] flex items-center justify-between">
+            <div className="p-3 border-b border-[#E2E8F0] flex items-center justify-between">
               <div>
                 <h3 className="section-title">State-Wise Security Deposit Distribution</h3>
                 <p className="text-xxs text-gray-500">Pan-India exposure and regional compliance breakdown</p>
@@ -167,14 +167,14 @@ export default function ExecutiveDashboard() {
 
           {/* Monthly Ingestion & Release Chart */}
           <div className="card p-4 space-y-2">
-            <div className="flex items-center justify-between pb-2 border-b border-[#E2D9C8]">
+            <div className="flex items-center justify-between pb-2 border-b border-[#E2E8F0]">
               <div>
                 <h3 className="section-title">12-Month Ingestion vs. Release Trajectory</h3>
                 <p className="text-xxs text-gray-500">Deposit registration velocity compared against authorized settlement completions</p>
               </div>
               <div className="flex items-center gap-3 text-xxs font-semibold">
-                <span className="flex items-center gap-1 text-[#7B1D1D]">
-                  <span className="w-2.5 h-2.5 bg-[#7B1D1D] rounded-sm inline-block" /> Submissions
+                <span className="flex items-center gap-1 text-[#003366]">
+                  <span className="w-2.5 h-2.5 bg-[#003366] rounded-sm inline-block" /> Submissions
                 </span>
                 <span className="flex items-center gap-1 text-[#15803D]">
                   <span className="w-2.5 h-2.5 bg-[#15803D] rounded-sm inline-block" /> Authorized Releases
@@ -191,12 +191,12 @@ export default function ExecutiveDashboard() {
                   <Tooltip
                     contentStyle={{
                       backgroundColor: '#FFFFFF',
-                      borderColor: '#E2D9C8',
+                      borderColor: '#E2E8F0',
                       fontSize: '11px',
                       borderRadius: '4px',
                     }}
                   />
-                  <Bar dataKey="submitted" fill="#7B1D1D" radius={[2, 2, 0, 0]} />
+                  <Bar dataKey="submitted" fill="#003366" radius={[2, 2, 0, 0]} />
                   <Bar dataKey="released" fill="#15803D" radius={[2, 2, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
@@ -208,7 +208,7 @@ export default function ExecutiveDashboard() {
         <div className="lg:col-span-5 space-y-4">
           {/* Executive Intervention Queue */}
           <div className="card p-4 space-y-3">
-            <div className="flex items-center justify-between pb-2 border-b border-[#E2D9C8]">
+            <div className="flex items-center justify-between pb-2 border-b border-[#E2E8F0]">
               <div>
                 <h3 className="section-title">Intervention & Executive Sanction Queue</h3>
                 <p className="text-xxs text-gray-500">Cases requiring Bureau Head / Authority determination</p>
@@ -222,7 +222,7 @@ export default function ExecutiveDashboard() {
               {interventionCases.map((item) => (
                 <div
                   key={item.id}
-                  className="p-2.5 bg-gray-50 border border-[#E2D9C8] rounded hover:border-[#7B1D1D] transition-colors space-y-1"
+                  className="p-2.5 bg-gray-50 border border-[#E2E8F0] rounded hover:border-[#003366] transition-colors space-y-1"
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-mono font-bold text-gray-900 text-xs">{item.id}</span>
@@ -234,7 +234,7 @@ export default function ExecutiveDashboard() {
                   <div className="text-xxs text-gray-600 line-clamp-2">{item.reason}</div>
                   <div className="pt-1 flex justify-between items-center text-xxs">
                     <StatusBadge status={item.urgency === 'HIGH' ? 'MAJOR' : 'MEDIUM'} />
-                    <a href="/clearance" className="text-[#7B1D1D] font-bold hover:underline">
+                    <a href="/clearance" className="text-[#003366] font-bold hover:underline">
                       Review Case →
                     </a>
                   </div>
@@ -260,9 +260,9 @@ export default function ExecutiveDashboard() {
                     key={idx}
                     type="button"
                     onClick={() => alert(`Downloading CSV: ${rep.name}...`)}
-                    className="p-2.5 bg-gray-50 border border-[#E2D9C8] rounded text-left hover:bg-white hover:border-[#7B1D1D] transition-colors flex flex-col justify-between"
+                    className="p-2.5 bg-gray-50 border border-[#E2E8F0] rounded text-left hover:bg-white hover:border-[#003366] transition-colors flex flex-col justify-between"
                   >
-                    <Icon size={14} className="text-[#7B1D1D] mb-1" />
+                    <Icon size={14} className="text-[#003366] mb-1" />
                     <div className="font-semibold text-gray-900 text-xs">{rep.name}</div>
                     <div className="text-xxs text-gray-500 mt-1">{rep.count} • Export CSV</div>
                   </button>
@@ -275,7 +275,7 @@ export default function ExecutiveDashboard() {
 
       {/* Engine Processing Performance */}
       <div className="card">
-        <div className="p-3 border-b border-[#E2D9C8] flex items-center justify-between">
+        <div className="p-3 border-b border-[#E2E8F0] flex items-center justify-between">
           <h3 className="section-title">Automated Verification Engines Health & Accuracy</h3>
           <span className="text-xxs font-mono text-gray-500">1,842 RUNS EVALUATED</span>
         </div>

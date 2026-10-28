@@ -50,7 +50,7 @@ export default function AuditLedger() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xxs font-bold text-[#7B1D1D] bg-[#FEF2F2] px-2 py-0.5 rounded border border-[#FECACA]">
+            <span className="text-xxs font-bold text-[#003366] bg-[#EFF6FF] px-2 py-0.5 rounded border border-[#BFDBFE]">
               TAMPER-EVIDENT AUDIT DESK
             </span>
             <span className="text-xs text-gray-500 font-mono">APPEND-ONLY SHA-256 HASH CHAIN</span>
@@ -130,7 +130,7 @@ export default function AuditLedger() {
               placeholder="Search by Correlation ID, Actor, or Target..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-gray-50 border border-[#E2D9C8] rounded pl-8 pr-3 py-1 text-xs text-gray-800"
+              className="w-full bg-gray-50 border border-[#E2E8F0] rounded pl-8 pr-3 py-1 text-xs text-gray-800"
             />
           </div>
 
@@ -139,7 +139,7 @@ export default function AuditLedger() {
             <select
               value={actionFilter}
               onChange={(e) => setActionFilter(e.target.value)}
-              className="bg-gray-50 border border-[#E2D9C8] rounded px-2 py-1 text-xs text-gray-800"
+              className="bg-gray-50 border border-[#E2E8F0] rounded px-2 py-1 text-xs text-gray-800"
             >
               <option value="ALL">All Recorded Actions</option>
               <option value="DECISION_RECORDED">DECISION_RECORDED</option>
@@ -225,8 +225,8 @@ export default function AuditLedger() {
 
                     {isSelected && (
                       <tr className="bg-gray-50/80">
-                        <td colSpan={8} className="p-3 text-xs space-y-2 border-b border-[#E2D9C8]">
-                          <div className="bg-white p-3 rounded border border-[#E2D9C8] space-y-2 text-xxs font-mono">
+                        <td colSpan={8} className="p-3 text-xs space-y-2 border-b border-[#E2E8F0]">
+                          <div className="bg-white p-3 rounded border border-[#E2E8F0] space-y-2 text-xxs font-mono">
                             <div className="flex justify-between border-b pb-1">
                               <span className="text-gray-500 font-sans font-bold">Canonical Event Payload Hash:</span>
                               <span className="text-gray-900 font-bold">{evt.eventHash}</span>

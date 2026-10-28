@@ -19,9 +19,9 @@ export default function Breadcrumb() {
   const pathnames = location.pathname.split('/').filter((x) => x);
 
   return (
-    <div className="bg-white border-b border-[#E2D9C8] px-5 py-2 flex items-center justify-between text-xs text-gray-600 flex-shrink-0">
+    <div className="bg-white border-b border-[#E2E8F0] px-5 py-2 flex items-center justify-between text-xs text-gray-600 flex-shrink-0">
       <div className="flex items-center gap-1.5 overflow-hidden">
-        <Link to="/" className="text-gray-400 hover:text-[#7B1D1D] flex items-center gap-1">
+        <Link to="/" className="text-gray-400 hover:text-[#003366] flex items-center gap-1">
           <Home size={13} />
           <span className="hidden sm:inline">Home</span>
         </Link>
@@ -35,9 +35,9 @@ export default function Breadcrumb() {
             <div key={to} className="flex items-center gap-1.5 truncate">
               <ChevronRight size={12} className="text-gray-400 flex-shrink-0" />
               {isLast ? (
-                <span className="font-semibold text-gray-900 truncate">{label}</span>
+                <span className="font-semibold text-[#003366] truncate">{label}</span>
               ) : (
-                <Link to={to} className="text-gray-500 hover:text-[#7B1D1D] truncate">
+                <Link to={to} className="text-gray-500 hover:text-[#003366] truncate">
                   {label}
                 </Link>
               )}
@@ -46,7 +46,7 @@ export default function Breadcrumb() {
         })}
       </div>
 
-      <div className="hidden md:flex items-center gap-2 text-xxs font-mono text-gray-500 bg-gray-50 border border-[#E2D9C8] px-2 py-0.5 rounded">
+      <div className="hidden md:flex items-center gap-2 text-xxs font-mono text-gray-500 bg-gray-50 border border-[#E2E8F0] px-2 py-0.5 rounded">
         <span>MODE:</span>
         <strong className="text-blue-700">SANDBOX_MOCK (DETERMINISTIC)</strong>
       </div>

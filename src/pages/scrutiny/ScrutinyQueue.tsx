@@ -29,7 +29,7 @@ export default function ScrutinyQueue() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xxs font-bold text-[#7B1D1D] bg-[#FEF2F2] px-2 py-0.5 rounded border border-[#FECACA]">
+            <span className="text-xxs font-bold text-[#003366] bg-[#EFF6FF] px-2 py-0.5 rounded border border-[#BFDBFE]">
               REGIONAL SCRUTINY DESK
             </span>
             <span className="text-xs text-gray-500 font-mono">WESTERN REGION (WRO) • ZONE 2</span>
@@ -43,7 +43,7 @@ export default function ScrutinyQueue() {
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-xs font-semibold text-gray-600 bg-white border border-[#E2D9C8] px-2.5 py-1 rounded shadow-sm">
+          <span className="text-xs font-semibold text-gray-600 bg-white border border-[#E2E8F0] px-2.5 py-1 rounded shadow-sm">
             Pending Cases: <strong className="text-red-700">{scrutinyCases.length}</strong>
           </span>
         </div>
@@ -64,7 +64,7 @@ export default function ScrutinyQueue() {
             <select
               value={severityFilter}
               onChange={(e) => setSeverityFilter(e.target.value)}
-              className="bg-gray-50 border border-[#E2D9C8] rounded px-2 py-1 text-xs text-gray-800 font-medium"
+              className="bg-gray-50 border border-[#E2E8F0] rounded px-2 py-1 text-xs text-gray-800 font-medium"
             >
               <option value="ALL">All Severities</option>
               <option value="MAJOR">Major Severity</option>
@@ -79,7 +79,7 @@ export default function ScrutinyQueue() {
             <select
               value={assignedFilter}
               onChange={(e) => setAssignedFilter(e.target.value)}
-              className="bg-gray-50 border border-[#E2D9C8] rounded px-2 py-1 text-xs text-gray-800 font-medium"
+              className="bg-gray-50 border border-[#E2E8F0] rounded px-2 py-1 text-xs text-gray-800 font-medium"
             >
               <option value="ALL">All Officers</option>
               <option value="ME">Assigned to Me (Ravi Prasad)</option>
@@ -120,7 +120,7 @@ export default function ScrutinyQueue() {
                     className={isMajor ? 'bg-red-50/20' : ''}
                   >
                     <td>
-                      <div className="font-mono font-bold text-xs text-[#7B1D1D]">{c.id}</div>
+                      <div className="font-mono font-bold text-xs text-[#003366]">{c.id}</div>
                       <div className="text-xxs text-gray-400">{c.createdAt}</div>
                     </td>
                     <td>

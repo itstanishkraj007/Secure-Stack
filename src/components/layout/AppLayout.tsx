@@ -13,7 +13,7 @@ interface AppLayoutProps {
 
 export default function AppLayout({ children, user, activeRole, onRoleChange }: AppLayoutProps) {
   return (
-    <div className="flex flex-col h-screen w-screen overflow-hidden bg-[#FAF8F5]">
+    <div className="flex flex-col h-screen w-screen overflow-hidden bg-[#F8FAFC]">
       {/* Top Gov Header */}
       <GovHeader user={user} />
 
@@ -23,7 +23,7 @@ export default function AppLayout({ children, user, activeRole, onRoleChange }: 
 
         <main className="flex-1 flex flex-col overflow-hidden min-w-0">
           <Breadcrumb />
-          <div className="flex-1 overflow-y-auto min-h-0 bg-[#FAF8F5]">
+          <div className="flex-1 overflow-y-auto min-h-0 bg-[#F8FAFC]">
             {children}
           </div>
         </main>

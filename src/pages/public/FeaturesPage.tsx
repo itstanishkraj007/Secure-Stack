@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
 import {
   ShieldCheck,
-  CheckCircle2,
-  FileText,
+  FileCheck2,
   Clock,
   Lock,
   Layers,
@@ -10,24 +9,20 @@ import {
   Sparkles,
   Server,
   Database,
-  FileCheck2,
-  Eye,
-  GitBranch,
   Scale,
-  RefreshCw,
 } from 'lucide-react';
 import PublicHeader from '../../components/public/PublicHeader';
 import PublicFooter from '../../components/public/PublicFooter';
 
 export default function FeaturesPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF8F5]">
+    <div className="min-h-screen flex flex-col bg-[#F8FAFC]">
       <PublicHeader />
 
       {/* Header Banner */}
-      <section className="bg-[#7B1D1D] text-white py-10 px-4 sm:px-8 border-b border-[#5A1515]">
+      <section className="bg-gradient-to-r from-[#003366] to-[#002244] text-white py-10 px-4 sm:px-8 border-b-3 border-[#FF8A00]">
         <div className="max-w-7xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-1.5 bg-white/10 text-[#D4A017] px-2.5 py-0.5 rounded text-xxs font-bold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-1.5 bg-white/10 text-[#FF9933] px-2.5 py-0.5 rounded text-xxs font-bold uppercase tracking-wider">
             <Sparkles size={12} /> SYSTEM ARCHITECTURE & INNOVATIONS
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
@@ -42,21 +37,21 @@ export default function FeaturesPage() {
 
       {/* Architecture Overview Diagram Card */}
       <section className="py-8 px-4 sm:px-8 max-w-7xl mx-auto w-full space-y-6">
-        <div className="card p-5 border-l-4 border-l-[#7B1D1D] space-y-4">
-          <div className="flex items-center justify-between pb-2 border-b border-[#E2D9C8]">
+        <div className="card p-5 border-l-4 border-l-[#003366] space-y-4">
+          <div className="flex items-center justify-between pb-2 border-b border-[#E2E8F0]">
             <div>
               <h2 className="section-title text-sm sm:text-base">Logical System Architecture</h2>
               <p className="text-xxs text-gray-500">Multi-tier micro-modular architecture enforcing complete separation of concerns</p>
             </div>
-            <span className="text-xxs font-mono text-gray-500 bg-gray-100 px-2 py-0.5 rounded border border-gray-300">
+            <span className="text-xxs font-mono text-gray-600 bg-gray-100 px-2 py-0.5 rounded font-semibold">
               SPRING BOOT + PYTHON PROCESSING + POSTGRESQL + S3
             </span>
           </div>
 
           {/* Architecture Block Visual */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-3 text-xs">
-            <div className="card p-3.5 bg-white border border-[#E2D9C8] space-y-2">
-              <div className="font-bold text-gray-900 flex items-center gap-1.5 text-xs text-[#7B1D1D]">
+            <div className="card p-3.5 bg-white border border-[#E2E8F0] space-y-2">
+              <div className="font-bold text-gray-900 flex items-center gap-1.5 text-xs text-[#003366]">
                 <Layers size={15} /> 1. Client Presentation
               </div>
               <p className="text-xxs text-gray-600 leading-relaxed">
@@ -68,8 +63,8 @@ export default function FeaturesPage() {
               </div>
             </div>
 
-            <div className="card p-3.5 bg-white border border-[#E2D9C8] space-y-2">
-              <div className="font-bold text-gray-900 flex items-center gap-1.5 text-xs text-[#B7791F]">
+            <div className="card p-3.5 bg-white border border-[#E2E8F0] space-y-2">
+              <div className="font-bold text-gray-900 flex items-center gap-1.5 text-xs text-[#E65100]">
                 <Server size={15} /> 2. Primary Workflow API
               </div>
               <p className="text-xxs text-gray-600 leading-relaxed">
@@ -81,7 +76,7 @@ export default function FeaturesPage() {
               </div>
             </div>
 
-            <div className="card p-3.5 bg-white border border-[#E2D9C8] space-y-2">
+            <div className="card p-3.5 bg-white border border-[#E2E8F0] space-y-2">
               <div className="font-bold text-gray-900 flex items-center gap-1.5 text-xs text-[#15803D]">
                 <FileCheck2 size={15} /> 3. Processing Worker
               </div>
@@ -94,8 +89,8 @@ export default function FeaturesPage() {
               </div>
             </div>
 
-            <div className="card p-3.5 bg-white border border-[#E2D9C8] space-y-2">
-              <div className="font-bold text-gray-900 flex items-center gap-1.5 text-xs text-[#7B1D1D]">
+            <div className="card p-3.5 bg-white border border-[#E2E8F0] space-y-2">
+              <div className="font-bold text-gray-900 flex items-center gap-1.5 text-xs text-[#003366]">
                 <Database size={15} /> 4. Data & Audit Ledger
               </div>
               <p className="text-xxs text-gray-600 leading-relaxed">
@@ -112,9 +107,9 @@ export default function FeaturesPage() {
         {/* Detailed Feature Sections */}
         <div className="space-y-6">
           {/* Feature 1 */}
-          <div className="card p-5 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <div className="card p-5 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center border-l-4 border-l-[#003366]">
             <div className="lg:col-span-7 space-y-2">
-              <div className="text-xxs font-bold text-[#7B1D1D] uppercase">INNOVATION 01</div>
+              <div className="text-xxs font-bold text-[#003366] uppercase">INNOVATION 01</div>
               <h3 className="text-base sm:text-lg font-bold text-gray-900">
                 Triple-Source Dual Reconciliation Matrix
               </h3>
@@ -131,7 +126,7 @@ export default function FeaturesPage() {
                 Any mismatch (e.g. ₹25L submitted vs ₹23.75L bank confirmed) triggers an immediate automatic hold and alerts the scrutiny officer.
               </p>
             </div>
-            <div className="lg:col-span-5 bg-gray-50 border border-[#E2D9C8] rounded p-4 text-xs font-mono space-y-1.5">
+            <div className="lg:col-span-5 bg-gray-50 border border-[#E2E8F0] rounded p-4 text-xs font-mono space-y-1.5">
               <div className="text-xxs font-bold text-gray-500 font-sans uppercase">Reconciliation Example</div>
               <div className="text-gray-900">Claimed Principal: ₹25,00,000</div>
               <div className="text-gray-900">OCR Extracted: ₹25,00,000 (94% conf)</div>
@@ -145,8 +140,8 @@ export default function FeaturesPage() {
           </div>
 
           {/* Feature 2 */}
-          <div className="card p-5 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-            <div className="lg:col-span-5 bg-gray-50 border border-[#E2D9C8] rounded p-4 text-xs font-mono space-y-1.5 order-2 lg:order-1">
+          <div className="card p-5 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center border-l-4 border-l-[#E65100]">
+            <div className="lg:col-span-5 bg-gray-50 border border-[#E2E8F0] rounded p-4 text-xs font-mono space-y-1.5 order-2 lg:order-1">
               <div className="text-xxs font-bold text-gray-500 font-sans uppercase">Notification Cadence</div>
               <div className="text-green-700">✓ T-90: General Intimation Dispatched</div>
               <div className="text-green-700">✓ T-60: Bank Paperwork Preparation Alert</div>
@@ -157,7 +152,7 @@ export default function FeaturesPage() {
               <div className="text-gray-500">○ T-0: Encumbrance Lock & DTE Grievance</div>
             </div>
             <div className="lg:col-span-7 space-y-2 order-1 lg:order-2">
-              <div className="text-xxs font-bold text-[#B7791F] uppercase">INNOVATION 02</div>
+              <div className="text-xxs font-bold text-[#E65100] uppercase">INNOVATION 02</div>
               <h3 className="text-base sm:text-lg font-bold text-gray-900">
                 Automated Lifecycle Watchdog & Continuous Renewal Lineage
               </h3>
@@ -174,7 +169,7 @@ export default function FeaturesPage() {
           </div>
 
           {/* Feature 3 */}
-          <div className="card p-5 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <div className="card p-5 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center border-l-4 border-l-[#15803D]">
             <div className="lg:col-span-7 space-y-2">
               <div className="text-xxs font-bold text-[#15803D] uppercase">INNOVATION 03</div>
               <h3 className="text-base sm:text-lg font-bold text-gray-900">
@@ -191,7 +186,7 @@ export default function FeaturesPage() {
                 <div className="p-2 bg-gray-50 border rounded sm:col-span-2">5. <strong>Legal Cell:</strong> Final NOC drafting & PAdES seal generation.</div>
               </div>
             </div>
-            <div className="lg:col-span-5 bg-gray-50 border border-[#E2D9C8] rounded p-4 text-xs font-mono space-y-1.5">
+            <div className="lg:col-span-5 bg-gray-50 border border-[#E2E8F0] rounded p-4 text-xs font-mono space-y-1.5">
               <div className="text-xxs font-bold text-gray-500 font-sans uppercase">Statutory Penalty Simulation</div>
               <div className="text-gray-700">Rule: RULE-04 (APH Clause 2.22h)</div>
               <div className="text-gray-700">Principal Deposit: ₹25,00,000</div>
@@ -205,8 +200,8 @@ export default function FeaturesPage() {
           </div>
 
           {/* Feature 4 */}
-          <div className="card p-5 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-            <div className="lg:col-span-5 bg-gray-50 border border-[#E2D9C8] rounded p-4 text-xs font-mono space-y-1.5 order-2 lg:order-1">
+          <div className="card p-5 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center border-l-4 border-l-[#003366]">
+            <div className="lg:col-span-5 bg-gray-50 border border-[#E2E8F0] rounded p-4 text-xs font-mono space-y-1.5 order-2 lg:order-1">
               <div className="text-xxs font-bold text-gray-500 font-sans uppercase">Audit Hash Anchor</div>
               <div className="text-gray-600 text-xxs truncate">Prev: 2c4bf8d9e0f1a2b3c4d5e6f7a8b9c0d1...</div>
               <div className="text-gray-900 text-xxs font-bold truncate">Hash: 3f9ad1b2c4e5f6a7b8c9d0e1f2a3b4c5...</div>
@@ -218,7 +213,7 @@ export default function FeaturesPage() {
               </div>
             </div>
             <div className="lg:col-span-7 space-y-2 order-1 lg:order-2">
-              <div className="text-xxs font-bold text-[#7B1D1D] uppercase">INNOVATION 04</div>
+              <div className="text-xxs font-bold text-[#003366] uppercase">INNOVATION 04</div>
               <h3 className="text-base sm:text-lg font-bold text-gray-900">
                 Mathematically Tamper-Evident SHA-256 Audit Trail
               </h3>
@@ -236,9 +231,9 @@ export default function FeaturesPage() {
 
         {/* Feature Comparison Table */}
         <div className="card overflow-hidden">
-          <div className="p-4 bg-gray-50 border-b border-[#E2D9C8]">
+          <div className="p-4 bg-gray-50 border-b border-[#E2E8F0]">
             <h3 className="section-title">Manual Operational Model vs. Secure Stack Smart Automation</h3>
-            <p className="text-xxs text-gray-500">Comparative assessment against the legacy workflow identified in SIH Problem 26265</p>
+            <p className="text-xxs text-gray-500">Comparative assessment against legacy manual processing identified in SIH Problem 26265</p>
           </div>
 
           <div className="overflow-x-auto">
@@ -247,34 +242,34 @@ export default function FeaturesPage() {
                 <tr>
                   <th>Operational Dimension</th>
                   <th>Legacy Manual Verification Process</th>
-                  <th className="bg-[#FEF2F2] text-[#7B1D1D] font-bold">Secure Stack Automated Platform</th>
+                  <th className="bg-[#EFF6FF] text-[#003366] font-bold">Secure Stack Automated Platform</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td className="font-semibold text-gray-900">Ingress & Parsing</td>
                   <td className="text-gray-600">Manual officer transcription from paper receipts; prone to typo errors.</td>
-                  <td className="font-semibold text-gray-900 bg-red-50/20">OCR parsing with per-field confidence scoring & human confirmation.</td>
+                  <td className="font-semibold text-gray-900 bg-blue-50/20">OCR parsing with per-field confidence scoring & human confirmation.</td>
                 </tr>
                 <tr>
                   <td className="font-semibold text-gray-900">Bank Verification</td>
                   <td className="text-gray-600">Postal letters to bank branches; average turnaround 45-60 days.</td>
-                  <td className="font-semibold text-gray-900 bg-red-50/20">Automated Account Aggregator / Core Banking dual-source comparison.</td>
+                  <td className="font-semibold text-gray-900 bg-blue-50/20">Automated Account Aggregator / Core Banking dual-source comparison.</td>
                 </tr>
                 <tr>
                   <td className="font-semibold text-gray-900">Maturity Monitoring</td>
                   <td className="text-gray-600">Periodic physical ledger audits; frequent missed maturities and coverage lapses.</td>
-                  <td className="font-semibold text-gray-900 bg-red-50/20">T-90 to T-0 automated notification cadence with parent-child lineage tree.</td>
+                  <td className="font-semibold text-gray-900 bg-blue-50/20">T-90 to T-0 automated notification cadence with parent-child lineage tree.</td>
                 </tr>
                 <tr>
                   <td className="font-semibold text-gray-900">Clearance Governance</td>
                   <td className="text-gray-600">Physical file routing between departments; prone to missing vigilance clearance.</td>
-                  <td className="font-semibold text-gray-900 bg-red-50/20">5-gate sequential electronic checklist; zero release while holds remain active.</td>
+                  <td className="font-semibold text-gray-900 bg-blue-50/20">5-gate sequential electronic checklist; zero release while holds remain active.</td>
                 </tr>
                 <tr>
                   <td className="font-semibold text-gray-900">Audit & Accountability</td>
                   <td className="text-gray-600">Paper registers vulnerable to physical loss, alteration, or retrofitting.</td>
-                  <td className="font-semibold text-gray-900 bg-red-50/20">Cryptographically chained SHA-256 append-only ledger with one-click verification.</td>
+                  <td className="font-semibold text-gray-900 bg-blue-50/20">Cryptographically chained SHA-256 append-only ledger with one-click verification.</td>
                 </tr>
               </tbody>
             </table>
@@ -282,7 +277,7 @@ export default function FeaturesPage() {
         </div>
 
         {/* CTA */}
-        <div className="card p-8 bg-gradient-to-r from-[#7B1D1D] to-[#5A1515] text-white text-center space-y-3">
+        <div className="card p-8 bg-gradient-to-r from-[#003366] to-[#002244] text-white text-center space-y-3">
           <h2 className="text-xl sm:text-2xl font-bold">Experience the Full System in Action</h2>
           <p className="text-xs sm:text-sm text-white/80 max-w-xl mx-auto">
             Log in as an Institution Nodal Officer, Regional Scrutiny Officer, or Bureau Head to walk through live interactive scenarios.
