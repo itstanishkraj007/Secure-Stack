@@ -28,9 +28,11 @@ function DashboardLayoutWrapper() {
 }
 
 export default function App() {
+  const basename = import.meta.env.BASE_URL || '/';
+
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <Routes>
           {/* Public Website Routes */}
           <Route path="/" element={<HomePage />} />
