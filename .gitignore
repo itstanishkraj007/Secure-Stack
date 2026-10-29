@@ -1,5 +1,80 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build Outputs
+dist/
+dist-ssr/
+build/
+target/
+*.class
+
+# Environment and Secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.cert
+
+# Media, Video and Audio Vault (Local Only - Never Tracked in Public Git)
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+*.flv
+*.mp3
+*.wav
+*.aac
+*.ogg
+*.flac
+*.m4a
+local_video_and_demo_production/
+remotion-video/
+video-pipeline/
+test-videos/
+master_videos/
+recordings/
+proto_verified/
+stills/
+
+# Python Virtual Environments & Caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+
+# Java / Maven Build Artifacts
+.mvn/wrapper/maven-wrapper.jar
+*.jar
+*.war
+*.ear
+
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,18 +82,19 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
+# IDE & OS Artifacts
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
