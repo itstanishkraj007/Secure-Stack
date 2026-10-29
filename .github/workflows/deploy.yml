@@ -28,12 +28,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
 
       - name: Install dependencies
-        run: rm -f package-lock.json frontend/package-lock.json && npm install
+        working-directory: ./frontend
+        run: npm install
 
       - name: Build portal
+        working-directory: ./frontend
         run: npm run build
         env:
           VITE_BASE_PATH: '/Secure-Stack/'
