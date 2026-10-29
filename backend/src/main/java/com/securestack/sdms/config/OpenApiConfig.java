@@ -17,7 +17,7 @@ public class OpenApiConfig {
     public OpenAPI secureStackOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("AICTE SDMS — SecureStack Core API")
+                        .title("Secure Stack — AICTE Security Deposit Management System API")
                         .description("Security Deposit & FDR Management System for AICTE (Smart India Hackathon 2026 Problem 26265)")
                         .version("1.0.0")
                         .contact(new Contact()

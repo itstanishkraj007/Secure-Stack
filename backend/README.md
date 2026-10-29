@@ -1,4 +1,4 @@
-# SecureStack Backend — AICTE SDMS Core API
+# Secure Stack Backend — AICTE Security Deposit Management System
 
 Primary Spring Boot 3.3.x service providing domain models, persistence, transactional business rules, and API gateways for the AICTE Security Deposit / FDR Management Portal.
 

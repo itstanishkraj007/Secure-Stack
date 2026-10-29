@@ -1,4 +1,4 @@
-# SecureStack Document Processing Service
+# Secure Stack Document Processing Service
 
 Internal Python FastAPI microservice dedicated to deep PDF forensic analysis, digital signature validation (PAdES-B-LT via PyHanko), QR code payload decryption/verification, and computer vision OCR extraction with confidence scoring.
 

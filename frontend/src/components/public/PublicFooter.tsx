@@ -9,8 +9,8 @@ export default function PublicFooter() {
           <div className="flex items-center gap-2.5 text-white font-bold text-sm mb-3">
             <AicteEmblem className="h-9 w-auto" />
             <div>
-              <div className="text-white text-xs font-bold leading-tight uppercase font-sans">AICTE SDMS</div>
-              <div className="text-[#FF9933] text-[9px] font-medium leading-none">Security Deposit Portal</div>
+              <div className="text-white text-xs font-bold leading-tight uppercase font-sans">Secure Stack</div>
+              <div className="text-[#FF9933] text-[9px] font-medium leading-none">AICTE Security Deposit Portal</div>
             </div>
           </div>
           <p className="text-xxs text-gray-300 leading-relaxed mb-3">

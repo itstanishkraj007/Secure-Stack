@@ -94,8 +94,8 @@ export default function GovHeader({ user, activeRole, onRoleChange }: GovHeaderP
             <div className="text-white text-sm font-bold tracking-tight leading-tight uppercase font-sans">
               All India Council for Technical Education
             </div>
-            <div className="text-[#FF9933] text-xxs font-semibold leading-none mt-0.5">
-              Security Deposit & FDR Management Portal (SDMS)
+            <div className="text-[#FF9933] text-xxs font-bold leading-none mt-0.5 tracking-wide">
+              Secure Stack — AICTE Security Deposit & FDR Portal
             </div>
           </div>
         </Link>

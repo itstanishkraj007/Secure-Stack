@@ -1,16 +1,18 @@
-# AICTE SDMS — Frontend Application (SecureStack)
+# Secure Stack — Frontend Application
 
 Government-grade, high-density React 18 + TypeScript web application for the All India Council for Technical Education (AICTE) Security Deposit / Fixed Deposit Receipt Management System.
 
 Built for **Smart India Hackathon 2026 (Problem Statement 26265)**.
 
-## Live Production Demo
-- **URL**: [https://itstanishkraj007.github.io/aicte-sdms-portal/](https://itstanishkraj007.github.io/aicte-sdms-portal/)
+## 🌐 Live Production Deployments
+- **Vercel Production Domain**: [https://secure-stack-portal.vercel.app](https://secure-stack-portal.vercel.app)
+- **Alternate Production Mirror**: [https://secure-stack-aicte.vercel.app](https://secure-stack-aicte.vercel.app)
+- **GitHub Pages Portal**: [https://itstanishkraj007.github.io/Secure-Stack/](https://itstanishkraj007.github.io/Secure-Stack/)
 
 ## Visual Identity & Design System
 - Official Government of India & AICTE branding:
   - Header: Indian Tricolor band (`#FF9933` | `#FFFFFF` | `#138808`)
-  - Deep AICTE Maroon (`#7B1D1D`) with subtle gold accents (`#B7791F`)
+  - Deep AICTE Navy (`#003366`) with saffron accents (`#FF9933`)
   - Warm parchment canvas (`#FAF8F5`) with clean white structured cards
   - High data density: Table-first layouts, strict typography, zero AI vibe-coding or decorative fluff
   - Clear simulated data tags (`[SIMULATED]`) for transparent audit compliance
@@ -40,4 +42,4 @@ cd frontend
 npm install
 npm run dev
 ```
-Open [http://localhost:5173/aicte-sdms-portal/](http://localhost:5173/aicte-sdms-portal/) in your browser.
+Open [http://localhost:5173/Secure-Stack/](http://localhost:5173/Secure-Stack/) in your browser.

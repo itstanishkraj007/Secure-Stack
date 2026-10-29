@@ -1,7 +1,7 @@
 {
-  "name": "aicte-sdms-portal-root",
+  "name": "secure-stack",
   "version": "1.0.0",
-  "description": "AICTE Security Deposit & FDR Management Portal (Secure Stack) — Smart India Hackathon 2026 Problem Statement 26265",
+  "description": "Secure Stack — AICTE Security Deposit & FDR Management Portal (Smart India Hackathon 2026 Problem Statement 26265)",
   "private": true,
   "workspaces": [
     "frontend"

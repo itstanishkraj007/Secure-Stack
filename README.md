@@ -1,21 +1,24 @@
-# SecureStack — AICTE Security Deposit & FDR Management Portal (SDMS)
+# Secure Stack — AICTE Security Deposit & FDR Management Portal
 
 [![Smart India Hackathon 2026](https://img.shields.io/badge/SIH-2026-orange.svg?style=flat-square)](https://www.sih.gov.in/)
 [![Problem Statement 26265](https://img.shields.io/badge/Problem%20Statement-26265-red.svg?style=flat-square)](https://www.sih.gov.in/)
-[![Live Portal Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-blue.svg?style=flat-square)](https://itstanishkraj007.github.io/aicte-sdms-portal/)
-[![License](https://img.shields.io/badge/License-Government%20Open%20Data-green.svg?style=flat-square)](#)
+[![Vercel Production](https://img.shields.io/badge/Vercel%20Production-secure--stack--portal.vercel.app-blue.svg?style=flat-square)](https://secure-stack-portal.vercel.app)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Secure--Stack-green.svg?style=flat-square)](https://itstanishkraj007.github.io/Secure-Stack/)
 
 > **Official Submission for Smart India Hackathon 2026**  
 > **Problem Statement ID**: `26265`  
 > **Ministry / Organization**: All India Council for Technical Education (AICTE), Ministry of Education, Government of India  
+> **Project Name**: **Secure Stack**  
 > **Title**: Streamline of security deposit / Fixed Deposit Receipt (FDR) portal  
 
 ---
 
-## 🌐 Live Interactive Portal
+## 🌐 Live Interactive Portal URLs
 
 Test the complete system live in your browser:  
-🔗 **[https://itstanishkraj007.github.io/aicte-sdms-portal/](https://itstanishkraj007.github.io/aicte-sdms-portal/)**
+- 🚀 **Vercel Production**: **[https://secure-stack-portal.vercel.app](https://secure-stack-portal.vercel.app)**
+- 🚀 **Alternate Mirror**: **[https://secure-stack-aicte.vercel.app](https://secure-stack-aicte.vercel.app)**
+- 📚 **GitHub Pages Demo**: **[https://itstanishkraj007.github.io/Secure-Stack/](https://itstanishkraj007.github.io/Secure-Stack/)**
 
 ---
 
@@ -29,8 +32,8 @@ Under the **AICTE Approval Process Handbook (APH)**, technical institutions acro
 3. **Unmonitored Maturity & Silent Encashment**: Deposits frequently mature without timely renewal notifications, risking unauthorized liquidation without AICTE's explicit No Objection Certificate (NOC).
 4. **Bureaucratic Clearance Bottlenecks**: Returning deposits upon institutional closure requires multi-department sign-offs (Scrutiny, PGRC, Vigilance, Finance, Legal) which previously took 6 to 18 months via paper files.
 
-### The SecureStack Solution
-**SecureStack** is an enterprise-grade, microservice-powered digital platform that transforms AICTE's security deposit management into an automated, transparent, and mathematically verifiable workflow.
+### The Secure Stack Solution
+**Secure Stack** is an enterprise-grade, microservice-powered digital platform that transforms AICTE's security deposit management into an automated, transparent, and mathematically verifiable workflow.
 
 ---
 
@@ -107,7 +110,7 @@ Release requests undergo strict, sequential institutional validation:
 ## 📂 Repository Directory Layout
 
 ```text
-aicte-sdms-portal/
+Secure-Stack/
 ├── frontend/                     # React 18 + TypeScript + Vite SPA
 │   ├── src/
 │   │   ├── components/           # GovHeader, Sidebar, Dossier Modals, StatusBadges
@@ -152,14 +155,14 @@ The frontend contains an interactive in-memory data engine with persistent `loca
 
 ```bash
 # Clone the repository
-git clone https://github.com/itstanishkraj007/aicte-sdms-portal.git
-cd aicte-sdms-portal/frontend
+git clone https://github.com/itstanishkraj007/Secure-Stack.git
+cd Secure-Stack/frontend
 
 # Install dependencies and start Vite dev server
 npm install
 npm run dev
 ```
-Open **[http://localhost:5173/aicte-sdms-portal/](http://localhost:5173/aicte-sdms-portal/)** in your browser.
+Open **[http://localhost:5173/Secure-Stack/](http://localhost:5173/Secure-Stack/)** in your browser.
 
 ### Option B: Running the Full Stack via Docker Compose
 To run the complete system (React Frontend + Spring Boot Core API + Python Processing Microservice + PostgreSQL + MinIO + Redis):
@@ -182,5 +185,5 @@ docker-compose up --build
 
 ---
 
-## 🤝 Smart India Hackathon 2026 Team
+## 🤝 Smart India Hackathon 2026 Team: Secure Stack
 Built with precision, deep regulatory research, and production-grade software craftsmanship for the All India Council for Technical Education.

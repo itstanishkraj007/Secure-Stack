@@ -8,7 +8,7 @@ from app.services.qr import QRService
 from app.services.ocr import OCRService
 
 app = FastAPI(
-    title="SecureStack Document Processing Service",
+    title="Secure Stack Document Processing Service",
     description="Python AI/CV document processing engine for AICTE Security Deposit verification (SIH 2026)",
     version="1.0.0"
 )
