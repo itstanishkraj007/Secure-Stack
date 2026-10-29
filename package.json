@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Secure Stack — AICTE Security Deposit & FDR Management Portal (Smart India Hackathon 2026 Problem Statement 26265)",
   "private": true,
-  "workspaces": [
-    "frontend"
-  ],
   "scripts": {
     "dev": "npm --prefix frontend run dev",
     "build": "npm --prefix frontend run build",
