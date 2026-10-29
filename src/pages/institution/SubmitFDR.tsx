@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Upload,
   CheckCircle,
@@ -6,64 +7,92 @@ import {
   AlertTriangle,
   ArrowRight,
   ArrowLeft,
-  Sparkles,
   Shield,
   Loader2,
+  FileCheck2,
+  Lock,
+  Eye,
+  Building,
 } from 'lucide-react';
+import { usePortalData } from '../../context/PortalDataContext';
+import { Instrument, ScrutinyCase } from '../../types';
 import MockLabel from '../../components/ui/MockLabel';
+import { AicteEmblem } from '../../components/common/AicteLogo';
 
 export default function SubmitFDR() {
+  const navigate = useNavigate();
+  const { addInstrument, selectedInstitution } = usePortalData();
+
   const [step, setStep] = useState<number>(1);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [submittedSuccess, setSubmittedSuccess] = useState<boolean>(false);
+  const [newCaseId, setNewCaseId] = useState<string>('SCR-2024-095');
   const [processingLogs, setProcessingLogs] = useState<string[]>([]);
-  const [selectedPreset, setSelectedPreset] = useState<'HDFC' | 'SBI' | 'CANARA'>('HDFC');
+  const [selectedPreset, setSelectedPreset] = useState<'HDFC' | 'SBI' | 'CANARA' | 'BOI'>('HDFC');
   const [showDocPreview, setShowDocPreview] = useState<boolean>(false);
 
   // Form Fields
-  const [fdrNumber, setFdrNumber] = useState('FDR/HDFC/2023/003421');
+  const [fdrNumber, setFdrNumber] = useState('FDR/HDFC/2024/005892');
   const [bankName, setBankName] = useState('HDFC Bank');
   const [ifsc, setIfsc] = useState('HDFC0001234');
   const [branch, setBranch] = useState('Pune Camp Branch');
   const [amount, setAmount] = useState('2500000');
-  const [issueDate, setIssueDate] = useState('2021-11-02');
-  const [maturityDate, setMaturityDate] = useState('2024-11-02');
+  const [issueDate, setIssueDate] = useState('2024-01-15');
+  const [maturityDate, setMaturityDate] = useState('2027-01-15');
   const [holderName, setHolderName] = useState('Pune Institute of Technology');
+
+  // Checklist
+  const [checklist, setChecklist] = useState({
+    jointLien: true,
+    boardResolution: true,
+    bankConfirmation: true,
+    kycCertified: true,
+  });
 
   const presets = {
     HDFC: {
-      fdr: 'FDR/HDFC/2023/003421',
+      fdr: 'FDR/HDFC/2024/005892',
       bank: 'HDFC Bank',
       ifsc: 'HDFC0001234',
       branch: 'Pune Camp Branch',
       amount: '2500000',
-      issue: '2021-11-02',
-      maturity: '2024-11-02',
-      file: 'HDFC_Security_Deposit_Receipt_2023.pdf',
+      issue: '2024-01-15',
+      maturity: '2027-01-15',
+      file: 'HDFC_Security_Deposit_Receipt_2024.pdf',
     },
     SBI: {
-      fdr: 'FDR/SBI/2024/001847',
+      fdr: 'FDR/SBI/2024/008472',
       bank: 'State Bank of India',
       ifsc: 'SBIN0012345',
       branch: 'Shivajinagar, Pune',
-      amount: '2500000',
-      issue: '2023-01-15',
-      maturity: '2026-01-15',
+      amount: '3500000',
+      issue: '2024-02-10',
+      maturity: '2027-02-10',
       file: 'SBI_Joint_Lien_Certificate_2024.pdf',
     },
     CANARA: {
-      fdr: 'FDR/CNRB/2024/002743',
+      fdr: 'FDR/CNRB/2024/004918',
       bank: 'Canara Bank',
       ifsc: 'CNRB0001234',
       branch: 'Tiruchirappalli Main',
-      amount: '6000000',
-      issue: '2019-05-10',
-      maturity: '2027-05-10',
-      file: 'Canara_Endorsement_Memo.pdf',
+      amount: '5000000',
+      issue: '2024-03-01',
+      maturity: '2027-03-01',
+      file: 'Canara_Endorsement_Memo_2024.pdf',
+    },
+    BOI: {
+      fdr: 'FDR/BOI/2024/009182',
+      bank: 'Bank of India',
+      ifsc: 'BKID0008745',
+      branch: 'Pune Main Branch',
+      amount: '1850000',
+      issue: '2024-04-12',
+      maturity: '2027-04-12',
+      file: 'BOI_Statutory_Guarantee_2024.pdf',
     },
   };
 
-  const handleSelectPreset = (key: 'HDFC' | 'SBI' | 'CANARA') => {
+  const handleSelectPreset = (key: 'HDFC' | 'SBI' | 'CANARA' | 'BOI') => {
     setSelectedPreset(key);
     const p = presets[key];
     setFdrNumber(p.fdr);
@@ -86,95 +115,161 @@ export default function SubmitFDR() {
         ...prev,
         `[00:00.42] CRYPTO: Calculating SHA-256 ingress checksum -> e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`,
       ]);
-    }, 400);
+    }, 300);
 
     setTimeout(() => {
       setProcessingLogs((prev) => [
         ...prev,
         `[00:00.85] PYHANKO: Verifying PAdES-B-LT digital signature... VALID (${presets[selectedPreset].bank} Sub-CA -> CCA India)`,
       ]);
-    }, 800);
+    }, 600);
 
     setTimeout(() => {
       setProcessingLogs((prev) => [
         ...prev,
         `[00:01.25] PYMUPDF: Inspecting document linearization & incremental byte alterations... 0 mutations detected`,
       ]);
-    }, 1200);
+    }, 900);
 
     setTimeout(() => {
       setProcessingLogs((prev) => [
         ...prev,
-        `[00:01.68] VISION: Tesseract 5.3 OCR + OpenCV QR matrix parsing... 9/9 fields extracted (93.4% avg confidence)`,
+        `[00:01.68] VISION: Tesseract 5.3 OCR + OpenCV QR matrix parsing... 9/9 fields extracted (94.2% avg confidence)`,
       ]);
-    }, 1600);
+    }, 1200);
 
     setTimeout(() => {
       setProcessingLogs((prev) => [
         ...prev,
         `[00:02.10] CORE_BANK: Dispatching ISO-20022 balance & lien status check to bank adapter... COMPLETE`,
       ]);
-    }, 2000);
+    }, 1500);
 
     setTimeout(() => {
       setIsProcessing(false);
       setStep(2);
-    }, 2500);
+    }, 1800);
   };
 
   const handleSubmitCase = () => {
     setIsProcessing(true);
+    const generatedCaseId = `SCR-2024-0${Math.floor(Math.random() * 80 + 90)}`;
+    setNewCaseId(generatedCaseId);
+
     setTimeout(() => {
+      const numericAmount = parseInt(amount, 10) || 2500000;
+      const newInst: Instrument = {
+        id: `ins-${Date.now().toString().slice(-4)}`,
+        fdrNumber,
+        institution: 'Pune Institute of Technology',
+        institutionCode: 'PIT-MH-001',
+        bankName,
+        ifsc,
+        branch,
+        principalAmount: numericAmount,
+        issueDate: new Date(issueDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+        maturityDate: new Date(maturityDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+        holderName,
+        lifecycleStatus: 'UNDER_SCRUTINY',
+        lienStatus: 'ACTIVE',
+        daysToMaturity: 1095,
+        alertTier: 'NONE',
+        region: 'West Zone',
+        state: 'Maharashtra',
+      };
+
+      const newCase: ScrutinyCase = {
+        id: generatedCaseId,
+        instrumentId: newInst.id,
+        fdrNumber,
+        institution: 'Pune Institute of Technology',
+        bank: bankName,
+        issue: 'New Submission — Automated Verification Completed',
+        severity: 'INFO',
+        assignedTo: null,
+        assignedToName: null,
+        status: 'OPEN',
+        slaHours: 24,
+        slaOverdue: false,
+        createdAt: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) + ', 14:00 IST',
+        tripleSourceData: [
+          { fieldName: 'fdrNumber', displayName: 'FDR Number', submittedValue: fdrNumber, ocrValue: fdrNumber, ocrConfidence: 0.98, bankValue: fdrNumber, match: 'FULL_MATCH' },
+          { fieldName: 'bankName', displayName: 'Bank Name', submittedValue: bankName, ocrValue: bankName, ocrConfidence: 0.97, bankValue: bankName, match: 'FULL_MATCH' },
+          { fieldName: 'ifsc', displayName: 'IFSC Code', submittedValue: ifsc, ocrValue: ifsc, ocrConfidence: 0.95, bankValue: ifsc, match: 'FULL_MATCH' },
+          { fieldName: 'branch', displayName: 'Branch', submittedValue: branch, ocrValue: branch, ocrConfidence: 0.91, bankValue: branch, match: 'FULL_MATCH' },
+          { fieldName: 'principalAmount', displayName: 'Principal Amount', submittedValue: `₹${numericAmount.toLocaleString('en-IN')}`, ocrValue: `₹${numericAmount.toLocaleString('en-IN')}`, ocrConfidence: 0.96, bankValue: `₹${numericAmount.toLocaleString('en-IN')}`, match: 'FULL_MATCH' },
+          { fieldName: 'issueDate', displayName: 'Issue Date', submittedValue: issueDate, ocrValue: issueDate, ocrConfidence: 0.92, bankValue: issueDate, match: 'FULL_MATCH' },
+          { fieldName: 'maturityDate', displayName: 'Maturity Date', submittedValue: maturityDate, ocrValue: maturityDate, ocrConfidence: 0.91, bankValue: maturityDate, match: 'FULL_MATCH' },
+          { fieldName: 'holderName', displayName: 'Holder Name', submittedValue: holderName, ocrValue: holderName, ocrConfidence: 0.89, bankValue: holderName, match: 'FULL_MATCH' },
+          { fieldName: 'lienStatus', displayName: 'Lien Status', submittedValue: 'Active', ocrValue: null, bankValue: 'Active', match: 'FULL_MATCH' },
+        ],
+        verificationChecks: [
+          { checkType: 'PDF_SIGNATURE', displayName: 'PDF Digital Signature', status: 'PASS', source: 'PyHanko v0.21.0', details: 'Valid PAdES-B-LT. Bank Sub-CA chain verified.', timestamp: 'Just now', isMock: false },
+          { checkType: 'OCR_EXTRACTION', displayName: 'OCR Field Extraction', status: 'PASS', source: 'Tesseract v5.3.4', details: '9/9 fields extracted with high confidence.', timestamp: 'Just now', isMock: false },
+          { checkType: 'BANK_STATUS', displayName: 'Bank Status Check', status: 'PASS', source: 'Simulated Bank Adapter v1.0', details: 'Core banking balance matches submitted deposit.', timestamp: 'Just now', isMock: true },
+        ],
+        discrepancies: [],
+      };
+
+      addInstrument(newInst, newCase);
       setIsProcessing(false);
       setSubmittedSuccess(true);
-    }, 1000);
+    }, 1200);
   };
 
   if (submittedSuccess) {
     return (
       <div className="page-content max-w-3xl mx-auto py-10">
-        <div className="card p-8 text-center space-y-4 border-t-4 border-t-green-600">
-          <div className="w-14 h-14 bg-green-50 text-green-700 rounded-full flex items-center justify-center mx-auto border border-green-200">
-            <CheckCircle size={32} />
+        <div className="card p-8 text-center space-y-4 border-t-4 border-t-green-600 shadow-lg">
+          <div className="w-16 h-16 bg-green-50 text-green-700 rounded-full flex items-center justify-center mx-auto border-2 border-green-200">
+            <CheckCircle size={36} />
           </div>
 
           <h2 className="text-xl font-bold text-gray-900">
-            Instrument Successfully Registered & Queued for Scrutiny
+            FDR Instrument Registered & Queued for Regional Scrutiny
           </h2>
+
+          <p className="text-xs text-gray-600 max-w-md mx-auto">
+            Your fixed deposit receipt has been ingested, cryptographically signed, and queued in the AICTE Western Regional Office exception pipeline.
+          </p>
 
           <div className="bg-gray-50 border border-[#E2E8F0] rounded p-4 text-left space-y-2 max-w-lg mx-auto text-xs font-mono">
             <div className="flex justify-between border-b border-gray-200 pb-1">
-              <span className="text-gray-500 font-sans">Scrutiny Case ID:</span>
-              <strong className="text-gray-900">SCR-2024-092</strong>
+              <span className="text-gray-500 font-sans">Generated Scrutiny Case ID:</span>
+              <strong className="text-gray-900 font-bold">{newCaseId}</strong>
             </div>
             <div className="flex justify-between border-b border-gray-200 pb-1">
-              <span className="text-gray-500 font-sans">Document SHA-256:</span>
-              <span className="text-gray-700 truncate max-w-[240px]">
-                e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-              </span>
+              <span className="text-gray-500 font-sans">FDR Certificate Number:</span>
+              <strong className="text-gray-900">{fdrNumber}</strong>
             </div>
             <div className="flex justify-between border-b border-gray-200 pb-1">
-              <span className="text-gray-500 font-sans">FDR Number:</span>
-              <span className="text-gray-900 font-bold">{fdrNumber}</span>
+              <span className="text-gray-500 font-sans">Issuing Bank & Branch:</span>
+              <strong className="text-gray-900">{bankName} ({branch})</strong>
+            </div>
+            <div className="flex justify-between border-b border-gray-200 pb-1">
+              <span className="text-gray-500 font-sans">Pledged Principal:</span>
+              <strong className="text-green-700 font-bold">₹{parseInt(amount, 10).toLocaleString('en-IN')}</strong>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-500 font-sans">Assigned Desk:</span>
-              <span className="text-blue-700 font-sans font-semibold">Western Regional Office (WRO) Pune</span>
+              <span className="text-gray-500 font-sans">Cryptographic Ingress Hash:</span>
+              <span className="text-gray-600 text-xxs truncate">3f9ad1b2c4e5f6a7b8c9d0e1f2a3...</span>
             </div>
           </div>
 
-          <p className="text-xs text-gray-600 max-w-md mx-auto">
-            An automated audit event was recorded with cryptographic hash linking. Regional scrutiny officer will verify
-            digital signature and bank status before final lifecycle activation.
-          </p>
-
-          <div className="pt-2 flex justify-center gap-3">
-            <a href="/scrutiny/cases/SCR-2024-089" className="btn-primary">
-              View Scrutiny Pipeline
-            </a>
-            <a href="/institution/dashboard" className="btn-secondary">
-              Back to Portfolio
-            </a>
+          <div className="flex items-center justify-center gap-3 pt-3">
+            <Link
+              to="/institution/dashboard"
+              className="btn-secondary text-xs"
+            >
+              Return to FDR Portfolio
+            </Link>
+            <Link
+              to={`/scrutiny/cases/${newCaseId}`}
+              className="btn-primary text-xs flex items-center gap-1.5"
+            >
+              <Eye size={13} />
+              <span>Inspect Scrutiny Case Dossier</span>
+            </Link>
           </div>
         </div>
       </div>
@@ -183,373 +278,263 @@ export default function SubmitFDR() {
 
   return (
     <div className="page-content max-w-4xl mx-auto space-y-4">
-      {/* Title */}
-      <div className="flex items-center justify-between">
+      {/* Page Title */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
-          <h1 className="text-base font-bold text-gray-900">
-            Submit Fixed Deposit Receipt (FDR) / Security Instrument
+          <div className="flex items-center gap-2">
+            <span className="text-xxs font-bold text-[#003366] bg-[#EFF6FF] px-2 py-0.5 rounded border border-[#BFDBFE]">
+              FORM FDR-1
+            </span>
+            <span className="text-xs text-gray-500 font-mono">STATUTORY DEPOSIT SUBMISSION WIZARD</span>
+          </div>
+          <h1 className="text-base font-bold text-gray-900 mt-1">
+            Submit New FDR Instrument / Joint Lien Certificate
           </h1>
           <p className="text-xs text-gray-500">
-            AICTE Security Deposit Portal • Automatic OCR extraction & multi-source verification
+            Mandatory intake per Chapter 1, Section 1.4 of the AICTE Approval Process Handbook (APH 2024–27)
           </p>
         </div>
-        <div className="text-xxs font-mono text-gray-500 bg-white border border-[#E2E8F0] px-2 py-1 rounded">
-          REGULATION CLAUSE 1.4 APH
-        </div>
+
+        <Link to="/institution/dashboard" className="btn-secondary text-xs">
+          ← Back to Portfolio
+        </Link>
       </div>
 
-      <MockLabel text="All OCR extraction pipelines run with sandboxed Tesseract & PyMuPDF workers." />
+      <MockLabel text="Document parsing executes sandboxed Tesseract OCR and PyHanko cryptographic signature verifiers." />
 
-      {/* Progress Step Bar */}
+      {/* Stepper Bar */}
       <div className="card p-3">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between text-xs font-semibold">
           {[
-            { num: 1, label: 'Upload & Pre-Flight' },
-            { num: 2, label: 'OCR Extraction Review' },
-            { num: 3, label: 'Supporting Documents' },
-            { num: 4, label: 'Consent & Confirmation' },
-          ].map((s) => (
-            <div key={s.num} className="flex items-center gap-2">
-              <div
-                className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-                  step === s.num
+            { stepNum: 1, label: '1. Document Upload & Presets' },
+            { stepNum: 2, label: '2. OCR & Bank Verification' },
+            { stepNum: 3, label: '3. Statutory Checklist' },
+            { stepNum: 4, label: '4. Ledger Commitment' },
+          ].map((item) => (
+            <div
+              key={item.stepNum}
+              className={`flex items-center gap-2 px-2 py-1 rounded ${
+                step === item.stepNum
+                  ? 'text-[#003366] bg-[#EFF6FF] font-bold border border-[#BFDBFE]'
+                  : step > item.stepNum
+                  ? 'text-green-700'
+                  : 'text-gray-400'
+              }`}
+            >
+              <span
+                className={`w-5 h-5 rounded-full flex items-center justify-center text-xxs font-bold ${
+                  step === item.stepNum
                     ? 'bg-[#003366] text-white'
-                    : step > s.num
-                    ? 'bg-green-700 text-white'
+                    : step > item.stepNum
+                    ? 'bg-green-600 text-white'
                     : 'bg-gray-200 text-gray-600'
                 }`}
               >
-                {step > s.num ? '✓' : s.num}
-              </div>
-              <span
-                className={`text-xs font-medium hidden sm:inline ${
-                  step === s.num ? 'text-[#003366] font-bold' : 'text-gray-500'
-                }`}
-              >
-                {s.label}
+                {step > item.stepNum ? '✓' : item.stepNum}
               </span>
-              {s.num < 4 && <div className="w-8 h-px bg-gray-300 hidden md:block" />}
+              <span className="hidden sm:inline">{item.label}</span>
             </div>
           ))}
         </div>
       </div>
 
-      {/* STEP 1: Upload */}
+      {/* STEP 1: Upload & Presets */}
       {step === 1 && (
-        <div className="card p-6 space-y-4">
-          {/* Preset Selector */}
-          <div className="space-y-1.5">
-            <span className="text-xxs font-bold text-gray-500 uppercase tracking-wider">
-              DEMO PRESET TEST SAMPLES (INSTANT VERIFICATION)
-            </span>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-              <button
-                type="button"
-                onClick={() => handleSelectPreset('HDFC')}
-                className={`p-2.5 rounded border text-left transition-all ${
-                  selectedPreset === 'HDFC'
-                    ? 'border-[#003366] bg-[#EFF6FF] text-[#003366] shadow-sm ring-1 ring-[#003366]'
-                    : 'border-gray-200 bg-white text-gray-700 hover:bg-gray-50'
-                }`}
-              >
-                <div className="font-bold text-xs">HDFC Bank (₹25,00,000)</div>
-                <div className="text-xxs text-gray-500">Case SCR-089 (Audit Discrepancy Sample)</div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleSelectPreset('SBI')}
-                className={`p-2.5 rounded border text-left transition-all ${
-                  selectedPreset === 'SBI'
-                    ? 'border-[#003366] bg-[#EFF6FF] text-[#003366] shadow-sm ring-1 ring-[#003366]'
-                    : 'border-gray-200 bg-white text-gray-700 hover:bg-gray-50'
-                }`}
-              >
-                <div className="font-bold text-xs">State Bank of India (₹50,00,000)</div>
-                <div className="text-xxs text-gray-500">Standard 8-Year Joint Lien Pass</div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleSelectPreset('CANARA')}
-                className={`p-2.5 rounded border text-left transition-all ${
-                  selectedPreset === 'CANARA'
-                    ? 'border-[#003366] bg-[#EFF6FF] text-[#003366] shadow-sm ring-1 ring-[#003366]'
-                    : 'border-gray-200 bg-white text-gray-700 hover:bg-gray-50'
-                }`}
-              >
-                <div className="font-bold text-xs">Canara Bank (₹32,00,000)</div>
-                <div className="text-xxs text-gray-500">Renewal Endorsement Receipt</div>
-              </button>
-            </div>
+        <div className="card p-6 space-y-5">
+          <div className="space-y-1">
+            <h2 className="section-title text-sm">Select Sample Bank Certificate or Upload PDF</h2>
+            <p className="text-xs text-gray-500">
+              For demonstration and testing, select one of the pre-configured bank certificates with embedded cryptographic signatures:
+            </p>
           </div>
 
-          <div className="border-2 border-dashed border-[#E2E8F0] hover:border-[#003366] rounded-lg p-6 text-center bg-gray-50/50 transition-colors space-y-3">
-            <Upload size={32} className="mx-auto text-gray-400" />
+          {/* Presets Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+            {(['HDFC', 'SBI', 'CANARA', 'BOI'] as const).map((key) => {
+              const p = presets[key];
+              const isSelected = selectedPreset === key;
+              return (
+                <div
+                  key={key}
+                  onClick={() => handleSelectPreset(key)}
+                  className={`p-3 rounded border cursor-pointer transition-all ${
+                    isSelected
+                      ? 'border-[#003366] bg-[#EFF6FF] ring-2 ring-[#003366]'
+                      : 'border-gray-200 hover:border-gray-400 bg-white'
+                  }`}
+                >
+                  <div className="flex items-center justify-between text-xs font-bold text-gray-900 mb-1">
+                    <span>{p.bank}</span>
+                    <span className="text-xxs font-mono text-gray-500">₹{(parseInt(p.amount) / 100000).toFixed(1)}L</span>
+                  </div>
+                  <div className="text-xxs font-mono text-gray-600 truncate">{p.fdr}</div>
+                  <div className="text-xxs text-gray-500 mt-1 truncate">{p.file}</div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Upload Dropzone */}
+          <div className="border-2 border-dashed border-[#CBD5E1] rounded-lg p-6 text-center space-y-3 bg-[#FAF8F5]">
+            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto text-[#003366] shadow-sm border border-gray-200">
+              <Upload size={22} />
+            </div>
             <div>
-              <h3 className="text-sm font-semibold text-gray-900">
-                Selected: <span className="font-mono text-[#003366]">{presets[selectedPreset].file}</span>
-              </h3>
-              <p className="text-xs text-gray-500 max-w-sm mx-auto mt-0.5">
-                PAdES-B-LT digitally signed PDF. SHA-256 hash automatically computed at ingress.
+              <div className="text-xs font-bold text-gray-800">
+                Active Document:{' '}
+                <span className="font-mono text-[#003366]">{presets[selectedPreset].file}</span>
+              </div>
+              <p className="text-xxs text-gray-500 mt-0.5">
+                PDF format with CCA-recognized digital bank signature • Max 15 MB
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-2">
+            <div className="flex items-center justify-center gap-2 pt-1">
               <button
                 type="button"
-                onClick={handleSimulateUpload}
-                disabled={isProcessing}
-                className="btn-primary"
+                onClick={() => setShowDocPreview(!showDocPreview)}
+                className="btn-secondary text-xxs"
               >
-                {isProcessing ? (
-                  <>
-                    <Loader2 size={14} className="animate-spin" />
-                    <span>Executing Pipeline Engine...</span>
-                  </>
-                ) : (
-                  <>
-                    <FileText size={14} />
-                    <span>Run Verification & OCR Pipeline</span>
-                  </>
-                )}
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setShowDocPreview(true)}
-                className="btn-secondary"
-              >
-                <span>Inspect Raw Scan Preview</span>
+                <Eye size={12} />
+                <span>{showDocPreview ? 'Hide Document Scan' : 'Inspect Raw Bank PDF Scan'}</span>
               </button>
             </div>
           </div>
 
-          {/* Live Microservices Execution Terminal */}
-          {isProcessing && (
-            <div className="bg-[#0b101b] border border-gray-800 rounded p-3 text-xxs font-mono space-y-1 text-emerald-400 shadow-inner">
-              <div className="text-gray-400 border-b border-gray-800 pb-1 flex items-center justify-between">
-                <span>AICTE-SDMS MICROSERVICES LOG STREAM (INGRESS & VALIDATION)</span>
-                <span className="animate-pulse text-amber-400 font-bold">PROCESSING</span>
+          {/* Document Scan Preview */}
+          {showDocPreview && (
+            <div className="bg-white border-2 border-[#D4C4A8] rounded p-5 space-y-3 shadow-inner">
+              <div className="flex items-center justify-between border-b pb-2">
+                <span className="text-xxs font-bold text-[#003366] uppercase">DIGITAL SCAN ATTACHMENT</span>
+                <span className="text-xxs font-mono text-gray-500">SHA-256: e3b0c44298fc1c...</span>
               </div>
-              <div className="space-y-0.5 pt-1">
-                {processingLogs.map((log, index) => (
-                  <div key={index} className="leading-relaxed">
-                    {log}
-                  </div>
-                ))}
+              <div className="p-4 bg-[#FFFDF9] border border-gray-200 rounded font-serif text-xs space-y-2">
+                <div className="text-center font-bold text-sm text-[#003366]">
+                  {presets[selectedPreset].bank.toUpperCase()} • SECURITY DEPOSIT CERTIFICATE
+                </div>
+                <div className="text-center text-xxs text-gray-600">
+                  {presets[selectedPreset].branch} • IFSC: {presets[selectedPreset].ifsc}
+                </div>
+                <div className="border-t border-b border-gray-200 py-2 my-2 text-xxs space-y-1">
+                  <div><strong>DEPOSIT RECEIPT NO:</strong> {presets[selectedPreset].fdr}</div>
+                  <div><strong>PRINCIPAL SUM:</strong> ₹{parseInt(presets[selectedPreset].amount).toLocaleString('en-IN')}</div>
+                  <div><strong>BENEFICIARY:</strong> Regional Officer, AICTE & Pune Institute of Technology (Joint Account)</div>
+                </div>
+                <div className="text-xxs italic text-gray-600">
+                  Certified that the above deposit is held under lien to the All India Council for Technical Education.
+                </div>
               </div>
             </div>
           )}
 
-          <div className="info-box">
-            <strong>Mandatory Requirements:</strong> FDR must explicitly state joint lien in favor of{' '}
-            <em>"Regional Officer, AICTE Western Regional Office, Mumbai"</em> with minimum tenure of 8 years.
-          </div>
-        </div>
-      )}
-
-      {/* Document Raw Scan Preview Modal */}
-      {showDocPreview && (
-        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
-          <div className="card max-w-2xl w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between pb-2 border-b border-[#E2E8F0]">
-              <div className="flex items-center gap-2">
-                <FileText size={18} className="text-[#003366]" />
-                <h3 className="text-sm font-bold text-gray-900">
-                  Fixed Deposit Receipt Scan Preview — {presets[selectedPreset].file}
-                </h3>
-              </div>
-              <button
-                type="button"
-                onClick={() => setShowDocPreview(false)}
-                className="text-gray-400 hover:text-gray-600 font-bold"
-              >
-                ✕
-              </button>
-            </div>
-
-            {/* Simulated FDR Certificate */}
-            <div className="border-4 border-double border-[#003366] p-6 bg-[#fffdfa] rounded font-serif text-gray-900 space-y-4 shadow-sm">
-              <div className="text-center space-y-1 border-b-2 border-[#003366] pb-3">
-                <div className="text-lg font-bold uppercase tracking-wider text-[#003366]">
-                  {presets[selectedPreset].bank}
-                </div>
-                <div className="text-xxs font-sans text-gray-600">
-                  Branch: {presets[selectedPreset].branch} • IFSC: {presets[selectedPreset].ifsc}
-                </div>
-                <div className="text-xs font-bold uppercase tracking-widest text-amber-800 font-sans">
-                  SPECIAL TERM DEPOSIT RECEIPT / SECURITY LIEN
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4 text-xs font-sans">
-                <div>
-                  <span className="text-gray-500 text-xxs">RECEIPT NUMBER:</span>
-                  <div className="font-bold font-mono text-[#003366]">{presets[selectedPreset].fdr}</div>
-                </div>
-                <div>
-                  <span className="text-gray-500 text-xxs">PRINCIPAL SUM:</span>
-                  <div className="font-bold text-base text-gray-900">
-                    ₹{Number(presets[selectedPreset].amount).toLocaleString('en-IN')}
-                  </div>
-                </div>
-                <div>
-                  <span className="text-gray-500 text-xxs">DEPOSITOR / HOLDER:</span>
-                  <div className="font-semibold">Pune Institute of Technology</div>
-                </div>
-                <div>
-                  <span className="text-gray-500 text-xxs">LIEN FAVORING:</span>
-                  <div className="font-semibold text-red-900">
-                    Regional Officer, AICTE (Western Region)
-                  </div>
-                </div>
-                <div>
-                  <span className="text-gray-500 text-xxs">ISSUE DATE:</span>
-                  <div>{presets[selectedPreset].issue}</div>
-                </div>
-                <div>
-                  <span className="text-gray-500 text-xxs">MATURITY DATE:</span>
-                  <div className="font-bold">{presets[selectedPreset].maturity}</div>
-                </div>
-              </div>
-
-              <div className="pt-3 border-t border-gray-300 flex items-center justify-between text-xxs font-sans text-gray-500">
-                <span>DIGITALLY SIGNED VIA PAdES-B-LT (CCA CERTIFIED)</span>
-                <span className="font-mono">SHA256: e3b0c44298fc1c...</span>
-              </div>
-            </div>
-
-            <div className="flex justify-end gap-2 pt-2">
-              <button
-                type="button"
-                onClick={() => setShowDocPreview(false)}
-                className="btn-secondary"
-              >
-                Close Preview
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setShowDocPreview(false);
-                  handleSimulateUpload();
-                }}
-                className="btn-primary"
-              >
-                Proceed with this Instrument
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* STEP 2: OCR Extraction Review */}
-      {step === 2 && (
-        <div className="card p-5 space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-[#E2E8F0]">
-            <div>
-              <div className="flex items-center gap-2">
-                <Sparkles size={16} className="text-[#B7791F]" />
-                <h3 className="section-title">Automated Field Extraction (Human-in-the-Loop)</h3>
-              </div>
-              <p className="text-xxs text-gray-500">
-                Extracted via Tesseract v5.3 + PyMuPDF • Review confidence values before submitting
-              </p>
-            </div>
-            <span className="text-xxs font-bold bg-green-50 text-green-700 border border-green-200 px-2 py-0.5 rounded">
-              9/9 FIELDS LOCATED (AVG CONFIDENCE 93%)
+          {/* Action */}
+          <div className="flex items-center justify-between pt-3 border-t border-[#E2E8F0]">
+            <span className="text-xxs text-gray-500">
+              Extraction engine verifies against ISO-20022 and PyHanko standards
             </span>
+            <button
+              type="button"
+              disabled={isProcessing}
+              onClick={handleSimulateUpload}
+              className="btn-primary text-xs"
+            >
+              {isProcessing ? (
+                <>
+                  <Loader2 size={13} className="animate-spin" />
+                  <span>Processing Cryptographic Verification...</span>
+                </>
+              ) : (
+                <>
+                  <span>Run Verification & Extract Fields</span>
+                  <ArrowRight size={13} />
+                </>
+              )}
+            </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="field-label">FDR Instrument Number</label>
-              <div className="flex items-center gap-2 mt-1">
-                <input
-                  type="text"
-                  value={fdrNumber}
-                  onChange={(e) => setFdrNumber(e.target.value)}
-                  className="w-full bg-white border border-[#E2E8F0] rounded px-3 py-1.5 text-xs font-mono font-bold"
-                />
-                <span className="text-xxs text-green-700 font-bold bg-green-50 px-1.5 py-1 rounded border border-green-200">
-                  98%
-                </span>
+          {/* Processing Logs */}
+          {processingLogs.length > 0 && (
+            <div className="bg-gray-900 text-green-400 p-3 rounded font-mono text-xxs space-y-1 max-h-40 overflow-y-auto">
+              <div className="text-gray-400 font-bold border-b border-gray-800 pb-1">
+                SYSTEM PROCESSING LOGS (SANDBOX WORKER):
               </div>
+              {processingLogs.map((log, idx) => (
+                <div key={idx}>{log}</div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* STEP 2: Extraction Review & Edit */}
+      {step === 2 && (
+        <div className="card p-6 space-y-5">
+          <div className="space-y-1">
+            <h2 className="section-title text-sm">Extracted Field Values & Core Banking Match</h2>
+            <p className="text-xs text-gray-500">
+              Review parsed values from OCR and digital certificate metadata. Edit any field before final ledger commitment:
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div>
+              <label className="field-label">FDR Receipt Number</label>
+              <input
+                type="text"
+                value={fdrNumber}
+                onChange={(e) => setFdrNumber(e.target.value)}
+                className="w-full bg-white border border-[#CBD5E1] rounded px-3 py-1.5 font-mono text-xs text-gray-900 mt-1"
+              />
             </div>
 
             <div>
-              <label className="field-label">Bank Name</label>
-              <div className="flex items-center gap-2 mt-1">
-                <input
-                  type="text"
-                  value={bankName}
-                  onChange={(e) => setBankName(e.target.value)}
-                  className="w-full bg-white border border-[#E2E8F0] rounded px-3 py-1.5 text-xs font-semibold"
-                />
-                <span className="text-xxs text-green-700 font-bold bg-green-50 px-1.5 py-1 rounded border border-green-200">
-                  96%
-                </span>
-              </div>
+              <label className="field-label">Issuing Bank</label>
+              <input
+                type="text"
+                value={bankName}
+                onChange={(e) => setBankName(e.target.value)}
+                className="w-full bg-white border border-[#CBD5E1] rounded px-3 py-1.5 text-xs text-gray-900 mt-1"
+              />
             </div>
 
             <div>
-              <label className="field-label">Bank IFSC Code</label>
-              <div className="flex items-center gap-2 mt-1">
-                <input
-                  type="text"
-                  value={ifsc}
-                  onChange={(e) => setIfsc(e.target.value)}
-                  className="w-full bg-white border border-[#E2E8F0] rounded px-3 py-1.5 text-xs font-mono"
-                />
-                <span className="text-xxs text-green-700 font-bold bg-green-50 px-1.5 py-1 rounded border border-green-200">
-                  95%
-                </span>
-              </div>
+              <label className="field-label">IFSC Code</label>
+              <input
+                type="text"
+                value={ifsc}
+                onChange={(e) => setIfsc(e.target.value)}
+                className="w-full bg-white border border-[#CBD5E1] rounded px-3 py-1.5 font-mono text-xs text-gray-900 mt-1"
+              />
             </div>
 
             <div>
-              <label className="field-label">Branch Details</label>
-              <div className="flex items-center gap-2 mt-1">
-                <input
-                  type="text"
-                  value={branch}
-                  onChange={(e) => setBranch(e.target.value)}
-                  className="w-full bg-white border border-[#E2E8F0] rounded px-3 py-1.5 text-xs"
-                />
-                <span className="text-xxs text-green-700 font-bold bg-green-50 px-1.5 py-1 rounded border border-green-200">
-                  91%
-                </span>
-              </div>
+              <label className="field-label">Branch Name</label>
+              <input
+                type="text"
+                value={branch}
+                onChange={(e) => setBranch(e.target.value)}
+                className="w-full bg-white border border-[#CBD5E1] rounded px-3 py-1.5 text-xs text-gray-900 mt-1"
+              />
             </div>
 
             <div>
-              <label className="field-label">Principal Amount (₹ INR)</label>
-              <div className="flex items-center gap-2 mt-1">
-                <input
-                  type="text"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  className="w-full bg-amber-50/50 border border-amber-300 rounded px-3 py-1.5 text-xs font-mono font-bold text-gray-900"
-                />
-                <span className="text-xxs text-amber-700 font-bold bg-amber-50 px-1.5 py-1 rounded border border-amber-200">
-                  74% Confirmed
-                </span>
-              </div>
+              <label className="field-label">Principal Amount (₹)</label>
+              <input
+                type="text"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                className="w-full bg-white border border-[#CBD5E1] rounded px-3 py-1.5 font-mono text-xs font-bold text-gray-900 mt-1"
+              />
             </div>
 
             <div>
               <label className="field-label">Holder / Beneficiary Name</label>
-              <div className="flex items-center gap-2 mt-1">
-                <input
-                  type="text"
-                  value={holderName}
-                  onChange={(e) => setHolderName(e.target.value)}
-                  className="w-full bg-white border border-[#E2E8F0] rounded px-3 py-1.5 text-xs font-medium"
-                />
-                <span className="text-xxs text-green-700 font-bold bg-green-50 px-1.5 py-1 rounded border border-green-200">
-                  88%
-                </span>
-              </div>
+              <input
+                type="text"
+                value={holderName}
+                onChange={(e) => setHolderName(e.target.value)}
+                className="w-full bg-white border border-[#CBD5E1] rounded px-3 py-1.5 text-xs text-gray-900 mt-1"
+              />
             </div>
 
             <div>
@@ -558,137 +543,180 @@ export default function SubmitFDR() {
                 type="date"
                 value={issueDate}
                 onChange={(e) => setIssueDate(e.target.value)}
-                className="w-full bg-white border border-[#E2E8F0] rounded px-3 py-1.5 text-xs mt-1"
+                className="w-full bg-white border border-[#CBD5E1] rounded px-3 py-1.5 text-xs text-gray-900 mt-1"
               />
             </div>
 
             <div>
-              <label className="field-label">Maturity Date (Calculated Tenure: 3 Years)</label>
+              <label className="field-label">Maturity Date</label>
               <input
                 type="date"
                 value={maturityDate}
                 onChange={(e) => setMaturityDate(e.target.value)}
-                className="w-full bg-white border border-[#E2E8F0] rounded px-3 py-1.5 text-xs mt-1"
+                className="w-full bg-white border border-[#CBD5E1] rounded px-3 py-1.5 text-xs text-gray-900 mt-1"
               />
             </div>
           </div>
 
-          <div className="flex justify-between pt-3 border-t border-[#E2E8F0]">
-            <button type="button" onClick={() => setStep(1)} className="btn-secondary">
-              <ArrowLeft size={14} /> Back
-            </button>
-            <button type="button" onClick={() => setStep(3)} className="btn-primary">
-              Continue to Supporting Documents <ArrowRight size={14} />
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* STEP 3: Supporting Docs */}
-      {step === 3 && (
-        <div className="card p-5 space-y-4">
-          <h3 className="section-title">Supporting Documents & Affidavit Checklist</h3>
-          <p className="text-xs text-gray-500">
-            Per Chapter 1 of AICTE Approval Process Handbook (APH), attach notarized documents.
-          </p>
-
-          <div className="space-y-2.5">
-            {[
-              { title: 'Board Resolution for FDR Pledge / Lien', req: 'Mandatory', file: 'Board_Resolution_Pledge_2024.pdf' },
-              { title: 'Institution Affidavit on ₹100 Stamp Paper', req: 'Mandatory', file: 'Notarized_Affidavit_FDR.pdf' },
-              { title: 'Chartered Accountant Net-Worth Certificate', req: 'Mandatory (Tier 1)', file: 'CA_Certificate_FY24.pdf' },
-              { title: 'Bank Joint Lien Endorsement Letter', req: 'Mandatory', file: 'HDFC_Joint_Lien_Letter.pdf' },
-            ].map((doc, idx) => (
-              <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 border border-[#E2E8F0] rounded">
-                <div className="flex items-center gap-2.5">
-                  <CheckCircle size={16} className="text-green-600" />
-                  <div>
-                    <div className="text-xs font-semibold text-gray-800">{doc.title}</div>
-                    <div className="text-xxs text-gray-500 font-mono">{doc.file} (SHA-256 Verified)</div>
-                  </div>
-                </div>
-                <span className="text-xxs font-bold bg-green-50 text-green-700 px-2 py-0.5 rounded border border-green-200">
-                  ATTACHED
-                </span>
-              </div>
-            ))}
-          </div>
-
-          <div className="flex justify-between pt-3 border-t border-[#E2E8F0]">
-            <button type="button" onClick={() => setStep(2)} className="btn-secondary">
-              <ArrowLeft size={14} /> Back
-            </button>
-            <button type="button" onClick={() => setStep(4)} className="btn-primary">
-              Review & Sign Consent <ArrowRight size={14} />
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* STEP 4: Review & Submit */}
-      {step === 4 && (
-        <div className="card p-5 space-y-4">
-          <h3 className="section-title">Final Review & Account Aggregator Consent</h3>
-
-          <div className="bg-gray-50 border border-[#E2E8F0] rounded p-4 space-y-2 text-xs">
-            <div className="grid grid-cols-2 gap-2">
-              <div>
-                <span className="text-gray-500">Institution:</span>{' '}
-                <strong>Pune Institute of Technology</strong>
-              </div>
-              <div>
-                <span className="text-gray-500">Principal Deposit:</span>{' '}
-                <strong className="text-gray-900 font-mono">₹25,00,000</strong>
-              </div>
-              <div>
-                <span className="text-gray-500">FDR Number:</span>{' '}
-                <strong className="font-mono">{fdrNumber}</strong>
-              </div>
-              <div>
-                <span className="text-gray-500">Bank:</span>{' '}
-                <strong>{bankName} ({ifsc})</strong>
-              </div>
-              <div>
-                <span className="text-gray-500">Tenure:</span>{' '}
-                <span>15 Oct 2024 to 15 Oct 2027 (3 Years)</span>
-              </div>
-              <div>
-                <span className="text-gray-500">Lien Designation:</span>{' '}
-                <span className="text-blue-700 font-semibold">AICTE Joint RO Lien</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="p-3 bg-blue-50 border border-blue-200 rounded text-xs space-y-1">
-            <div className="font-bold text-blue-900 flex items-center gap-1.5">
-              <Shield size={14} />
-              Consent Declaration (DPDP Act 2023 & RBI Account Aggregator Framework)
-            </div>
-            <p className="text-blue-800 text-xxs">
-              By submitting this instrument, Pune Institute of Technology authorizes AICTE to verify the encumbrance,
-              lien, and balance status periodically via authorized Account Aggregator & Banking APIs for regulatory compliance.
-            </p>
-          </div>
-
-          <div className="flex justify-between pt-3 border-t border-[#E2E8F0]">
-            <button type="button" onClick={() => setStep(3)} className="btn-secondary">
-              <ArrowLeft size={14} /> Back
+          <div className="flex items-center justify-between pt-3 border-t border-[#E2E8F0]">
+            <button
+              type="button"
+              onClick={() => setStep(1)}
+              className="btn-secondary text-xs flex items-center gap-1"
+            >
+              <ArrowLeft size={13} />
+              <span>Back to Upload</span>
             </button>
             <button
               type="button"
-              onClick={handleSubmitCase}
+              onClick={() => setStep(3)}
+              className="btn-primary text-xs flex items-center gap-1"
+            >
+              <span>Proceed to Statutory Checklist</span>
+              <ArrowRight size={13} />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* STEP 3: Statutory Checklist */}
+      {step === 3 && (
+        <div className="card p-6 space-y-5">
+          <div className="space-y-1">
+            <h2 className="section-title text-sm">Statutory Institutional Compliance Checklist</h2>
+            <p className="text-xs text-gray-500">
+              The institution nodal officer must verify all four mandatory legal covenants per APH Chapter 1:
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            {[
+              {
+                id: 'jointLien',
+                label: 'Joint Lien Undertaking (Clause 1.4 APH)',
+                desc: 'Confirmed that the fixed deposit receipt is drawn in joint favor of Regional Officer, AICTE and the Institution.',
+              },
+              {
+                id: 'boardResolution',
+                label: 'Board of Governors (BoG) Sanction Resolution',
+                desc: 'Certified that the deposit allocation has been approved by the Governing Body / Board of Trustees.',
+              },
+              {
+                id: 'bankConfirmation',
+                label: 'Direct Bank Encumbrance Letter',
+                desc: 'Verified that the bank branch has executed the statutory lien marking in their Core Banking System (CBS).',
+              },
+              {
+                id: 'kycCertified',
+                label: 'Nodal Officer Digital KYC Verification',
+                desc: 'Certified by authorized institutional officer using Aadhaar/PAN linked institutional credentials.',
+              },
+            ].map((item) => (
+              <label
+                key={item.id}
+                className="flex items-start gap-3 p-3 rounded border border-gray-200 hover:bg-gray-50 cursor-pointer text-xs"
+              >
+                <input
+                  type="checkbox"
+                  checked={(checklist as any)[item.id]}
+                  onChange={(e) =>
+                    setChecklist((prev) => ({ ...prev, [item.id]: e.target.checked }))
+                  }
+                  className="mt-0.5 h-4 w-4 rounded text-[#003366] focus:ring-[#003366]"
+                />
+                <div>
+                  <div className="font-bold text-gray-900">{item.label}</div>
+                  <div className="text-xxs text-gray-500 mt-0.5">{item.desc}</div>
+                </div>
+              </label>
+            ))}
+          </div>
+
+          <div className="flex items-center justify-between pt-3 border-t border-[#E2E8F0]">
+            <button
+              type="button"
+              onClick={() => setStep(2)}
+              className="btn-secondary text-xs flex items-center gap-1"
+            >
+              <ArrowLeft size={13} />
+              <span>Back to Edit</span>
+            </button>
+            <button
+              type="button"
+              disabled={!checklist.jointLien || !checklist.bankConfirmation}
+              onClick={() => setStep(4)}
+              className="btn-primary text-xs flex items-center gap-1"
+            >
+              <span>Review & Commit Submission</span>
+              <ArrowRight size={13} />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* STEP 4: Review & Ledger Commitment */}
+      {step === 4 && (
+        <div className="card p-6 space-y-5">
+          <div className="space-y-1">
+            <h2 className="section-title text-sm">Final Submission Review & Cryptographic Sign-Off</h2>
+            <p className="text-xs text-gray-500">
+              Confirm details before committing this instrument to the tamper-evident AICTE audit ledger:
+            </p>
+          </div>
+
+          <div className="bg-[#FAF8F5] border border-[#D4C4A8] rounded p-4 space-y-3 text-xs">
+            <div className="grid grid-cols-2 gap-2 pb-2 border-b border-[#D4C4A8]">
+              <div>
+                <span className="text-gray-500 text-xxs">FDR Receipt Number:</span>
+                <div className="font-mono font-bold text-gray-900">{fdrNumber}</div>
+              </div>
+              <div>
+                <span className="text-gray-500 text-xxs">Principal Amount:</span>
+                <div className="font-mono font-bold text-green-700 text-sm">
+                  ₹{parseInt(amount, 10).toLocaleString('en-IN')}
+                </div>
+              </div>
+              <div>
+                <span className="text-gray-500 text-xxs">Issuing Bank & Branch:</span>
+                <div className="font-semibold text-gray-800">{bankName} ({branch})</div>
+              </div>
+              <div>
+                <span className="text-gray-500 text-xxs">Tenor Dates:</span>
+                <div className="font-medium text-gray-800">{issueDate} to {maturityDate}</div>
+              </div>
+            </div>
+
+            <div className="text-xxs text-gray-600 space-y-1">
+              <div>• Digital Signature: PAdES-B-LT LTV Validated</div>
+              <div>• Audit Ledger Action: <code>INSTRUMENT_SUBMITTED</code></div>
+              <div>• Initial Routing: Exception Scrutiny Queue (Regional Officer Scrutiny)</div>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between pt-3 border-t border-[#E2E8F0]">
+            <button
+              type="button"
+              onClick={() => setStep(3)}
+              className="btn-secondary text-xs flex items-center gap-1"
+            >
+              <ArrowLeft size={13} />
+              <span>Back to Checklist</span>
+            </button>
+            <button
+              type="button"
               disabled={isProcessing}
-              className="btn-primary"
+              onClick={handleSubmitCase}
+              className="btn-primary text-xs flex items-center gap-1.5"
             >
               {isProcessing ? (
                 <>
-                  <Loader2 size={14} className="animate-spin" />
-                  <span>Recording Audit Hash & Case...</span>
+                  <Loader2 size={13} className="animate-spin" />
+                  <span>Committing to Tamper-Evident Ledger...</span>
                 </>
               ) : (
                 <>
-                  <CheckCircle size={14} />
-                  <span>Final Submit for Scrutiny</span>
+                  <Lock size={13} />
+                  <span>Commit Form FDR-1 to AICTE Ledger</span>
                 </>
               )}
             </button>

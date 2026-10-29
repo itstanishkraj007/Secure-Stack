@@ -7,7 +7,6 @@ import {
   Scale,
   Lock,
   ArrowRight,
-  Sparkles,
   HelpCircle,
   KeyRound,
   FileCheck2,
@@ -262,8 +261,8 @@ export default function LoginPage() {
           <div className="lg:col-span-5 bg-[#F8FAFC] border-t lg:border-t-0 lg:border-l border-[#E2E8F0] p-6 sm:p-8 space-y-4 flex flex-col justify-between">
             <div className="space-y-3">
               <div className="flex items-center gap-1.5 text-xxs font-bold text-[#E65100] uppercase tracking-wider">
-                <Sparkles size={13} />
-                <span>VIDEO DEMO / EVALUATION GATEWAY</span>
+                <ShieldCheck size={13} />
+                <span>SIH 2026 JURY EVALUATION GATEWAY</span>
               </div>
 
               <h3 className="font-bold text-sm text-[#003366]">

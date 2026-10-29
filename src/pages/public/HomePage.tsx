@@ -8,12 +8,12 @@ import {
   Clock,
   ArrowRight,
   Lock,
-  Sparkles,
   ChevronRight,
   Scale,
   Layers,
   FileText,
   Award,
+  Shield,
 } from 'lucide-react';
 import PublicHeader from '../../components/public/PublicHeader';
 import PublicFooter from '../../components/public/PublicFooter';
@@ -71,7 +71,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-8 space-y-4">
             <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-[#FF9933] px-3 py-1 rounded-full text-xxs font-bold tracking-wider uppercase">
-              <Sparkles size={12} />
+              <Shield size={12} />
               AICTE SMART GOVERNANCE INITIATIVE • SIH 2026
             </div>
 

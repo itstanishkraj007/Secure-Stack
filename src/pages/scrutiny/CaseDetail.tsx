@@ -12,41 +12,59 @@ import {
   X,
   AlertCircle,
   HelpCircle,
+  FileCheck,
+  Printer,
+  Send,
+  Lock,
 } from 'lucide-react';
-import { scrutinyCases, caseHistory } from '../../data/fixtures/scrutiny';
+import { usePortalData } from '../../context/PortalDataContext';
+import { useAuth } from '../../context/AuthContext';
+import { caseHistory } from '../../data/fixtures/scrutiny';
 import StatusBadge from '../../components/ui/StatusBadge';
 import MockLabel from '../../components/ui/MockLabel';
+import { AicteEmblem } from '../../components/common/AicteLogo';
 
 export default function CaseDetail() {
   const { id } = useParams<{ id: string }>();
+  const { user } = useAuth();
+  const { scrutinyCases, recordScrutinyDecision } = usePortalData();
+
   const [activeTab, setActiveTab] = useState<'VERIFICATION' | 'DISCREPANCIES' | 'DECISION' | 'HISTORY'>('VERIFICATION');
 
   // Decision State
   const [decision, setDecision] = useState<'APPROVE' | 'HOLD' | 'REJECT'>('HOLD');
   const [decisionNote, setDecisionNote] = useState(
-    'Principal amount confirmed by bank adapter (₹23,75,000) differs from submitted instrument (₹25,00,000) by ₹1,25,000. Statutory clarification notice issued to institution nodal officer.'
+    'Principal amount confirmed by core banking system (₹23,75,000) differs from submitted FDR claim (₹25,00,000) by ₹1,25,000. Statutory deficit notice (Form DEF-1) issued to institutional nodal officer.'
   );
   const [isDecisionSaved, setIsDecisionSaved] = useState(false);
   const [showDeficitNotice, setShowDeficitNotice] = useState(false);
+  const [memoDispatched, setMemoDispatched] = useState(false);
 
   const scrutinyCase = scrutinyCases.find((c) => c.id === id) || scrutinyCases[0];
 
   const handleSaveDecision = (e: React.FormEvent) => {
     e.preventDefault();
+    const mappedStatus = decision === 'APPROVE' ? 'RESOLVED' : decision === 'HOLD' ? 'HOLD' : 'ESCALATED';
+    recordScrutinyDecision(scrutinyCase.id, mappedStatus, decisionNote, user.email);
     setIsDecisionSaved(true);
+  };
+
+  const handleDispatchMemo = () => {
+    setMemoDispatched(true);
+    recordScrutinyDecision(scrutinyCase.id, 'HOLD', 'Form DEF-1 Deficit Memo formally dispatched to institution.', user.email);
   };
 
   return (
     <div className="page-content space-y-4">
       {/* Case Header Card */}
-      <div className="card p-4 border-l-4 border-l-[#003366] flex flex-col md:flex-row md:items-center justify-between gap-3">
+      <div className="card p-4 border-l-4 border-l-[#003366] flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-sm">
         <div>
           <div className="flex items-center gap-2">
             <span className="font-mono font-bold text-xs bg-[#003366] text-white px-2 py-0.5 rounded">
               {scrutinyCase.id}
             </span>
             <StatusBadge status={scrutinyCase.severity} />
-            <StatusBadge status={isDecisionSaved ? 'RESOLVED' : scrutinyCase.status} />
+            <StatusBadge status={isDecisionSaved ? (decision === 'APPROVE' ? 'RESOLVED' : 'HOLD') : scrutinyCase.status} />
           </div>
 
           <h1 className="text-base font-bold text-gray-900 mt-1 flex items-center gap-2">
@@ -56,11 +74,11 @@ export default function CaseDetail() {
           </h1>
 
           <div className="flex flex-wrap items-center gap-3 text-xxs text-gray-500 mt-1">
-            <span>BANK: <strong>{scrutinyCase.bank}</strong></span>
+            <span>BANK: <strong className="text-gray-800">{scrutinyCase.bank}</strong></span>
             <span>•</span>
-            <span>ASSIGNED: <strong>{scrutinyCase.assignedToName || 'Unassigned'}</strong></span>
+            <span>OFFICER: <strong className="text-gray-800">{scrutinyCase.assignedToName || user.name}</strong></span>
             <span>•</span>
-            <span>CREATED: <strong>{scrutinyCase.createdAt}</strong></span>
+            <span>INGRESS TIMESTAMP: <strong className="text-gray-800">{scrutinyCase.createdAt}</strong></span>
           </div>
         </div>
 
@@ -81,12 +99,12 @@ export default function CaseDetail() {
       <MockLabel text="Dual-source reconciliation runs against deterministic Mock Bank Adapter and sandboxed PyHanko/Tesseract workers." />
 
       {/* Tabs */}
-      <div className="card">
+      <div className="card shadow-sm">
         <div className="flex border-b border-[#E2E8F0] bg-gray-50/70 text-xs font-semibold overflow-x-auto">
           {[
-            { id: 'VERIFICATION', label: '🌟 Triple-Source Reconciliation Panel', icon: ShieldAlert },
+            { id: 'VERIFICATION', label: 'Triple-Source Reconciliation Panel', icon: ShieldAlert },
             { id: 'DISCREPANCIES', label: `Discrepancy Register (${scrutinyCase.discrepancies.length})`, icon: AlertTriangle },
-            { id: 'DECISION', label: 'Officer Scrutiny Decision', icon: UserCheck },
+            { id: 'DECISION', label: 'Officer Scrutiny Ruling', icon: UserCheck },
             { id: 'HISTORY', label: 'Case Audit Trail', icon: History },
           ].map((tab) => {
             const Icon = tab.icon;
@@ -98,7 +116,7 @@ export default function CaseDetail() {
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`flex items-center gap-2 px-4 py-3 border-b-2 transition-colors whitespace-nowrap ${
                   isActive
-                    ? 'border-[#003366] text-[#003366] bg-white'
+                    ? 'border-[#003366] text-[#003366] bg-white font-bold'
                     : 'border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                 }`}
               >
@@ -109,115 +127,111 @@ export default function CaseDetail() {
           })}
         </div>
 
-        {/* TAB 1: TRIPLE SOURCE VERIFICATION (THE STAR) */}
+        {/* TAB 1: TRIPLE SOURCE VERIFICATION */}
         {activeTab === 'VERIFICATION' && (
           <div className="p-4 space-y-5">
             {/* Discrepancy Highlight Box if present */}
             {scrutinyCase.discrepancies.length > 0 && (
-              <div className="alert-box-red flex items-start gap-3">
-                <AlertTriangle size={18} className="text-red-700 flex-shrink-0 mt-0.5" />
-                <div className="space-y-1">
-                  <div className="font-bold text-red-900 text-xs">
-                    MATERIAL DISCREPANCY DETECTED BY DUAL-SOURCE RECONCILIATION:
-                  </div>
-                  <div className="text-xs text-red-800">
-                    The <strong>Principal Amount</strong> claimed by the institution is{' '}
-                    <span className="font-mono font-bold">₹25,00,000</span>, whereas the authoritative mock bank adapter
-                    reports a registered active balance of only{' '}
-                    <span className="font-mono font-bold">₹23,75,000</span> (Deficit: <strong>₹1,25,000</strong> or 5.00%).
-                    Automatic hold initiated under APH Procedural Guideline 2.4.
+              <div className="alert-box-red flex items-start justify-between gap-3 shadow-sm">
+                <div className="flex items-start gap-3">
+                  <AlertTriangle size={18} className="text-red-700 flex-shrink-0 mt-0.5" />
+                  <div className="space-y-1">
+                    <div className="font-bold text-red-900 text-xs">
+                      STATUTORY DISCREPANCY DETECTED — PRINCIPAL DEPOSIT DEFICIT
+                    </div>
+                    <p className="text-xxs text-red-800">
+                      The institution submitted a claimed deposit of <strong>₹25,00,000</strong>. However, authoritative
+                      core banking confirmation indicates an actual balance of <strong>₹23,75,000</strong> (Net Deficit: <strong>-₹1,25,000</strong>).
+                    </p>
                   </div>
                 </div>
+
+                <button
+                  type="button"
+                  onClick={() => setShowDeficitNotice(true)}
+                  className="btn-danger text-xxs flex-shrink-0 py-1.5 px-3 flex items-center gap-1.5"
+                >
+                  <FileText size={12} />
+                  <span>Preview Statutory Deficit Memo (Form DEF-1)</span>
+                </button>
               </div>
             )}
 
-            {/* Triple Source Comparison Table */}
+            {/* Reconciliation Table */}
             <div>
               <div className="section-header">
                 <div>
-                  <h3 className="section-title">Triple-Source Cross-Verification Matrix</h3>
+                  <h3 className="section-title">Field-by-Field Dual Source Verification Matrix</h3>
                   <p className="text-xxs text-gray-500">
-                    Side-by-side reconciliation between Submitted Claims, OCR Extraction, and Core Bank Records
+                    Compares Submitted Institution Claim against Tesseract OCR Vision and Core Banking System (CBS)
                   </p>
                 </div>
                 <span className="text-xxs font-mono text-gray-500 bg-gray-100 px-2 py-0.5 rounded border border-gray-300">
-                  RECON-ENGINE v1.4
+                  RECONCILIATION ENGINE v1.2
                 </span>
               </div>
 
-              <div className="overflow-x-auto border border-[#E2E8F0] rounded">
+              <div className="border border-[#E2E8F0] rounded overflow-hidden">
                 <table className="data-table">
                   <thead>
-                    <tr className="bg-gray-100">
-                      <th className="w-1/4">Field Attribute</th>
-                      <th className="w-1/4">1. Submitted (Institution)</th>
-                      <th className="w-1/4">2. OCR Extracted (Tesseract)</th>
-                      <th className="w-1/4 bg-blue-50/60 text-blue-900">3. Bank Confirmed [MOCK]</th>
-                      <th className="text-center">Verification</th>
+                    <tr>
+                      <th>Document Field</th>
+                      <th>1. Submitted Claim</th>
+                      <th>2. OCR Extracted Value</th>
+                      <th>OCR Confidence</th>
+                      <th>3. Core Banking Record</th>
+                      <th className="text-right">Reconciliation Outcome</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {scrutinyCase.tripleSourceData.map((row, idx) => {
-                      const isMismatch = row.match === 'MISMATCH';
-                      const isUnavailable = row.match === 'UNAVAILABLE';
-
+                    {scrutinyCase.tripleSourceData.map((field, idx) => {
+                      const isMismatch = field.match === 'MISMATCH';
                       return (
                         <tr
                           key={idx}
-                          className={isMismatch ? 'bg-red-50/60' : ''}
+                          className={isMismatch ? 'bg-red-50/60 font-semibold' : ''}
                         >
-                          <td className="font-semibold text-gray-800 flex items-center gap-1.5">
-                            {isMismatch ? (
-                              <X size={13} className="text-red-600 flex-shrink-0" />
-                            ) : (
-                              <Check size={13} className="text-green-600 flex-shrink-0" />
-                            )}
-                            <span>{row.displayName}</span>
+                          <td className="font-semibold text-gray-900">
+                            {field.displayName}
                           </td>
-
-                          <td className="font-mono text-gray-900 font-medium">
-                            {row.submittedValue}
+                          <td className="font-mono text-gray-900">
+                            {field.submittedValue}
                           </td>
-
-                          <td className="text-gray-800">
-                            {row.ocrValue ? (
-                              <div className="flex items-center justify-between gap-1">
-                                <span className="font-mono">{row.ocrValue}</span>
-                                {row.ocrConfidence && (
-                                  <span
-                                    className={`text-xxs px-1 rounded font-bold ${
-                                      row.ocrConfidence > 0.85
-                                        ? 'text-green-700 bg-green-50'
-                                        : 'text-amber-700 bg-amber-50'
-                                    }`}
-                                  >
-                                    {Math.round(row.ocrConfidence * 100)}%
-                                  </span>
-                                )}
-                              </div>
-                            ) : (
-                              <span className="text-gray-400 italic">Not in visual layout</span>
-                            )}
+                          <td className="font-mono text-gray-800">
+                            {field.ocrValue || <span className="text-gray-400 italic">Not extracted</span>}
                           </td>
-
-                          <td className={`font-mono ${isMismatch ? 'font-bold text-red-700 bg-red-100/50' : 'text-gray-900'}`}>
-                            {row.bankValue ? row.bankValue : (
-                              <span className="text-gray-400 italic">Source Unavailable</span>
-                            )}
-                          </td>
-
-                          <td className="text-center">
-                            {isMismatch ? (
-                              <span className="inline-flex items-center gap-1 text-xxs font-bold text-red-700 bg-red-100 px-2 py-0.5 rounded border border-red-300">
-                                ⚠ MISMATCH
-                              </span>
-                            ) : isUnavailable ? (
-                              <span className="inline-flex items-center gap-1 text-xxs font-bold text-gray-600 bg-gray-100 px-2 py-0.5 rounded">
-                                UNCONFIRMED
+                          <td>
+                            {field.ocrConfidence ? (
+                              <span
+                                className={`text-xxs font-bold px-1.5 py-0.5 rounded font-mono ${
+                                  field.ocrConfidence >= 0.9
+                                    ? 'bg-green-100 text-green-800'
+                                    : field.ocrConfidence >= 0.7
+                                    ? 'bg-amber-100 text-amber-800'
+                                    : 'bg-red-100 text-red-800'
+                                }`}
+                              >
+                                {(field.ocrConfidence * 100).toFixed(0)}%
                               </span>
                             ) : (
-                              <span className="inline-flex items-center gap-1 text-xxs font-bold text-green-700 bg-green-50 px-2 py-0.5 rounded border border-green-200">
-                                ✓ RECONCILED
+                              '—'
+                            )}
+                          </td>
+                          <td className={`font-mono ${isMismatch ? 'text-red-700 font-bold' : 'text-gray-800'}`}>
+                            {field.bankValue || <span className="text-gray-400 italic">Unreachable</span>}
+                          </td>
+                          <td className="text-right">
+                            {field.match === 'FULL_MATCH' ? (
+                              <span className="inline-flex items-center gap-1 text-green-700 text-xxs font-bold bg-green-50 px-2 py-0.5 rounded border border-green-200">
+                                <Check size={11} /> MATCH
+                              </span>
+                            ) : field.match === 'MISMATCH' ? (
+                              <span className="inline-flex items-center gap-1 text-red-700 text-xxs font-bold bg-red-100 px-2 py-0.5 rounded border border-red-300">
+                                <X size={11} /> VARIANCE DEFICIT
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center gap-1 text-gray-600 text-xxs font-bold bg-gray-100 px-2 py-0.5 rounded border border-gray-300">
+                                UNAVAILABLE
                               </span>
                             )}
                           </td>
@@ -229,47 +243,44 @@ export default function CaseDetail() {
               </div>
             </div>
 
-            {/* Individual Cryptographic & Adapter Checks */}
+            {/* Verification Pipeline Checks Table */}
             <div>
               <div className="section-header">
                 <div>
-                  <h3 className="section-title">Detailed Cryptographic & Source Integrity Checks</h3>
-                  <p className="text-xxs text-gray-500">
-                    Independent verification outcomes — unknown status never converts to pass
-                  </p>
+                  <h3 className="section-title">Automated Verification Pipeline Checks</h3>
+                  <p className="text-xxs text-gray-500">Automated pre-flight security, signature, and cryptographic checks</p>
                 </div>
               </div>
 
-              <div className="overflow-x-auto border border-[#E2E8F0] rounded">
+              <div className="border border-[#E2E8F0] rounded overflow-hidden">
                 <table className="data-table">
                   <thead>
                     <tr>
-                      <th>Check Name</th>
-                      <th>Outcome</th>
-                      <th>Engine / Source</th>
-                      <th>Audit Evidence & Diagnostics</th>
-                      <th>Timestamp (IST)</th>
+                      <th>Verification Domain</th>
+                      <th>Evaluator / Worker</th>
+                      <th>Status</th>
+                      <th>Detailed Finding & Cryptographic Evidence</th>
+                      <th className="text-right">Timestamp</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {scrutinyCase.verificationChecks.map((chk, i) => (
-                      <tr key={i}>
-                        <td className="font-semibold text-gray-900">{chk.displayName}</td>
+                    {scrutinyCase.verificationChecks.map((chk, idx) => (
+                      <tr key={idx}>
+                        <td className="font-semibold text-gray-900 text-xs">
+                          {chk.displayName}
+                        </td>
+                        <td className="text-gray-600 text-xxs font-mono">
+                          {chk.source}
+                        </td>
                         <td>
                           <StatusBadge status={chk.status} />
                         </td>
-                        <td>
-                          <div className="text-xs font-mono text-gray-700">{chk.source}</div>
-                          {chk.isMock && (
-                            <span className="text-xxs text-blue-700 bg-blue-50 px-1 py-0.2 rounded border border-blue-200 font-bold">
-                              [MOCK ADAPTER]
-                            </span>
-                          )}
-                        </td>
-                        <td className="text-xs text-gray-700 max-w-md">
+                        <td className="text-gray-700 text-xs max-w-md">
                           {chk.details}
                         </td>
-                        <td className="text-xxs font-mono text-gray-500">{chk.timestamp}</td>
+                        <td className="text-right text-xxs font-mono text-gray-500">
+                          {chk.timestamp}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -282,41 +293,41 @@ export default function CaseDetail() {
         {/* TAB 2: DISCREPANCIES */}
         {activeTab === 'DISCREPANCIES' && (
           <div className="p-4 space-y-4">
-            <h3 className="section-title">Discrepancy Register & Resolution State</h3>
+            <div className="section-header">
+              <div>
+                <h3 className="section-title">Discrepancy Exception Register</h3>
+                <p className="text-xxs text-gray-500">Formal legal exceptions logged by the automated engine</p>
+              </div>
+            </div>
 
             {scrutinyCase.discrepancies.length === 0 ? (
-              <div className="p-8 text-center text-gray-500">
-                <CheckCircle2 size={32} className="mx-auto text-green-600 mb-2" />
-                <p className="text-xs font-semibold">No active field discrepancies recorded for this case.</p>
+              <div className="p-6 text-center text-gray-500 text-xs bg-gray-50 rounded">
+                No unresolved discrepancies logged for this instrument dossier.
               </div>
             ) : (
               <div className="border border-[#E2E8F0] rounded overflow-hidden">
                 <table className="data-table">
                   <thead>
                     <tr>
-                      <th>Discrepancy ID</th>
+                      <th>Ref ID</th>
                       <th>Field</th>
-                      <th>Submitted Value</th>
-                      <th>Observed / Bank Value</th>
-                      <th>Detection Source</th>
+                      <th>Submitted Claim</th>
+                      <th>Observed Authority Value</th>
+                      <th>Source Origin</th>
                       <th>Severity</th>
                       <th>Status</th>
                     </tr>
                   </thead>
                   <tbody>
                     {scrutinyCase.discrepancies.map((d) => (
-                      <tr key={d.id}>
-                        <td className="font-mono text-xs font-bold text-gray-800">{d.id}</td>
+                      <tr key={d.id} className="bg-red-50/30">
+                        <td className="font-mono font-bold text-gray-900">{d.id}</td>
                         <td className="font-semibold text-gray-900">{d.fieldName}</td>
-                        <td className="font-mono text-gray-700">{d.submittedValue}</td>
-                        <td className="font-mono text-red-700 font-bold">{d.observedValue}</td>
-                        <td className="text-xs text-gray-600">{d.sourceReference}</td>
-                        <td>
-                          <StatusBadge status={d.severity} />
-                        </td>
-                        <td>
-                          <StatusBadge status={d.status} />
-                        </td>
+                        <td className="font-mono text-gray-800">{d.submittedValue}</td>
+                        <td className="font-mono font-bold text-red-700">{d.observedValue}</td>
+                        <td className="text-xxs text-gray-600 font-mono">{d.sourceReference}</td>
+                        <td><StatusBadge status={d.severity} /></td>
+                        <td><StatusBadge status={d.status} /></td>
                       </tr>
                     ))}
                   </tbody>
@@ -326,142 +337,144 @@ export default function CaseDetail() {
           </div>
         )}
 
-        {/* TAB 3: DECISION FORM */}
+        {/* TAB 3: OFFICER DECISION */}
         {activeTab === 'DECISION' && (
-          <div className="p-4 space-y-4 max-w-2xl">
-            <h3 className="section-title">Officer Formal Scrutiny Determination</h3>
-            <p className="text-xs text-gray-600">
-              Under Regulation 6.46 AICTE APH, decisions require human officer accountability.
-              Every submission creates an immutable hash-chained audit record.
-            </p>
+          <div className="p-5 max-w-3xl space-y-5">
+            <div className="space-y-1">
+              <h3 className="section-title">Official Regional Scrutiny Ruling</h3>
+              <p className="text-xs text-gray-500">
+                Record your administrative determination under Section 10(k) of the AICTE Act 1987:
+              </p>
+            </div>
 
-            {isDecisionSaved ? (
-              <div className="alert-box-green p-4 space-y-3">
-                <div className="font-bold text-green-900 text-sm flex items-center gap-1.5">
-                  <CheckCircle2 size={16} /> Determination Saved & Audited
-                </div>
-                <div className="text-xs text-green-800">
-                  Officer action <strong>{decision}</strong> has been committed to the ledger with audit sequence{' '}
-                  <span className="font-mono font-bold">#0892</span>. Notice dispatched to institution nodal desk.
-                </div>
-                <div className="pt-2">
-                  <button
-                    type="button"
-                    onClick={() => setShowDeficitNotice(true)}
-                    className="btn-primary"
+            <form onSubmit={handleSaveDecision} className="space-y-4">
+              <div className="space-y-2">
+                <label className="field-label">Scrutiny Determination:</label>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <label
+                    className={`flex items-center gap-2.5 p-3 rounded border cursor-pointer ${
+                      decision === 'HOLD'
+                        ? 'border-amber-600 bg-amber-50/50 ring-1 ring-amber-600 font-bold'
+                        : 'border-gray-200 hover:bg-gray-50'
+                    }`}
                   >
-                    <FileText size={14} />
-                    <span>View Generated Statutory Deficiency Notice</span>
+                    <input
+                      type="radio"
+                      name="decision"
+                      value="HOLD"
+                      checked={decision === 'HOLD'}
+                      onChange={() => setDecision('HOLD')}
+                      className="text-amber-600"
+                    />
+                    <div>
+                      <div className="text-xs font-bold text-amber-900">Place on Hold (DEF-1)</div>
+                      <div className="text-xxs text-gray-500">Require institutional cure</div>
+                    </div>
+                  </label>
+
+                  <label
+                    className={`flex items-center gap-2.5 p-3 rounded border cursor-pointer ${
+                      decision === 'APPROVE'
+                        ? 'border-green-600 bg-green-50/50 ring-1 ring-green-600 font-bold'
+                        : 'border-gray-200 hover:bg-gray-50'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="decision"
+                      value="APPROVE"
+                      checked={decision === 'APPROVE'}
+                      onChange={() => setDecision('APPROVE')}
+                      className="text-green-600"
+                    />
+                    <div>
+                      <div className="text-xs font-bold text-green-900">Approve & Certify</div>
+                      <div className="text-xxs text-gray-500">All covenants verified</div>
+                    </div>
+                  </label>
+
+                  <label
+                    className={`flex items-center gap-2.5 p-3 rounded border cursor-pointer ${
+                      decision === 'REJECT'
+                        ? 'border-red-600 bg-red-50/50 ring-1 ring-red-600 font-bold'
+                        : 'border-gray-200 hover:bg-gray-50'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="decision"
+                      value="REJECT"
+                      checked={decision === 'REJECT'}
+                      onChange={() => setDecision('REJECT')}
+                      className="text-red-600"
+                    />
+                    <div>
+                      <div className="text-xs font-bold text-red-900">Reject Instrument</div>
+                      <div className="text-xxs text-gray-500">Critical non-compliance</div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label className="field-label">Official Scrutiny Note & Statutory Directives:</label>
+                <textarea
+                  rows={4}
+                  value={decisionNote}
+                  onChange={(e) => setDecisionNote(e.target.value)}
+                  className="w-full bg-white border border-[#CBD5E1] rounded p-2.5 text-xs text-gray-900 mt-1"
+                />
+              </div>
+
+              <div className="flex items-center justify-between pt-3 border-t border-[#E2E8F0]">
+                <div className="text-xxs text-gray-500">
+                  Signed as: <strong>{user.name}</strong> ({user.designation})
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="submit"
+                    className="btn-primary text-xs"
+                  >
+                    Commit Scrutiny Ruling to Ledger
                   </button>
                 </div>
               </div>
-            ) : (
-              <form onSubmit={handleSaveDecision} className="space-y-4">
-                <div className="space-y-2">
-                  <label className="field-label">Scrutiny Ruling</label>
-                  <div className="grid grid-cols-3 gap-2">
-                    <label
-                      className={`border p-3 rounded cursor-pointer flex flex-col items-center gap-1 text-center transition-colors ${
-                        decision === 'APPROVE'
-                          ? 'border-green-600 bg-green-50/60 text-green-900 font-bold'
-                          : 'border-gray-300 text-gray-700'
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="ruling"
-                        checked={decision === 'APPROVE'}
-                        onChange={() => setDecision('APPROVE')}
-                        className="hidden"
-                      />
-                      <CheckCircle2 size={18} className="text-green-600" />
-                      <span className="text-xs">Approve for Lifecycle</span>
-                    </label>
 
-                    <label
-                      className={`border p-3 rounded cursor-pointer flex flex-col items-center gap-1 text-center transition-colors ${
-                        decision === 'HOLD'
-                          ? 'border-amber-600 bg-amber-50/60 text-amber-900 font-bold'
-                          : 'border-gray-300 text-gray-700'
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="ruling"
-                        checked={decision === 'HOLD'}
-                        onChange={() => setDecision('HOLD')}
-                        className="hidden"
-                      />
-                      <AlertCircle size={18} className="text-amber-600" />
-                      <span className="text-xs">Hold for Clarification</span>
-                    </label>
-
-                    <label
-                      className={`border p-3 rounded cursor-pointer flex flex-col items-center gap-1 text-center transition-colors ${
-                        decision === 'REJECT'
-                          ? 'border-red-600 bg-red-50/60 text-red-900 font-bold'
-                          : 'border-gray-300 text-gray-700'
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="ruling"
-                        checked={decision === 'REJECT'}
-                        onChange={() => setDecision('REJECT')}
-                        className="hidden"
-                      />
-                      <X size={18} className="text-red-600" />
-                      <span className="text-xs">Reject Instrument</span>
-                    </label>
-                  </div>
+              {isDecisionSaved && (
+                <div className="p-3 bg-green-50 border border-green-300 rounded text-xs text-green-900 font-semibold flex items-center gap-2 shadow-sm">
+                  <CheckCircle2 size={16} className="text-green-700" />
+                  <span>
+                    Scrutiny ruling successfully committed. Case status updated and cryptographic audit event appended to ledger.
+                  </span>
                 </div>
-
-                <div>
-                  <label className="field-label">Findings & Regulatory Rationale</label>
-                  <textarea
-                    rows={4}
-                    value={decisionNote}
-                    onChange={(e) => setDecisionNote(e.target.value)}
-                    className="w-full mt-1 bg-white border border-[#E2E8F0] rounded p-2.5 text-xs text-gray-800 font-sans focus:outline-none focus:border-[#003366]"
-                    placeholder="Enter formal reasons, cited clauses, and requested institution evidence..."
-                  />
-                </div>
-
-                <div className="flex flex-wrap items-center justify-between gap-2 pt-2">
-                  <div className="text-xxs text-gray-500 font-mono">
-                    OFFICER: Ravi Shankar Prasad (AICTE-SCR-1023)
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setShowDeficitNotice(true)}
-                      className="btn-secondary"
-                    >
-                      <FileText size={13} />
-                      <span>Preview Draft Deficit Memo</span>
-                    </button>
-                    <button type="submit" className="btn-primary">
-                      Commit Scrutiny Ruling
-                    </button>
-                  </div>
-                </div>
-              </form>
-            )}
+              )}
+            </form>
           </div>
         )}
 
-        {/* TAB 4: CASE AUDIT HISTORY */}
+        {/* TAB 4: CASE AUDIT TRAIL */}
         {activeTab === 'HISTORY' && (
-          <div className="p-4 space-y-3">
-            <h3 className="section-title">Case Operational Audit Timeline</h3>
+          <div className="p-5 max-w-3xl space-y-4">
+            <div className="section-header">
+              <div>
+                <h3 className="section-title">Case Operational Event Log</h3>
+                <p className="text-xxs text-gray-500">Immutable lifecycle sequence tracking every touchpoint</p>
+              </div>
+            </div>
 
-            <div className="border-l-2 border-[#003366] ml-2 space-y-4 pl-4 py-2">
+            <div className="space-y-3">
               {caseHistory.map((item, idx) => (
-                <div key={idx} className="relative text-xs">
-                  <div className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-[#003366] border-2 border-white" />
-                  <div className="font-semibold text-gray-800">{item.action}</div>
-                  <div className="text-xxs text-gray-500 font-mono">
-                    {item.timestamp} • Actor: {item.actor} • Type: {item.type}
+                <div key={idx} className="flex items-start gap-3 text-xs">
+                  <div className="w-2 h-2 rounded-full bg-[#003366] mt-1.5 flex-shrink-0" />
+                  <div className="flex-1 bg-gray-50 p-3 rounded border border-gray-200">
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-gray-900">{item.action}</span>
+                      <span className="text-xxs font-mono text-gray-500">{item.timestamp}</span>
+                    </div>
+                    <div className="text-xxs text-gray-600 mt-0.5">
+                      Actor: <span className="font-mono text-gray-800">{item.actor}</span> • Type: {item.type}
+                    </div>
                   </div>
                 </div>
               ))}
@@ -470,118 +483,120 @@ export default function CaseDetail() {
         )}
       </div>
 
-      {/* Statutory Deficiency Notice Modal */}
+      {/* FORM DEF-1 DEFICIT MEMO MODAL (High-Fidelity Document) */}
       {showDeficitNotice && (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
-          <div className="card max-w-2xl w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between pb-2 border-b border-[#E2E8F0]">
+          <div className="bg-white rounded-lg border border-[#E2E8F0] max-w-2xl w-full p-6 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
+            {/* Modal Header */}
+            <div className="flex items-start justify-between pb-3 border-b border-[#E2E8F0]">
+              <div className="flex items-center gap-3">
+                <AicteEmblem className="h-10 w-auto" />
+                <div>
+                  <span className="text-xxs font-bold text-[#003366] uppercase tracking-wider">
+                    ALL INDIA COUNCIL FOR TECHNICAL EDUCATION
+                  </span>
+                  <h3 className="text-sm font-bold text-gray-900">
+                    Form DEF-1: Statutory Deficit & Variance Scrutiny Memo
+                  </h3>
+                  <div className="text-xxs text-gray-500 font-mono">
+                    DISPATCH REF: AICTE/WRO/SCR/2024/DEF-089
+                  </div>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowDeficitNotice(false)}
+                className="text-gray-400 hover:text-gray-700 p-1 rounded"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* Official Letterhead Body */}
+            <div className="bg-[#FAF8F5] border-2 border-[#D4C4A8] rounded p-5 space-y-3 text-xs shadow-inner">
+              <div className="flex items-start justify-between border-b border-[#D4C4A8] pb-3 text-xxs text-gray-700">
+                <div>
+                  <strong>TO:</strong><br />
+                  The Principal / Director,<br />
+                  MIT College of Engineering, Pune,<br />
+                  Maharashtra - 411038
+                </div>
+                <div className="text-right">
+                  <strong>DATE:</strong> 28 October 2024<br />
+                  <strong>ZONE:</strong> Western Regional Office (Pune)<br />
+                  <strong>STATUS:</strong> PROVISIONAL ENCUMBRANCE
+                </div>
+              </div>
+
+              <div className="text-xs font-bold text-[#003366]">
+                SUBJECT: Shortfall in Fixed Deposit Receipt (FDR) Deposit Security under Clause 1.4 APH 2024–27
+              </div>
+
+              <p className="text-xxs leading-relaxed text-gray-700">
+                During automated dual-source scrutiny of instrument <strong>FDR/HDFC/2023/003421</strong>, a material variance was certified between your submitted claim and the actual balance confirmed by HDFC Bank Core Banking System:
+              </p>
+
+              {/* Variance Math Card */}
+              <div className="bg-white p-3 rounded border border-red-200 text-xs font-mono space-y-1">
+                <div className="flex justify-between">
+                  <span>1. Claimed Deposit Amount:</span>
+                  <strong>₹25,00,000</strong>
+                </div>
+                <div className="flex justify-between text-red-700">
+                  <span>2. Bank Confirmed Ledger:</span>
+                  <strong>- ₹23,75,000</strong>
+                </div>
+                <div className="flex justify-between border-t border-red-200 pt-1 font-bold text-red-900">
+                  <span>NET STATUTORY SHORTFALL:</span>
+                  <span>- ₹1,25,000 (5.00% Deficit)</span>
+                </div>
+              </div>
+
+              <p className="text-xxs leading-relaxed text-gray-700">
+                <strong>STATUTORY DIRECTIVE:</strong> You are hereby instructed under Section 10(k) of the AICTE Act 1987 to cure this shortfall within <strong>15 calendar days</strong> by depositing an additional FDR of <strong>₹1,25,000</strong> drawn in joint lien with the Regional Officer, AICTE. Failure to comply shall result in withholding of Extension of Approval (EoA) for AY 2024–25.
+              </p>
+
+              <div className="pt-3 border-t border-[#D4C4A8] flex items-center justify-between text-xxs text-gray-600">
+                <div>
+                  <strong>Ravi Shankar Prasad</strong><br />
+                  Regional Scrutiny Officer, Western Regional Office (Pune)
+                </div>
+                <div className="text-right font-mono">
+                  <div>VERIFIED SECURE STACK DIGITAL SEAL</div>
+                  <div className="text-gray-400">HASH: 3f9ad1b2c4e5f6a7...</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Actions */}
+            <div className="flex items-center justify-between pt-2">
+              <button
+                type="button"
+                onClick={() => window.print()}
+                className="btn-secondary text-xs flex items-center gap-1.5"
+              >
+                <Printer size={13} />
+                <span>Print Official Memo</span>
+              </button>
+
               <div className="flex items-center gap-2">
-                <AlertCircle size={18} className="text-amber-600" />
-                <h3 className="text-sm font-bold text-gray-900">
-                  AICTE Form DEF-1 • Statutory Deficit & Discrepancy Notice
-                </h3>
+                <button
+                  type="button"
+                  disabled={memoDispatched}
+                  onClick={handleDispatchMemo}
+                  className="btn-danger text-xs flex items-center gap-1.5"
+                >
+                  <Send size={13} />
+                  <span>{memoDispatched ? 'Dispatched via Speed Post & Portal ✓' : 'Dispatch Statutory Notice'}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowDeficitNotice(false)}
+                  className="btn-secondary text-xs"
+                >
+                  Close
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={() => setShowDeficitNotice(false)}
-                className="text-gray-400 hover:text-gray-600 font-bold"
-              >
-                ✕
-              </button>
-            </div>
-
-            {/* Official Letterhead */}
-            <div className="border border-gray-300 p-6 bg-white rounded font-serif text-gray-900 space-y-4 shadow-sm text-xs">
-              <div className="text-center space-y-1 border-b pb-3">
-                <div className="text-sm font-bold uppercase tracking-wider text-[#003366]">
-                  ALL INDIA COUNCIL FOR TECHNICAL EDUCATION
-                </div>
-                <div className="text-xxs font-sans text-gray-600">
-                  Western Regional Office (WRO), Industrial Assurance Building, 2nd Floor, V.N. Road, Churchgate, Mumbai - 400020
-                </div>
-                <div className="text-xxs font-mono font-bold uppercase text-red-700 pt-1">
-                  OFFICIAL COMMUNICATION • NOTICE OF DEPOSIT DEFICIT
-                </div>
-              </div>
-
-              <div className="flex justify-between text-xxs font-sans">
-                <div>
-                  <strong>REF NO:</strong> AICTE/WRO/SCR/2024/{scrutinyCase.id}<br />
-                  <strong>DATE:</strong> 28 October 2024
-                </div>
-                <div className="text-right">
-                  <strong>DISPATCH MODE:</strong> REGISTERED PORTAL ADVISORY<br />
-                  <strong>COMPLIANCE WINDOW:</strong> 15 WORKING DAYS
-                </div>
-              </div>
-
-              <div className="space-y-1 font-sans text-xs">
-                <div><strong>TO:</strong> The Principal / Director,</div>
-                <div className="font-semibold text-gray-800">{scrutinyCase.institution}</div>
-              </div>
-
-              <div className="space-y-2 font-sans text-xs leading-relaxed text-gray-800">
-                <p>
-                  <strong>Subject: Discrepancy in Security Deposit FDR Instrument No. {scrutinyCase.fdrNumber} (Regulation Clause 1.4 APH) — reg.</strong>
-                </p>
-                <p>
-                  Sir / Madam,
-                </p>
-                <p>
-                  During automated Dual Reconciliation of the Security Deposit instrument submitted for approval, the Council's validation gateway identified a material variance between the document submitted and the core banking ledger:
-                </p>
-
-                <div className="bg-amber-50/70 border border-amber-200 rounded p-2.5 font-mono text-xxs space-y-1">
-                  <div className="flex justify-between">
-                    <span>Submitted / Extracted FDR Sum:</span>
-                    <strong>₹25,00,000</strong>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>{scrutinyCase.bank} Verified Balance:</span>
-                    <strong>₹23,75,000</strong>
-                  </div>
-                  <div className="flex justify-between text-red-700 font-bold border-t border-amber-200 pt-1">
-                    <span>Unfunded Deficit:</span>
-                    <span>₹1,25,000 (5.00% Variance)</span>
-                  </div>
-                </div>
-
-                <p>
-                  In accordance with AICTE Approval Process Handbook (APH) regulations, the institution is required to either remit the differential sum of <strong>₹1,25,000</strong> through a supplementary FDR or provide a certified bank reconciliation statement within fifteen (15) calendar days from receipt of this notice.
-                </p>
-              </div>
-
-              <div className="pt-3 border-t border-gray-200 flex justify-between items-end font-sans text-xxs text-gray-600">
-                <div>
-                  <span>ISSUING AUTHORITY:</span><br />
-                  <strong className="text-gray-900">Ravi Shankar Prasad</strong><br />
-                  Regional Scrutiny Officer, WRO AICTE
-                </div>
-                <div className="text-right">
-                  <span className="text-green-700 font-bold">DIGITALLY SIGNED</span><br />
-                  <span className="font-mono">Token: AICTE-SCR-1023</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex justify-end gap-2 pt-2">
-              <button
-                type="button"
-                onClick={() => setShowDeficitNotice(false)}
-                className="btn-secondary"
-              >
-                Close
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  alert('Deficiency Notice PDF downloaded. Portal notification dispatched to institution.');
-                  setShowDeficitNotice(false);
-                }}
-                className="btn-primary"
-              >
-                Download Notice (PDF)
-              </button>
             </div>
           </div>
         </div>

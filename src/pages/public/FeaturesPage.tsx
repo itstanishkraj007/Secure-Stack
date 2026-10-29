@@ -6,7 +6,7 @@ import {
   Lock,
   Layers,
   ArrowRight,
-  Sparkles,
+  Shield,
   Server,
   Database,
   Scale,
@@ -23,7 +23,7 @@ export default function FeaturesPage() {
       <section className="bg-gradient-to-r from-[#003366] to-[#002244] text-white py-10 px-4 sm:px-8 border-b-3 border-[#FF8A00]">
         <div className="max-w-7xl mx-auto space-y-3">
           <div className="inline-flex items-center gap-1.5 bg-white/10 text-[#FF9933] px-2.5 py-0.5 rounded text-xxs font-bold uppercase tracking-wider">
-            <Sparkles size={12} /> SYSTEM ARCHITECTURE & INNOVATIONS
+            <Shield size={12} /> SYSTEM ARCHITECTURE & INNOVATIONS
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
             Key Architecture & Technical Capabilities
