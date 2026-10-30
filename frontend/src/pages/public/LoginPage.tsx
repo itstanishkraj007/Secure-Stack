@@ -12,6 +12,7 @@ import {
   FileCheck2,
   AlertCircle,
   RefreshCw,
+  Sparkles,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { UserRole } from '../../types';
@@ -82,66 +83,66 @@ export default function LoginPage() {
     <div className="min-h-screen flex flex-col bg-[#F8FAFC]">
       <PublicHeader />
 
-      <main className="flex-1 max-w-5xl mx-auto w-full px-4 sm:px-8 py-8 space-y-6">
+      <main className="flex-1 max-w-5xl mx-auto w-full px-5 sm:px-8 py-8 space-y-6">
         {/* Breadcrumb strip */}
-        <div className="flex items-center gap-2 text-xxs text-gray-500">
-          <Link to="/" className="hover:text-[#003366]">Home</Link>
-          <span>/</span>
-          <span className="font-semibold text-[#003366]">Official Portal Sign In</span>
+        <div className="flex items-center gap-2 text-xs text-slate-500">
+          <Link to="/" className="hover:text-emerald-700 font-medium transition-colors">Home</Link>
+          <span className="text-slate-300">/</span>
+          <span className="font-semibold text-slate-900">Official Portal Sign In</span>
         </div>
 
         {/* Security Banner */}
-        <div className="bg-[#EFF6FF] border border-[#BFDBFE] rounded p-3 flex items-start sm:items-center justify-between gap-3 text-xs text-[#1E40AF]">
-          <div className="flex items-center gap-2.5">
-            <ShieldCheck size={18} className="text-[#003366] flex-shrink-0" />
+        <div className="bg-emerald-50/70 border border-emerald-200/80 rounded-2xl p-4 flex items-start sm:items-center justify-between gap-3 text-xs text-emerald-950 shadow-2xs">
+          <div className="flex items-center gap-3">
+            <ShieldCheck size={20} className="text-[#10B981] flex-shrink-0" />
             <div>
               <strong>Government of India Secure Access Portal:</strong> Authorized personnel only.
               All authentication attempts are logged with IP, browser fingerprint, and timestamp per CERT-In cybersecurity directives.
             </div>
           </div>
-          <span className="text-xxs font-mono text-gray-500 bg-white px-2 py-0.5 rounded border border-gray-200 hidden sm:inline">
+          <span className="text-[10px] font-mono text-emerald-800 bg-white px-2.5 py-1 rounded-full border border-emerald-200 hidden sm:inline shadow-2xs font-bold">
             TLS 1.3 / 256-BIT
           </span>
         </div>
 
-        {/* Main Login Card with Tabs */}
-        <div className="card shadow-md overflow-hidden grid grid-cols-1 lg:grid-cols-12 border border-[#E2E8F0]">
+        {/* Main Login Card with Tabs (Finovate White Style) */}
+        <div className="card shadow-md overflow-hidden grid grid-cols-1 lg:grid-cols-12 border border-slate-200/80 rounded-2xl">
           {/* Left / Main Column (7 cols): Login Form */}
-          <div className="lg:col-span-7 p-6 sm:p-8 space-y-5 bg-white">
+          <div className="lg:col-span-7 p-6 sm:p-8 space-y-6 bg-white">
             <div className="space-y-1">
-              <span className="text-xxs font-bold text-[#E65100] uppercase tracking-wider">
+              <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
                 CENTRALIZED SINGLE SIGN-ON (SSO)
               </span>
-              <h2 className="text-lg sm:text-xl font-bold text-[#003366]">
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mt-2">
                 Sign In to Security Deposit Management System
               </h2>
-              <p className="text-xxs text-gray-500">
+              <p className="text-xs text-slate-500">
                 Select your designated role and provide authenticated credentials
               </p>
             </div>
 
             {/* Role Tabs */}
-            <div className="flex border-b border-[#E2E8F0] text-xs font-semibold overflow-x-auto">
+            <div className="flex bg-slate-100/80 p-1 rounded-xl text-xs font-semibold gap-1 overflow-x-auto">
               <button
                 type="button"
                 onClick={() => handleTabChange('INSTITUTION')}
-                className={`flex items-center gap-1.5 px-3.5 py-2.5 border-b-2 transition-colors whitespace-nowrap ${
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition-all whitespace-nowrap ${
                   activeTab === 'INSTITUTION'
-                    ? 'border-[#003366] text-[#003366] bg-[#EFF6FF]/60'
-                    : 'border-transparent text-gray-600 hover:text-gray-900'
+                    ? 'bg-gradient-to-r from-[#10B981] to-[#059669] text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
                 }`}
               >
                 <Building size={14} />
-                <span>1. Institution Nodal Desk</span>
+                <span>1. Institution Nodal</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => handleTabChange('SCRUTINY')}
-                className={`flex items-center gap-1.5 px-3.5 py-2.5 border-b-2 transition-colors whitespace-nowrap ${
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition-all whitespace-nowrap ${
                   activeTab === 'SCRUTINY'
-                    ? 'border-[#003366] text-[#003366] bg-[#EFF6FF]/60'
-                    : 'border-transparent text-gray-600 hover:text-gray-900'
+                    ? 'bg-gradient-to-r from-[#10B981] to-[#059669] text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
                 }`}
               >
                 <UserCheck size={14} />
@@ -151,34 +152,34 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => handleTabChange('EXECUTIVE')}
-                className={`flex items-center gap-1.5 px-3.5 py-2.5 border-b-2 transition-colors whitespace-nowrap ${
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg transition-all whitespace-nowrap ${
                   activeTab === 'EXECUTIVE'
-                    ? 'border-[#003366] text-[#003366] bg-[#EFF6FF]/60'
-                    : 'border-transparent text-gray-600 hover:text-gray-900'
+                    ? 'bg-gradient-to-r from-[#10B981] to-[#059669] text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
                 }`}
               >
                 <Scale size={14} />
-                <span>3. Fund Release Authority</span>
+                <span>3. Bureau Head</span>
               </button>
             </div>
 
             {/* Actual Form */}
             <form onSubmit={handleFormSubmit} className="space-y-4 pt-1">
               <div>
-                <label className="field-label text-gray-700">
+                <label className="field-label text-slate-700">
                   {activeTab === 'INSTITUTION'
                     ? 'AICTE Permanent Institution ID / AISHE Code'
                     : activeTab === 'SCRUTINY'
                     ? 'Official AICTE / NIC Email ID'
                     : 'Bureau Head / DDO Access ID'}
                 </label>
-                <div className="relative mt-1">
+                <div className="relative mt-1.5">
                   <input
                     type="text"
                     required
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className="w-full bg-white border border-[#CBD5E1] rounded px-3 py-2 text-xs font-medium text-gray-900 focus:outline-none focus:border-[#003366]"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 shadow-2xs transition-all"
                     placeholder={
                       activeTab === 'INSTITUTION'
                         ? 'e.g., 1-348910283 or C-41235'
@@ -190,18 +191,25 @@ export default function LoginPage() {
 
               <div>
                 <div className="flex items-center justify-between">
-                  <label className="field-label text-gray-700">Password / Digital Token Pin</label>
-                  <a href="#help" onClick={(e) => { e.preventDefault(); alert('Please contact AICTE Central IT Helpdesk at helpdesk-fdr@aicte-india.org for password recovery.'); }} className="text-xxs text-[#003366] hover:underline">
+                  <label className="field-label text-slate-700">Password / Digital Token Pin</label>
+                  <a
+                    href="#help"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      alert('Please contact AICTE Central IT Helpdesk at helpdesk-fdr@aicte-india.org for password recovery.');
+                    }}
+                    className="text-xs text-emerald-700 hover:underline font-medium"
+                  >
                     Forgot Password?
                   </a>
                 </div>
-                <div className="relative mt-1">
+                <div className="relative mt-1.5">
                   <input
                     type="password"
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full bg-white border border-[#CBD5E1] rounded px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-[#003366]"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 shadow-2xs transition-all"
                     placeholder="Enter secure password"
                   />
                 </div>
@@ -209,15 +217,15 @@ export default function LoginPage() {
 
               {/* Captcha Box */}
               <div>
-                <label className="field-label text-gray-700">Security Captcha</label>
-                <div className="flex items-center gap-3 mt-1">
-                  <div className="bg-gray-100 border border-gray-300 px-4 py-1.5 rounded font-mono font-bold text-base tracking-widest text-[#003366] select-none line-through">
+                <label className="field-label text-slate-700">Security Captcha</label>
+                <div className="flex items-center gap-3 mt-1.5">
+                  <div className="bg-slate-100 border border-slate-200 px-4 py-2 rounded-xl font-mono font-bold text-base tracking-widest text-slate-900 select-none line-through shadow-2xs">
                     {captchaText}
                   </div>
                   <button
                     type="button"
                     onClick={refreshCaptcha}
-                    className="text-gray-500 hover:text-gray-800 p-1 rounded"
+                    className="text-slate-500 hover:text-slate-800 p-2 rounded-xl hover:bg-slate-100 transition-colors"
                     title="Refresh Captcha"
                   >
                     <RefreshCw size={15} />
@@ -227,13 +235,13 @@ export default function LoginPage() {
                     value={captcha}
                     onChange={(e) => setCaptcha(e.target.value)}
                     placeholder="Enter Captcha"
-                    className="w-32 bg-white border border-[#CBD5E1] rounded px-2.5 py-1.5 text-xs uppercase font-mono text-center focus:outline-none focus:border-[#003366]"
+                    className="w-32 bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs uppercase font-mono text-center focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 shadow-2xs"
                   />
                 </div>
               </div>
 
               {errorMessage && (
-                <div className="text-xxs text-red-700 bg-red-50 p-2 rounded border border-red-200">
+                <div className="text-xs text-rose-700 bg-rose-50 p-3 rounded-xl border border-rose-200">
                   {errorMessage}
                 </div>
               )}
@@ -241,7 +249,7 @@ export default function LoginPage() {
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="btn-primary w-full justify-center py-2 text-xs font-bold"
+                  className="btn-primary w-full justify-center py-2.5 text-xs font-bold shadow-xs"
                 >
                   <Lock size={14} />
                   <span>
@@ -258,35 +266,37 @@ export default function LoginPage() {
           </div>
 
           {/* Right Column (5 cols): 1-Click Demo Login Bar */}
-          <div className="lg:col-span-5 bg-[#F8FAFC] border-t lg:border-t-0 lg:border-l border-[#E2E8F0] p-6 sm:p-8 space-y-4 flex flex-col justify-between">
+          <div className="lg:col-span-5 bg-slate-50/80 border-t lg:border-t-0 lg:border-l border-slate-200/80 p-6 sm:p-8 space-y-4 flex flex-col justify-between">
             <div className="space-y-3">
-              <div className="flex items-center gap-1.5 text-xxs font-bold text-[#E65100] uppercase tracking-wider">
-                <ShieldCheck size={13} />
+              <div className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-800 uppercase tracking-wider bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 w-fit">
+                <ShieldCheck size={12} className="text-[#10B981]" />
                 <span>SIH 2026 JURY EVALUATION GATEWAY</span>
               </div>
 
-              <h3 className="font-bold text-sm text-[#003366]">
+              <h3 className="font-bold text-sm text-slate-900">
                 1-Click Preset Roles for Evaluator Demo
               </h3>
 
-              <p className="text-xxs text-gray-600 leading-relaxed">
+              <p className="text-xs text-slate-500 leading-relaxed">
                 For the product video recording and SIH jury evaluation, click any preset below to
                 instantly authenticate into that role's live workspace:
               </p>
 
-              <div className="space-y-2 pt-1">
+              <div className="space-y-2.5 pt-1">
                 <button
                   type="button"
                   onClick={() => loginAndRedirect('INSTITUTION')}
-                  className="w-full text-left p-2.5 bg-white border border-[#E2E8F0] hover:border-[#003366] rounded transition-all shadow-sm hover:shadow group"
+                  className="w-full text-left p-3 bg-white border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/30 rounded-2xl transition-all shadow-2xs group"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs text-gray-900 group-hover:text-[#003366] flex items-center gap-1.5">
-                      <Building size={13} className="text-[#003366]" /> 1. Institution Nodal Officer
+                    <span className="font-bold text-xs text-slate-900 group-hover:text-emerald-800 flex items-center gap-1.5">
+                      <Building size={14} className="text-[#10B981]" /> 1. Institution Nodal Officer
                     </span>
-                    <span className="text-xxs bg-green-50 text-green-700 px-1.5 py-0.2 rounded font-bold">LIVE</span>
+                    <span className="text-[10px] bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.2 rounded-full font-bold">
+                      LIVE
+                    </span>
                   </div>
-                  <div className="text-xxs text-gray-500 mt-0.5">
+                  <div className="text-[11px] text-slate-500 mt-1">
                     Dr. Anil Sharma • Pune Institute of Technology (FDR Intake, T-15 Alert)
                   </div>
                 </button>
@@ -294,15 +304,17 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => loginAndRedirect('SCRUTINY')}
-                  className="w-full text-left p-2.5 bg-white border border-[#E2E8F0] hover:border-[#003366] rounded transition-all shadow-sm hover:shadow group"
+                  className="w-full text-left p-3 bg-white border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/30 rounded-2xl transition-all shadow-2xs group"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs text-gray-900 group-hover:text-[#003366] flex items-center gap-1.5">
-                      <UserCheck size={13} className="text-[#003366]" /> 2. Regional Scrutiny Officer
+                    <span className="font-bold text-xs text-slate-900 group-hover:text-emerald-800 flex items-center gap-1.5">
+                      <UserCheck size={14} className="text-[#10B981]" /> 2. Regional Scrutiny Officer
                     </span>
-                    <span className="text-xxs bg-amber-50 text-amber-800 px-1.5 py-0.2 rounded font-bold">STAR</span>
+                    <span className="text-[10px] bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.2 rounded-full font-bold">
+                      FLAGSHIP
+                    </span>
                   </div>
-                  <div className="text-xxs text-gray-500 mt-0.5">
+                  <div className="text-[11px] text-slate-500 mt-1">
                     Ravi Shankar Prasad • WRO Desk (Triple-Source Mismatch & Case SCR-089)
                   </div>
                 </button>
@@ -310,15 +322,17 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => loginAndRedirect('EXECUTIVE')}
-                  className="w-full text-left p-2.5 bg-white border border-[#E2E8F0] hover:border-[#003366] rounded transition-all shadow-sm hover:shadow group"
+                  className="w-full text-left p-3 bg-white border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/30 rounded-2xl transition-all shadow-2xs group"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs text-gray-900 group-hover:text-[#003366] flex items-center gap-1.5">
-                      <Scale size={13} className="text-[#003366]" /> 3. Fund Release Authority
+                    <span className="font-bold text-xs text-slate-900 group-hover:text-emerald-800 flex items-center gap-1.5">
+                      <Scale size={14} className="text-[#10B981]" /> 3. Fund Release Authority
                     </span>
-                    <span className="text-xxs bg-blue-50 text-blue-700 px-1.5 py-0.2 rounded font-bold">PAN-INDIA</span>
+                    <span className="text-[10px] bg-blue-50 text-blue-800 border border-blue-200 px-2 py-0.2 rounded-full font-bold">
+                      PAN-INDIA
+                    </span>
                   </div>
-                  <div className="text-xxs text-gray-500 mt-0.5">
+                  <div className="text-[11px] text-slate-500 mt-1">
                     Dr. Krishnamurthy Iyer • Bureau Head (₹3,247 Cr Overview & Sanction Orders)
                   </div>
                 </button>
@@ -326,15 +340,17 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => loginAndRedirect('CLEARANCE')}
-                  className="w-full text-left p-2.5 bg-white border border-[#E2E8F0] hover:border-[#003366] rounded transition-all shadow-sm hover:shadow group"
+                  className="w-full text-left p-3 bg-white border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/30 rounded-2xl transition-all shadow-2xs group"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs text-gray-900 group-hover:text-[#003366] flex items-center gap-1.5">
-                      <FileCheck2 size={13} className="text-[#003366]" /> 4. Clearance Cell Officer
+                    <span className="font-bold text-xs text-slate-900 group-hover:text-emerald-800 flex items-center gap-1.5">
+                      <FileCheck2 size={14} className="text-[#10B981]" /> 4. Clearance Cell Officer
                     </span>
-                    <span className="text-xxs bg-purple-50 text-purple-700 px-1.5 py-0.2 rounded font-bold">5 GATES</span>
+                    <span className="text-[10px] bg-purple-50 text-purple-800 border border-purple-200 px-2 py-0.2 rounded-full font-bold">
+                      5 GATES
+                    </span>
                   </div>
-                  <div className="text-xxs text-gray-500 mt-0.5">
+                  <div className="text-[11px] text-slate-500 mt-1">
                     Meena Agarwal • Internal Clearance Hub (Hold Resolutions & Penalty Assessment)
                   </div>
                 </button>
@@ -342,22 +358,24 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => loginAndRedirect('AUDIT_ADMIN')}
-                  className="w-full text-left p-2.5 bg-white border border-[#E2E8F0] hover:border-[#003366] rounded transition-all shadow-sm hover:shadow group"
+                  className="w-full text-left p-3 bg-white border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/30 rounded-2xl transition-all shadow-2xs group"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs text-gray-900 group-hover:text-[#003366] flex items-center gap-1.5">
-                      <Lock size={13} className="text-[#003366]" /> 5. System Auditor & Admin
+                    <span className="font-bold text-xs text-slate-900 group-hover:text-emerald-800 flex items-center gap-1.5">
+                      <Lock size={14} className="text-[#10B981]" /> 5. System Auditor & Admin
                     </span>
-                    <span className="text-xxs bg-gray-100 text-gray-800 px-1.5 py-0.2 rounded font-bold">SHA-256</span>
+                    <span className="text-[10px] bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.2 rounded-full font-bold">
+                      SHA-256
+                    </span>
                   </div>
-                  <div className="text-xxs text-gray-500 mt-0.5">
-                    K.R. Narayanan • Audit Desk (891 Events Cryptographic Integrity Check)
+                  <div className="text-[11px] text-slate-500 mt-1">
+                    K.R. Narayanan • Audit Desk (Cryptographic Integrity Verification)
                   </div>
                 </button>
               </div>
             </div>
 
-            <div className="text-xxs text-gray-500 border-t border-gray-200 pt-3">
+            <div className="text-[11px] text-slate-500 border-t border-slate-200 pt-3">
               🔒 Built with DPDP Act 2023 compliance & ephemeral token isolation.
             </div>
           </div>

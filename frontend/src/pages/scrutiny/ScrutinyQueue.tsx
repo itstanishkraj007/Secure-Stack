@@ -10,6 +10,8 @@ import {
   Search,
   UserPlus,
   CheckCircle2,
+  ArrowRight,
+  Sparkles,
 } from 'lucide-react';
 import { usePortalData } from '../../context/PortalDataContext';
 import { useAuth } from '../../context/AuthContext';
@@ -48,31 +50,31 @@ export default function ScrutinyQueue() {
   const overdueCount = scrutinyCases.filter((c) => c.slaOverdue).length;
 
   return (
-    <div className="page-content space-y-4">
-      {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+    <div className="page-content space-y-5">
+      {/* Page Header (Finovate White Card) */}
+      <div className="card p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xxs font-bold text-[#003366] bg-[#EFF6FF] px-2 py-0.5 rounded border border-[#BFDBFE]">
+            <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
               REGIONAL SCRUTINY DESK
             </span>
-            <span className="text-xs text-gray-500 font-mono">WESTERN REGION (WRO PUNE) • ZONE 2</span>
+            <span className="text-xs text-slate-500 font-mono">WESTERN REGION (WRO PUNE) • ZONE 2</span>
           </div>
-          <h1 className="text-base font-bold text-gray-900 mt-1">
+          <h1 className="text-lg font-bold text-slate-900 mt-1">
             Exception Queue & Discrepancy Scrutiny Cases
           </h1>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-slate-500">
             Automated exception-only routing for signature failures, principal mismatches & unverified QR payloads
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-semibold text-gray-700 bg-white border border-[#E2E8F0] px-3 py-1 rounded shadow-sm">
-            Active Exceptions: <strong className="text-red-700">{openCasesCount}</strong>
+        <div className="flex items-center gap-2.5 flex-wrap">
+          <span className="text-xs font-semibold text-slate-700 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl shadow-2xs">
+            Active Exceptions: <strong className="text-emerald-700 font-bold">{openCasesCount}</strong>
           </span>
           {overdueCount > 0 && (
-            <span className="text-xs font-semibold text-red-800 bg-red-100 border border-red-300 px-2.5 py-1 rounded shadow-sm flex items-center gap-1">
-              <Clock size={12} className="text-red-700" />
+            <span className="text-xs font-semibold text-rose-800 bg-rose-50 border border-rose-200 px-3 py-1.5 rounded-xl shadow-2xs flex items-center gap-1.5">
+              <Clock size={13} className="text-rose-600" />
               <span>{overdueCount} Overdue SLA</span>
             </span>
           )}
@@ -82,26 +84,26 @@ export default function ScrutinyQueue() {
       <MockLabel text="All discrepancy detections are verified against candidate rule schemas and simulated core banking responses." />
 
       {/* Filter Toolbar */}
-      <div className="card p-3 flex flex-wrap items-center justify-between gap-3">
+      <div className="card p-4 flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-3 text-xs flex-1">
           {/* Search Box */}
-          <div className="relative min-w-[220px]">
-            <Search size={13} className="absolute left-2.5 top-2.5 text-gray-400" />
+          <div className="relative min-w-[240px]">
+            <Search size={14} className="absolute left-3 top-2.5 text-slate-400" />
             <input
               type="text"
               placeholder="Search Case ID, college, FDR, issue..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-gray-50 border border-[#E2E8F0] rounded pl-8 pr-3 py-1 text-xs text-gray-800"
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-1.5 text-xs text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 shadow-2xs transition-all"
             />
           </div>
 
           <div className="flex items-center gap-1.5">
-            <span className="text-gray-500 text-xxs uppercase font-semibold">Severity:</span>
+            <span className="text-slate-500 text-[10px] font-bold uppercase">Severity:</span>
             <select
               value={severityFilter}
               onChange={(e) => setSeverityFilter(e.target.value)}
-              className="bg-gray-50 border border-[#E2E8F0] rounded px-2 py-1 text-xs text-gray-800 font-medium cursor-pointer"
+              className="bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 text-xs text-slate-800 font-medium cursor-pointer focus:ring-1 focus:ring-emerald-500 shadow-2xs"
             >
               <option value="ALL">All Severities</option>
               <option value="MAJOR">Major Severity</option>
@@ -112,11 +114,11 @@ export default function ScrutinyQueue() {
           </div>
 
           <div className="flex items-center gap-1.5">
-            <span className="text-gray-500 text-xxs uppercase font-semibold">Status:</span>
+            <span className="text-slate-500 text-[10px] font-bold uppercase">Status:</span>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="bg-gray-50 border border-[#E2E8F0] rounded px-2 py-1 text-xs text-gray-800 font-medium cursor-pointer"
+              className="bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 text-xs text-slate-800 font-medium cursor-pointer focus:ring-1 focus:ring-emerald-500 shadow-2xs"
             >
               <option value="ALL">All Statuses</option>
               <option value="OPEN">Open</option>
@@ -127,11 +129,11 @@ export default function ScrutinyQueue() {
           </div>
 
           <div className="flex items-center gap-1.5">
-            <span className="text-gray-500 text-xxs uppercase font-semibold">Assignment:</span>
+            <span className="text-slate-500 text-[10px] font-bold uppercase">Assignment:</span>
             <select
               value={assignedFilter}
               onChange={(e) => setAssignedFilter(e.target.value)}
-              className="bg-gray-50 border border-[#E2E8F0] rounded px-2 py-1 text-xs text-gray-800 font-medium cursor-pointer"
+              className="bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 text-xs text-slate-800 font-medium cursor-pointer focus:ring-1 focus:ring-emerald-500 shadow-2xs"
             >
               <option value="ALL">All Officers</option>
               <option value="ME">Assigned to Me ({user.name.split(' ')[0]})</option>
@@ -140,8 +142,9 @@ export default function ScrutinyQueue() {
           </div>
         </div>
 
-        <div className="flex items-center gap-2 text-xxs font-mono text-gray-500">
-          <span className="w-2 h-2 rounded-full bg-red-600 inline-block animate-pulse" /> 2h Fast-Track Scrutiny SLA Active
+        <div className="flex items-center gap-2 text-xs font-mono text-slate-500 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded-full shadow-2xs">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" />
+          <span>2h Fast-Track Scrutiny SLA Active</span>
         </div>
       </div>
 
@@ -164,7 +167,7 @@ export default function ScrutinyQueue() {
             <tbody>
               {filteredCases.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="text-center py-6 text-gray-500 text-xs">
+                  <td colSpan={8} className="text-center py-10 text-slate-500 text-xs">
                     No scrutiny cases match the selected filter criteria.
                   </td>
                 </tr>
@@ -177,24 +180,26 @@ export default function ScrutinyQueue() {
                   return (
                     <tr
                       key={c.id}
-                      className={isResolved ? 'opacity-70 bg-green-50/20' : isMajor ? 'bg-red-50/20' : ''}
+                      className={`hover:bg-emerald-50/20 transition-colors ${
+                        isResolved ? 'opacity-70 bg-emerald-50/10' : isMajor ? 'bg-rose-50/30' : ''
+                      }`}
                     >
                       <td>
-                        <div className="font-mono font-bold text-xs text-[#003366]">{c.id}</div>
-                        <div className="text-xxs text-gray-400">{c.createdAt}</div>
+                        <div className="font-mono font-bold text-xs text-[#10B981]">{c.id}</div>
+                        <div className="text-[10px] text-slate-400 mt-0.5">{c.createdAt}</div>
                       </td>
                       <td>
-                        <div className="font-semibold text-gray-900">{c.institution}</div>
-                        <div className="text-xxs font-mono text-gray-500">{c.fdrNumber} • {c.bank}</div>
+                        <div className="font-semibold text-slate-900">{c.institution}</div>
+                        <div className="text-[11px] font-mono text-slate-500 mt-0.5">{c.fdrNumber} • {c.bank}</div>
                       </td>
                       <td>
-                        <div className="font-medium text-gray-800 flex items-center gap-1.5">
+                        <div className="font-medium text-slate-800 flex items-center gap-1.5">
                           {isResolved ? (
-                            <CheckCircle2 size={13} className="text-green-600 flex-shrink-0" />
+                            <CheckCircle2 size={14} className="text-[#10B981] flex-shrink-0" />
                           ) : isMajor ? (
-                            <AlertTriangle size={13} className="text-red-600 flex-shrink-0" />
+                            <AlertTriangle size={14} className="text-rose-600 flex-shrink-0" />
                           ) : (
-                            <ShieldAlert size={13} className="text-amber-600 flex-shrink-0" />
+                            <ShieldAlert size={14} className="text-amber-600 flex-shrink-0" />
                           )}
                           <span>{c.issue}</span>
                         </div>
@@ -204,12 +209,12 @@ export default function ScrutinyQueue() {
                       </td>
                       <td>
                         {c.assignedToName ? (
-                          <div className="text-xs text-gray-800 font-medium">{c.assignedToName}</div>
+                          <div className="text-xs text-slate-800 font-medium">{c.assignedToName}</div>
                         ) : (
                           <button
                             type="button"
                             onClick={() => assignScrutinyCase(c.id, user.email, user.name)}
-                            className="btn-secondary text-xxs py-0.5 px-2 inline-flex items-center gap-1 text-amber-800 hover:text-amber-950"
+                            className="bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 text-[11px] font-semibold py-1 px-2.5 rounded-lg inline-flex items-center gap-1 shadow-2xs transition-all"
                             title="Assign this case to current logged-in officer"
                           >
                             <UserPlus size={11} />
@@ -218,20 +223,16 @@ export default function ScrutinyQueue() {
                         )}
                       </td>
                       <td>
-                        <div className="flex items-center gap-1">
-                          <Clock size={12} className={isOverdue ? 'text-red-600' : 'text-gray-400'} />
-                          <span
-                            className={`text-xs font-mono font-semibold ${
-                              isOverdue
-                                ? 'text-red-700 bg-red-100 px-1.5 py-0.5 rounded'
-                                : c.slaHours <= 4
-                                ? 'text-amber-700 font-bold'
-                                : 'text-gray-700'
-                            }`}
-                          >
-                            {isOverdue ? `OVERDUE (${Math.abs(c.slaHours)}h)` : `${c.slaHours}h remaining`}
+                        {isOverdue ? (
+                          <span className="text-rose-700 bg-rose-50 border border-rose-200 px-2.5 py-0.5 rounded-full text-xs font-mono font-bold inline-flex items-center gap-1 shadow-2xs">
+                            <Clock size={11} />
+                            Overdue ({Math.abs(c.slaHours)}h)
                           </span>
-                        </div>
+                        ) : (
+                          <span className="text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full text-xs font-mono font-medium">
+                            {c.slaHours}h Remaining
+                          </span>
+                        )}
                       </td>
                       <td>
                         <StatusBadge status={c.status} />
@@ -239,10 +240,10 @@ export default function ScrutinyQueue() {
                       <td className="text-right">
                         <Link
                           to={`/scrutiny/cases/${c.id}`}
-                          className="btn-primary text-xxs py-1 px-2.5 inline-flex items-center gap-1"
+                          className="btn-primary text-[11px] py-1 px-3 inline-flex items-center gap-1 shadow-2xs"
                         >
-                          <Eye size={12} />
-                          <span>Inspect Dossier</span>
+                          <span>Review</span>
+                          <ArrowRight size={11} />
                         </Link>
                       </td>
                     </tr>

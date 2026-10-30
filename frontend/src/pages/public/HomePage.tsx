@@ -14,6 +14,7 @@ import {
   FileText,
   Award,
   Shield,
+  Sparkles,
 } from 'lucide-react';
 import PublicHeader from '../../components/public/PublicHeader';
 import PublicFooter from '../../components/public/PublicFooter';
@@ -50,36 +51,31 @@ export default function HomePage() {
       <PublicHeader />
 
       {/* 1. Official Notification Ticker */}
-      <div className="bg-[#FFFBEB] border-b border-[#FDE68A] py-1.5 px-4 sm:px-8 text-xs text-[#92400E] flex items-center justify-between">
-        <div className="max-w-7xl mx-auto w-full flex items-center gap-2 overflow-hidden">
-          <span className="bg-[#E65100] text-white text-xxs font-extrabold px-1.5 py-0.2 rounded uppercase flex-shrink-0 animate-pulse">
+      <div className="bg-amber-50/70 border-b border-amber-200/80 py-2 px-5 sm:px-8 text-xs text-amber-900 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto w-full flex items-center gap-2.5 overflow-hidden">
+          <span className="bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase flex-shrink-0">
             AICTE NOTIFICATION
           </span>
-          <div className="truncate font-medium text-xxs sm:text-xs">
+          <div className="truncate font-medium text-xs">
             Mandatory annual verification of joint FDR liens for AY 2024-25 in progress under Clause 1.4 APH. Institutions must review pending scrutiny notices before 15 November 2024.
           </div>
         </div>
       </div>
 
-      {/* 2. Official AICTE Blue Hero Section */}
-      <section className="bg-gradient-to-b from-[#003366] via-[#002A54] to-[#001F3F] text-white py-12 px-4 sm:px-8 relative overflow-hidden border-b-3 border-[#FF8A00]">
-        {/* Subtle decorative emblem background */}
-        <div className="absolute right-0 top-0 bottom-0 w-1/3 opacity-5 pointer-events-none flex items-center justify-center">
-          <AicteEmblem className="h-96 w-auto" />
-        </div>
-
-        <div className="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          <div className="lg:col-span-8 space-y-4">
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-[#FF9933] px-3 py-1 rounded-full text-xxs font-bold tracking-wider uppercase">
-              <Shield size={12} />
+      {/* 2. White-Dominant Modern Hero Section with Mint Highlights */}
+      <section className="bg-gradient-to-b from-white via-[#F8FAFC] to-[#F1F5F9] text-slate-900 py-16 px-5 sm:px-8 relative overflow-hidden border-b border-slate-200/80">
+        <div className="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <div className="lg:col-span-8 space-y-5">
+            <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase shadow-2xs">
+              <Shield size={13} className="text-[#10B981]" />
               AICTE SMART GOVERNANCE INITIATIVE • SIH 2026
             </div>
 
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">
-              Security Deposit & FDR Management Portal (SDMS)
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight text-slate-900 font-sans">
+              Security Deposit & <span className="text-[#10B981]">FDR Management</span> Portal
             </h1>
 
-            <p className="text-sm sm:text-base text-white/85 max-w-2xl font-light leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
               An intelligent statutory platform automating Fixed Deposit Receipt intake, triple-source core banking
               reconciliation, continuous maturity surveillance, and multi-cell clearance gating for India's technical educational institutions.
             </p>
@@ -87,7 +83,7 @@ export default function HomePage() {
             <div className="pt-2 flex flex-wrap items-center gap-3">
               <Link
                 to="/login"
-                className="btn-gold text-xs sm:text-sm font-bold px-5 py-2.5 rounded shadow-lg flex items-center gap-2"
+                className="btn-primary text-xs sm:text-sm font-bold px-5 py-2.5 shadow-xs flex items-center gap-2"
               >
                 <span>Access SDMS Portal</span>
                 <ArrowRight size={15} />
@@ -95,88 +91,88 @@ export default function HomePage() {
 
               <Link
                 to="/features"
-                className="bg-white/10 hover:bg-white/20 text-white border border-white/30 text-xs sm:text-sm font-semibold px-4 py-2.5 rounded transition-colors flex items-center gap-1.5"
+                className="btn-secondary text-xs sm:text-sm font-semibold px-4 py-2.5 flex items-center gap-1.5 shadow-2xs"
               >
-                <Layers size={15} className="text-[#FF9933]" />
+                <Layers size={15} className="text-[#10B981]" />
                 <span>Architecture & Innovations</span>
               </Link>
             </div>
 
-            <div className="pt-2 flex flex-wrap items-center gap-6 text-xxs text-white/70">
+            <div className="pt-3 flex flex-wrap items-center gap-6 text-xs text-slate-500 font-medium">
               <span className="flex items-center gap-1.5">
-                <ShieldCheck size={14} className="text-[#FF9933]" /> PAdES-B-LT LTV Signatures
+                <ShieldCheck size={16} className="text-[#10B981]" /> PAdES-B-LT LTV Signatures
               </span>
               <span className="flex items-center gap-1.5">
-                <FileCheck2 size={14} className="text-[#FF9933]" /> Automated OCR Extraction
+                <FileCheck2 size={16} className="text-[#10B981]" /> Automated OCR Extraction
               </span>
               <span className="flex items-center gap-1.5">
-                <Lock size={14} className="text-[#FF9933]" /> SHA-256 Tamper-Evident Chain
+                <Lock size={16} className="text-[#10B981]" /> SHA-256 Tamper-Evident Chain
               </span>
             </div>
           </div>
 
-          {/* Quick Login Gateway Card */}
-          <div className="lg:col-span-4 card bg-white text-gray-900 p-5 shadow-xl border-t-4 border-t-[#FF8A00]">
-            <div className="flex items-center justify-between pb-3 border-b border-gray-200">
+          {/* Quick Login Gateway Card (Finovate White Style) */}
+          <div className="lg:col-span-4 card bg-white text-slate-900 p-6 shadow-xl border border-slate-200/80 rounded-2xl">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200">
               <div className="flex items-center gap-2">
-                <UserCheck size={18} className="text-[#003366]" />
-                <h3 className="font-bold text-sm text-gray-900">Official Portal Login</h3>
+                <UserCheck size={18} className="text-[#10B981]" />
+                <h3 className="font-bold text-sm text-slate-900">Official Portal Login</h3>
               </div>
-              <span className="text-xxs font-mono text-gray-600 bg-gray-100 px-1.5 py-0.5 rounded font-semibold">
+              <span className="text-[10px] font-mono text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full font-bold">
                 AICTE SSO
               </span>
             </div>
 
-            <p className="text-xxs text-gray-600 my-3">
+            <p className="text-xs text-slate-500 my-3">
               Select your designated administrative role to proceed to the authenticated workspace:
             </p>
 
             <div className="space-y-2 text-xs">
               <Link
                 to="/login?role=INSTITUTION"
-                className="flex items-center justify-between p-2.5 bg-gray-50 border border-gray-200 rounded hover:border-[#003366] hover:bg-[#EFF6FF] transition-colors group"
+                className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-emerald-500 hover:bg-emerald-50/30 transition-all group shadow-2xs"
               >
                 <div className="flex items-center gap-2.5">
-                  <Building size={16} className="text-[#003366]" />
+                  <Building size={16} className="text-[#10B981]" />
                   <div className="text-left">
-                    <div className="font-bold text-gray-900 group-hover:text-[#003366]">1. Technical Institution Desk</div>
-                    <div className="text-xxs text-gray-500">Colleges & Polytechnics</div>
+                    <div className="font-bold text-slate-900 group-hover:text-emerald-800">1. Technical Institution Desk</div>
+                    <div className="text-[11px] text-slate-500">Colleges & Polytechnics</div>
                   </div>
                 </div>
-                <ChevronRight size={14} className="text-gray-400 group-hover:text-[#003366]" />
+                <ChevronRight size={14} className="text-slate-400 group-hover:text-emerald-700" />
               </Link>
 
               <Link
                 to="/login?role=SCRUTINY"
-                className="flex items-center justify-between p-2.5 bg-gray-50 border border-gray-200 rounded hover:border-[#003366] hover:bg-[#EFF6FF] transition-colors group"
+                className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-emerald-500 hover:bg-emerald-50/30 transition-all group shadow-2xs"
               >
                 <div className="flex items-center gap-2.5">
-                  <UserCheck size={16} className="text-[#003366]" />
+                  <UserCheck size={16} className="text-[#10B981]" />
                   <div className="text-left">
-                    <div className="font-bold text-gray-900 group-hover:text-[#003366]">2. Regional Scrutiny Officer</div>
-                    <div className="text-xxs text-gray-500">WRO, SRO, NRO Scrutiny Cell</div>
+                    <div className="font-bold text-slate-900 group-hover:text-emerald-800">2. Regional Scrutiny Officer</div>
+                    <div className="text-[11px] text-slate-500">WRO, SRO, NRO Scrutiny Cell</div>
                   </div>
                 </div>
-                <ChevronRight size={14} className="text-gray-400 group-hover:text-[#003366]" />
+                <ChevronRight size={14} className="text-slate-400 group-hover:text-emerald-700" />
               </Link>
 
               <Link
                 to="/login?role=EXECUTIVE"
-                className="flex items-center justify-between p-2.5 bg-gray-50 border border-gray-200 rounded hover:border-[#003366] hover:bg-[#EFF6FF] transition-colors group"
+                className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-emerald-500 hover:bg-emerald-50/30 transition-all group shadow-2xs"
               >
                 <div className="flex items-center gap-2.5">
-                  <Scale size={16} className="text-[#003366]" />
+                  <Scale size={16} className="text-[#10B981]" />
                   <div className="text-left">
-                    <div className="font-bold text-gray-900 group-hover:text-[#003366]">3. Fund Release Authority</div>
-                    <div className="text-xxs text-gray-500">Drawing & Disbursing Officer (DDO)</div>
+                    <div className="font-bold text-slate-900 group-hover:text-emerald-800">3. Fund Release Authority</div>
+                    <div className="text-[11px] text-slate-500">Drawing & Disbursing Officer (DDO)</div>
                   </div>
                 </div>
-                <ChevronRight size={14} className="text-gray-400 group-hover:text-[#003366]" />
+                <ChevronRight size={14} className="text-slate-400 group-hover:text-emerald-700" />
               </Link>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-gray-100 text-center">
-              <Link to="/login" className="text-xxs text-[#003366] font-bold hover:underline">
+            <div className="mt-4 pt-3 border-t border-slate-100 text-center">
+              <Link to="/login" className="text-xs text-emerald-700 font-bold hover:underline">
                 View All 5 Login Roles & Clearance Desks →
               </Link>
             </div>
@@ -185,29 +181,29 @@ export default function HomePage() {
       </section>
 
       {/* 3. National Statistics Bar */}
-      <section className="bg-white border-b border-[#E2E8F0] py-5 px-4 sm:px-8 shadow-sm">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-          <div className="p-2 border-r last:border-r-0 border-gray-200">
-            <div className="text-xl sm:text-2xl font-extrabold text-[#003366] font-mono">₹3,247.2 Cr</div>
-            <div className="text-xxs sm:text-xs text-gray-600 uppercase font-semibold mt-0.5">
+      <section className="bg-white border-b border-slate-200/80 py-6 px-5 sm:px-8 shadow-xs">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <div className="p-2 border-r last:border-r-0 border-slate-200">
+            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono">₹3,247.2 Cr</div>
+            <div className="text-xs text-slate-500 uppercase font-semibold mt-1">
               Total Deposits Under AICTE Joint Lien
             </div>
           </div>
-          <div className="p-2 border-r last:border-r-0 border-gray-200">
-            <div className="text-xl sm:text-2xl font-extrabold text-gray-900 font-mono">1,847</div>
-            <div className="text-xxs sm:text-xs text-gray-600 uppercase font-semibold mt-0.5">
+          <div className="p-2 border-r last:border-r-0 border-slate-200">
+            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono">1,847</div>
+            <div className="text-xs text-slate-500 uppercase font-semibold mt-1">
               Approved Technical Institutions
             </div>
           </div>
-          <div className="p-2 border-r last:border-r-0 border-gray-200">
-            <div className="text-xl sm:text-2xl font-extrabold text-[#15803D] font-mono">99.4%</div>
-            <div className="text-xxs sm:text-xs text-gray-600 uppercase font-semibold mt-0.5">
+          <div className="p-2 border-r last:border-r-0 border-slate-200">
+            <div className="text-2xl sm:text-3xl font-extrabold text-[#10B981] font-mono">99.4%</div>
+            <div className="text-xs text-slate-500 uppercase font-semibold mt-1">
               Automated Verification Precision
             </div>
           </div>
           <div className="p-2">
-            <div className="text-xl sm:text-2xl font-extrabold text-[#E65100] font-mono">Zero</div>
-            <div className="text-xxs sm:text-xs text-gray-600 uppercase font-semibold mt-0.5">
+            <div className="text-2xl sm:text-3xl font-extrabold text-emerald-700 font-mono">Zero</div>
+            <div className="text-xs text-slate-500 uppercase font-semibold mt-1">
               Unauthorized Deposit Encumbrances
             </div>
           </div>
@@ -215,100 +211,102 @@ export default function HomePage() {
       </section>
 
       {/* 4. Five Core Platform Pillars */}
-      <section className="py-12 px-4 sm:px-8 max-w-7xl mx-auto w-full space-y-8">
+      <section className="py-14 px-5 sm:px-8 max-w-7xl mx-auto w-full space-y-10">
         <div className="text-center max-w-2xl mx-auto space-y-2">
-          <div className="text-xxs font-bold text-[#003366] uppercase tracking-wider">
+          <div className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider bg-emerald-50 px-3 py-0.5 rounded-full border border-emerald-200 w-fit mx-auto">
             AICTE STATUTORY CAPABILITIES
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
             End-to-End Governance for Security Deposit Lifecycle
           </h2>
-          <p className="text-xs text-gray-600">
+          <p className="text-xs text-slate-500 leading-relaxed">
             Built strictly in adherence with AICTE Approval Process Handbook guidelines, ReBIT financial schemas, and the DPDP Act 2023.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <div className="card p-5 space-y-3 hover:shadow-md transition-shadow border-t-3 border-t-[#003366]">
-            <div className="w-9 h-9 rounded bg-[#EFF6FF] text-[#003366] flex items-center justify-center font-bold">
-              <FileCheck2 size={20} />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="card p-6 space-y-3.5 hover:shadow-md transition-all border border-slate-200/80 rounded-2xl">
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-[#10B981] flex items-center justify-center font-bold">
+              <FileCheck2 size={22} />
             </div>
-            <h3 className="font-bold text-sm text-gray-900">1. OCR Field Extraction & Pre-Flight</h3>
-            <p className="text-xs text-gray-600 leading-relaxed">
+            <h3 className="font-bold text-sm text-slate-900">1. OCR Field Extraction & Pre-Flight</h3>
+            <p className="text-xs text-slate-500 leading-relaxed">
               Institutions upload original bank receipts. PyMuPDF extracts structure while Tesseract captures 9 key fields
               with confidence metrics. Uncertain fields require human officer confirmation before record creation.
             </p>
-            <div className="text-xxs text-[#003366] font-semibold flex items-center gap-1 pt-1">
+            <div className="text-xs text-emerald-700 font-semibold flex items-center gap-1 pt-1">
               <span>Human-in-the-Loop Validation</span>
             </div>
           </div>
 
-          <div className="card p-5 space-y-3 hover:shadow-md transition-shadow border-t-3 border-t-[#E65100]">
-            <div className="w-9 h-9 rounded bg-[#FFFBEB] text-[#E65100] flex items-center justify-center font-bold">
-              <ShieldCheck size={20} />
+          <div className="card p-6 space-y-3.5 hover:shadow-md transition-all border border-slate-200/80 rounded-2xl">
+            <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
+              <ShieldCheck size={22} />
             </div>
-            <h3 className="font-bold text-sm text-gray-900">2. Triple-Source Dual Reconciliation</h3>
-            <p className="text-xs text-gray-600 leading-relaxed">
+            <h3 className="font-bold text-sm text-slate-900">2. Triple-Source Dual Reconciliation</h3>
+            <p className="text-xs text-slate-500 leading-relaxed">
               Reconciles submitted claims against visual OCR extraction and core banking adapter records.
               Discrepancies in principal amounts, tenure, or lien clauses route immediately to the Regional Scrutiny desk.
             </p>
-            <div className="text-xxs text-[#E65100] font-semibold flex items-center gap-1 pt-1">
+            <div className="text-xs text-amber-700 font-semibold flex items-center gap-1 pt-1">
               <span>Zero-Blind-Pass Policy</span>
             </div>
           </div>
 
-          <div className="card p-5 space-y-3 hover:shadow-md transition-shadow border-t-3 border-t-[#15803D]">
-            <div className="w-9 h-9 rounded bg-[#F0FDF4] text-[#15803D] flex items-center justify-center font-bold">
-              <Clock size={20} />
+          <div className="card p-6 space-y-3.5 hover:shadow-md transition-all border border-slate-200/80 rounded-2xl">
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+              <Clock size={22} />
             </div>
-            <h3 className="font-bold text-sm text-gray-900">3. Automated T-Countdown Watchdog</h3>
-            <p className="text-xs text-gray-600 leading-relaxed">
+            <h3 className="font-bold text-sm text-slate-900">3. Automated T-Countdown Watchdog</h3>
+            <p className="text-xs text-slate-500 leading-relaxed">
               Escalates notices at T-90, T-60, T-30, T-15, and T-0. Tracks multi-year parent-child renewal lineage
               to ensure zero coverage gaps while institutions maintain ongoing educational operations.
             </p>
-            <div className="text-xxs text-[#15803D] font-semibold flex items-center gap-1 pt-1">
+            <div className="text-xs text-emerald-700 font-semibold flex items-center gap-1 pt-1">
               <span>Continuous Coverage Surveillance</span>
             </div>
           </div>
 
-          <div className="card p-5 space-y-3 hover:shadow-md transition-shadow border-t-3 border-t-[#003366]">
-            <div className="w-9 h-9 rounded bg-[#EFF6FF] text-[#003366] flex items-center justify-center font-bold">
-              <Scale size={20} />
+          <div className="card p-6 space-y-3.5 hover:shadow-md transition-all border border-slate-200/80 rounded-2xl">
+            <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+              <Scale size={22} />
             </div>
-            <h3 className="font-bold text-sm text-gray-900">4. 5-Gate Sequential Clearance Hub</h3>
-            <p className="text-xs text-gray-600 leading-relaxed">
+            <h3 className="font-bold text-sm text-slate-900">4. 5-Gate Sequential Clearance Hub</h3>
+            <p className="text-xs text-slate-500 leading-relaxed">
               Deposit release is locked until 5 independent cells (Scrutiny, PGRC, Vigilance, Finance, Legal)
               certify zero outstanding encumbrance or student grievances. Includes candidate statutory penalty simulation.
             </p>
-            <div className="text-xxs text-[#003366] font-semibold flex items-center gap-1 pt-1">
+            <div className="text-xs text-blue-700 font-semibold flex items-center gap-1 pt-1">
               <span>Multi-Stakeholder Gating</span>
             </div>
           </div>
 
-          <div className="card p-5 space-y-3 hover:shadow-md transition-shadow border-t-3 border-t-[#071E36]">
-            <div className="w-9 h-9 rounded bg-gray-100 text-[#071E36] flex items-center justify-center font-bold">
-              <Lock size={20} />
+          <div className="card p-6 space-y-3.5 hover:shadow-md transition-all border border-slate-200/80 rounded-2xl">
+            <div className="w-10 h-10 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center font-bold">
+              <Lock size={22} />
             </div>
-            <h3 className="font-bold text-sm text-gray-900">5. Cryptographic SHA-256 Audit Trail</h3>
-            <p className="text-xs text-gray-600 leading-relaxed">
+            <h3 className="font-bold text-sm text-slate-900">5. Cryptographic SHA-256 Audit Trail</h3>
+            <p className="text-xs text-slate-500 leading-relaxed">
               Every decision, document ingress, and gate clearance is committed to an append-only hash chain.
               System auditors can mathematically verify historical ledger integrity with one-click verification.
             </p>
-            <div className="text-xxs text-gray-700 font-semibold flex items-center gap-1 pt-1">
+            <div className="text-xs text-slate-700 font-semibold flex items-center gap-1 pt-1">
               <span>Mathematically Tamper-Evident</span>
             </div>
           </div>
 
-          <div className="card p-5 space-y-3 bg-[#EFF6FF]/70 border border-[#BAE6FD] flex flex-col justify-between">
+          <div className="card p-6 space-y-3.5 bg-gradient-to-br from-emerald-50/70 to-teal-50/40 border border-emerald-200 rounded-2xl flex flex-col justify-between shadow-2xs">
             <div className="space-y-2">
-              <span className="text-xxs font-bold text-[#003366] uppercase">EXPLORE LIVE SYSTEM</span>
-              <h3 className="font-bold text-sm text-gray-900">Demonstration Ready Prototype</h3>
-              <p className="text-xs text-gray-600 leading-relaxed">
+              <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider bg-white px-2 py-0.5 rounded-full border border-emerald-200">
+                EXPLORE LIVE SYSTEM
+              </span>
+              <h3 className="font-bold text-sm text-slate-900">Demonstration Ready Prototype</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
                 Step through realistic Indian university test fixtures, test OCR ingestion, examine active discrepancies,
                 and inspect cryptographic chain checks.
               </p>
             </div>
-            <Link to="/login" className="btn-primary text-xs w-full justify-center mt-2">
+            <Link to="/login" className="btn-primary text-xs w-full justify-center mt-2 shadow-xs">
               <span>Launch Demo Desks</span>
               <ArrowRight size={13} />
             </Link>
@@ -317,77 +315,77 @@ export default function HomePage() {
       </section>
 
       {/* 5. Regulatory Rules Register Section */}
-      <section id="regulations" className="bg-white border-y border-[#E2E8F0] py-12 px-4 sm:px-8">
-        <div className="max-w-7xl mx-auto space-y-6">
+      <section id="regulations" className="bg-white border-y border-slate-200/80 py-14 px-5 sm:px-8">
+        <div className="max-w-7xl mx-auto space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
             <div>
-              <span className="text-xxs font-bold text-[#003366] uppercase tracking-wider">
+              <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider bg-emerald-50 px-3 py-0.5 rounded-full border border-emerald-200">
                 COMPLIANCE & STATUTE
               </span>
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mt-1">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">
                 AICTE Regulatory Rules Register & Deposit Norms
               </h2>
-              <p className="text-xs text-gray-600">
+              <p className="text-xs text-slate-500">
                 Summary of statutory rules governing technical institution security deposits
               </p>
             </div>
-            <div className="text-xxs font-mono text-gray-600 bg-gray-50 border border-gray-200 px-2.5 py-1 rounded font-semibold">
+            <div className="text-xs font-mono text-slate-600 bg-slate-50 border border-slate-200 px-3 py-1 rounded-full font-semibold shadow-2xs">
               APH 2024-27 REGISTER
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-            <div className="p-4 bg-[#F8FAFC] border border-[#E2E8F0] rounded space-y-1.5 border-l-3 border-l-[#003366]">
+            <div className="p-5 bg-slate-50/70 border border-slate-200 rounded-2xl space-y-2 border-l-4 border-l-[#10B981] shadow-2xs">
               <div className="flex items-center justify-between">
-                <span className="font-mono font-bold text-[#003366]">RULE-02 • Table 1.4 APH</span>
-                <span className="text-xxs bg-green-50 text-green-700 font-bold px-2 py-0.5 rounded border border-green-200">
+                <span className="font-mono font-bold text-[#10B981]">RULE-02 • Table 1.4 APH</span>
+                <span className="text-[10px] bg-emerald-50 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full border border-emerald-200">
                   STATUTORY SLAB
                 </span>
               </div>
-              <h4 className="font-bold text-gray-900 text-xs">Security Deposit Amount Determination</h4>
-              <p className="text-xxs text-gray-600 leading-relaxed">
+              <h4 className="font-bold text-slate-900 text-xs">Security Deposit Amount Determination</h4>
+              <p className="text-xs text-slate-500 leading-relaxed">
                 Mandates security deposit slabs ranging from ₹15 Lakhs to ₹75 Lakhs based on institution category
                 (Engineering & Technology, Management, Pharmacy, Architecture) and whether built on leased vs owned land.
               </p>
             </div>
 
-            <div className="p-4 bg-[#F8FAFC] border border-[#E2E8F0] rounded space-y-1.5 border-l-3 border-l-[#003366]">
+            <div className="p-5 bg-slate-50/70 border border-slate-200 rounded-2xl space-y-2 border-l-4 border-l-[#10B981] shadow-2xs">
               <div className="flex items-center justify-between">
-                <span className="font-mono font-bold text-[#003366]">RULE-03 • Clause 2.22</span>
-                <span className="text-xxs bg-green-50 text-green-700 font-bold px-2 py-0.5 rounded border border-green-200">
+                <span className="font-mono font-bold text-[#10B981]">RULE-03 • Clause 2.22</span>
+                <span className="text-[10px] bg-emerald-50 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full border border-emerald-200">
                   JOINT LIEN
                 </span>
               </div>
-              <h4 className="font-bold text-gray-900 text-xs">8 to 10 Year Lock-In & Joint RO Lien Mandate</h4>
-              <p className="text-xxs text-gray-600 leading-relaxed">
+              <h4 className="font-bold text-slate-900 text-xs">8 to 10 Year Lock-In & Joint RO Lien Mandate</h4>
+              <p className="text-xs text-slate-500 leading-relaxed">
                 FDRs must be created in joint names of the institution society and the designated AICTE Regional Officer,
                 with an irrevocable clause preventing liquidation, loan lien, or overdraft without express Council NOC.
               </p>
             </div>
 
-            <div className="p-4 bg-[#F8FAFC] border border-[#E2E8F0] rounded space-y-1.5 border-l-3 border-l-[#E65100]">
+            <div className="p-5 bg-slate-50/70 border border-slate-200 rounded-2xl space-y-2 border-l-4 border-l-amber-500 shadow-2xs">
               <div className="flex items-center justify-between">
-                <span className="font-mono font-bold text-[#E65100]">RULE-04 • Clause 2.22(h)</span>
-                <span className="text-xxs bg-amber-50 text-amber-800 font-bold px-2 py-0.5 rounded border border-amber-300">
+                <span className="font-mono font-bold text-amber-700">RULE-04 • Clause 2.22(h)</span>
+                <span className="text-[10px] bg-amber-50 text-amber-800 font-bold px-2.5 py-0.5 rounded-full border border-amber-300">
                   CANDIDATE PENALTY
                 </span>
               </div>
-              <h4 className="font-bold text-gray-900 text-xs">Statutory Penalty for Missing Extension of Approval</h4>
-              <p className="text-xxs text-gray-600 leading-relaxed">
+              <h4 className="font-bold text-slate-900 text-xs">Statutory Penalty for Missing Extension of Approval</h4>
+              <p className="text-xs text-slate-500 leading-relaxed">
                 Institutions failing to maintain continuous Extension of Approval (EoA) face a 10% statutory penalty
                 deducted from the principal deposit upon release, simulated in the portal before officer sign-off.
               </p>
             </div>
 
-            <div className="p-4 bg-[#F8FAFC] border border-[#E2E8F0] rounded space-y-1.5 border-l-3 border-l-[#003366]">
+            <div className="p-5 bg-slate-50/70 border border-slate-200 rounded-2xl space-y-2 border-l-4 border-l-blue-500 shadow-2xs">
               <div className="flex items-center justify-between">
-                <span className="font-mono font-bold text-[#003366]">RULE-07 • Multi-Cell Clearance</span>
-                <span className="text-xxs bg-blue-50 text-blue-700 font-bold px-2 py-0.5 rounded border border-blue-200">
+                <span className="font-mono font-bold text-blue-700">RULE-07 • Multi-Cell Clearance</span>
+                <span className="text-[10px] bg-blue-50 text-blue-800 font-bold px-2.5 py-0.5 rounded-full border border-blue-200">
                   RELEASE GATE
                 </span>
               </div>
-              <h4 className="font-bold text-gray-900 text-xs">Mandatory PGRC & Vigilance Certification</h4>
-              <p className="text-xxs text-gray-600 leading-relaxed">
+              <h4 className="font-bold text-slate-900 text-xs">Mandatory PGRC & Vigilance Certification</h4>
+              <p className="text-xs text-slate-500 leading-relaxed">
                 FDR maturity or closure clearance requires written electronic certification that zero student fee disputes
                 or vigilance inquiries are pending against the technical campus.
               </p>
@@ -397,34 +395,34 @@ export default function HomePage() {
       </section>
 
       {/* 6. FAQ Accordion Section */}
-      <section id="faq" className="py-12 px-4 sm:px-8 max-w-4xl mx-auto w-full space-y-6">
-        <div className="text-center space-y-1">
-          <span className="text-xxs font-bold text-[#003366] uppercase tracking-wider">
+      <section id="faq" className="py-14 px-5 sm:px-8 max-w-4xl mx-auto w-full space-y-8">
+        <div className="text-center space-y-1.5">
+          <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider bg-emerald-50 px-3 py-0.5 rounded-full border border-emerald-200">
             FREQUENTLY ASKED QUESTIONS
           </span>
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
             Frequently Asked Questions by Institutions & Officers
           </h2>
         </div>
 
-        <div className="space-y-2.5">
+        <div className="space-y-3">
           {faqs.map((faq, i) => {
             const isOpen = selectedFaq === i;
             return (
               <div
                 key={i}
-                className="card border border-[#E2E8F0] rounded overflow-hidden transition-colors"
+                className="card border border-slate-200 rounded-2xl overflow-hidden transition-all shadow-2xs"
               >
                 <button
                   type="button"
                   onClick={() => setSelectedFaq(isOpen ? null : i)}
-                  className="w-full text-left p-3.5 flex items-center justify-between gap-3 bg-white hover:bg-gray-50 transition-colors"
+                  className="w-full text-left p-4 flex items-center justify-between gap-3 bg-white hover:bg-slate-50 transition-colors"
                 >
-                  <span className="font-bold text-xs sm:text-sm text-gray-900">{faq.q}</span>
-                  <span className="text-gray-400 font-bold text-sm">{isOpen ? '−' : '+'}</span>
+                  <span className="font-bold text-xs sm:text-sm text-slate-900">{faq.q}</span>
+                  <span className="text-slate-400 font-bold text-sm">{isOpen ? '−' : '+'}</span>
                 </button>
                 {isOpen && (
-                  <div className="p-3.5 bg-gray-50 border-t border-[#E2E8F0] text-xs text-gray-700 leading-relaxed">
+                  <div className="p-4 bg-slate-50 border-t border-slate-200 text-xs text-slate-600 leading-relaxed">
                     {faq.a}
                   </div>
                 )}
