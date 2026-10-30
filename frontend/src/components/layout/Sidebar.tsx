@@ -156,6 +156,7 @@ export default function Sidebar({ user, activeRole, onRoleChange }: SidebarProps
 
         <NavLink
           to="/institution/dashboard"
+          onClick={() => onRoleChange('INSTITUTION')}
           className={({ isActive }) =>
             `flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs transition-colors ${
               isActive
@@ -170,6 +171,7 @@ export default function Sidebar({ user, activeRole, onRoleChange }: SidebarProps
 
         <NavLink
           to="/scrutiny/queue"
+          onClick={() => onRoleChange('SCRUTINY')}
           className={({ isActive }) =>
             `flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs transition-colors ${
               isActive
@@ -184,6 +186,7 @@ export default function Sidebar({ user, activeRole, onRoleChange }: SidebarProps
 
         <NavLink
           to="/clearance"
+          onClick={() => onRoleChange('CLEARANCE')}
           className={({ isActive }) =>
             `flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs transition-colors ${
               isActive
@@ -198,6 +201,7 @@ export default function Sidebar({ user, activeRole, onRoleChange }: SidebarProps
 
         <NavLink
           to="/executive"
+          onClick={() => onRoleChange('EXECUTIVE')}
           className={({ isActive }) =>
             `flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs transition-colors ${
               isActive
@@ -212,6 +216,7 @@ export default function Sidebar({ user, activeRole, onRoleChange }: SidebarProps
 
         <NavLink
           to="/audit"
+          onClick={() => onRoleChange('AUDIT_ADMIN')}
           className={({ isActive }) =>
             `flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs transition-colors ${
               isActive

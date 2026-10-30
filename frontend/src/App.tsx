@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route, Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth, ROLE_HOME_ROUTES } from './context/AuthContext';
 import { PortalDataProvider } from './context/PortalDataContext';
 import AppLayout from './components/layout/AppLayout';
@@ -22,6 +23,23 @@ import AuditLedger from './pages/audit/AuditLedger';
 function DashboardLayoutWrapper() {
   const { user, role, loginAs } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Auto-sync active role persona & workspace modules when navigating between role domains
+  useEffect(() => {
+    const path = location.pathname;
+    if (path.startsWith('/scrutiny') && role !== 'SCRUTINY') {
+      loginAs('SCRUTINY');
+    } else if (path.startsWith('/clearance') && role !== 'CLEARANCE') {
+      loginAs('CLEARANCE');
+    } else if (path.startsWith('/executive') && role !== 'EXECUTIVE') {
+      loginAs('EXECUTIVE');
+    } else if (path.startsWith('/audit') && role !== 'AUDIT_ADMIN') {
+      loginAs('AUDIT_ADMIN');
+    } else if (path.startsWith('/institution') && role !== 'INSTITUTION') {
+      loginAs('INSTITUTION');
+    }
+  }, [location.pathname, role, loginAs]);
 
   const handleRoleChange = (newRole: UserRole) => {
     loginAs(newRole);
